@@ -37,17 +37,17 @@
         ],
         "filePathFields": {
           "img": ["IMAGE"]
-        },
-        "warfare": {
-          "htmlFields": [
-            "details.biography.value",
-            "details.biography.public",
-            "description.full",
-            "description.summary"
-          ],
-          "filePathFields": {
-            "img": ["IMAGE"]
-          }
+        }
+      },
+      "warfare": {
+        "htmlFields": [
+          "details.biography.value",
+          "details.biography.public",
+          "description.full",
+          "description.summary"
+        ],
+        "filePathFields": {
+          "img": ["IMAGE"]
         }
       }
     }

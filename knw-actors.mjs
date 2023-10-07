@@ -6,7 +6,7 @@ import KNWCONFIG from "./src/module/config.mjs"
 
 const moduleID = "knw-actors"
 const typeWarfare = "knw-actors.warfare"
-const typeOrganization = "knw-actors.warfare"
+const typeOrganization = "knw-actors.organization"
 
 Hooks.once("init", () => {
   foundry.utils.mergeObject(CONFIG, KNWCONFIG)
@@ -16,13 +16,13 @@ Hooks.once("init", () => {
     [typeWarfare]: WarfareData,
   })
 
-  Actors.registerSheet("warfare", WarfareSheet, {
-    types: [typeWarfare],
+  Actors.registerSheet("organization", OrganizationSheet, {
+    types: [typeOrganization],
     makeDefault: true,
   })
 
-  Actors.registerSheet("organization", OrganizationSheet, {
-    types: [typeOrganization],
+  Actors.registerSheet("warfare", WarfareSheet, {
+    types: [typeWarfare],
     makeDefault: true,
   })
 })
