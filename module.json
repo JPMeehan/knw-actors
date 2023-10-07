@@ -1,0 +1,70 @@
+{
+  "id": "knw-actors",
+  "title": "Kingdoms & Warfare Actors",
+  "description": "Warfare Units and Organizations from MCDM's Kingdoms &amp; Warfare as actor types for the dnd5e system using v11 Module subtypes",
+  "version": "#{VERSION}#",
+  "compatibility": {
+    "minimum": "11",
+    "verified": "11.313"
+  },
+  "relationships": {
+    "systems": [
+      {
+        "id": "dnd5e",
+        "type": "system",
+        "compatibility": {}
+      }
+    ]
+  },
+  "esmodules": ["./knw-actors.mjs"],
+  "styles": ["./knw-actors.css"],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json",
+      "flags": {}
+    }
+  ],
+  "documentTypes": {
+    "Actor": {
+      "organization": {
+        "htmlFields": [
+          "details.biography.value",
+          "details.biography.public",
+          "description.full",
+          "description.summary"
+        ],
+        "filePathFields": {
+          "img": ["IMAGE"]
+        },
+        "warfare": {
+          "htmlFields": [
+            "details.biography.value",
+            "details.biography.public",
+            "description.full",
+            "description.summary"
+          ],
+          "filePathFields": {
+            "img": ["IMAGE"]
+          }
+        }
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "Joseph Meehan",
+      "discord": "chaosos",
+      "email": "jpmeehan5@gmail.com",
+      "url": "https://joseph-meehan.carrd.co",
+      "flags": {}
+    }
+  ],
+  "url": "https://github.com/JPMeehan/knw-actors",
+  "readme": "https://github.com/JPMeehan/knw-actors/blob/main/README.md",
+  "bugs": "https://github.com/JPMeehan/knw-actors/issues",
+  "changelog": "https://github.com/JPMeehan/knw-actors/blob/main/CHANGELOG.md",
+  "download": "#{DOWNLOAD}#",
+  "manifest": "https://github.com/JPMeehan/knw-actors/releases/latest/download/module.json"
+}
