@@ -1,5 +1,72 @@
 {
-  "KNW": {},
+  "KNW": {
+    "Warfare": {
+      "Experience": {
+        "label": "Experience",
+        "levy": "Levy",
+        "regular": "Regular",
+        "veteran": "Veteran",
+        "elite": "Elite",
+        "super-elite": "Super-Elite"
+      },
+      "Gear": {
+        "label": "Gear",
+        "light": "Light",
+        "medium": "Medium",
+        "heavy": "Heavy",
+        "super-heavy": "Super-Heavy"
+      },
+      "Type": {
+        "label": "Type",
+        "aerial": "Aerial",
+        "artillery": "Artillery",
+        "artillery-siege": "Artillery (Siege)",
+        "cavalry": "Cavalry",
+        "infantry": "Infantry",
+        "infantry-levy": "Infantry (Levy)"
+      },
+      "Statistics": {
+        "atk": {
+          "long": "Attack",
+          "abbr": "ATK"
+        },
+        "def": {
+          "long": "Defense",
+          "abbr": "DEF"
+        },
+        "pow": {
+          "long": "Power",
+          "abbr": "POW"
+        },
+        "tou": {
+          "long": "Toughness",
+          "abbr": "TOU"
+        },
+        "mor": {
+          "long": "Morale",
+          "abbr": "MOR"
+        },
+        "com": {
+          "long": "Command",
+          "abbr": "COM"
+        },
+        "attacks": {
+          "long": "Number of Attack"
+        },
+        "dmg": {
+          "long": "Damage",
+          "abbr": "DMG"
+        },
+        "size": {
+          "long": "Size"
+        },
+        "mov": {
+          "long": "Movement",
+          "abbr": "MOV"
+        }
+      }
+    }
+  },
   "TYPES.Actor.knw-actors": {
     "organization": "Organization",
     "warfare": "Warfare Unit"
