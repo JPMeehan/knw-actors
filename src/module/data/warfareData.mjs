@@ -99,7 +99,9 @@ export default class WarfareData extends foundry.abstract.TypeDataModel {
           integer: true,
         }),
       }),
-      traits: new fields.StringField({
+      traitList: new fields.StringField({
+        initial: "",
+        nullable: false,
         textSearch: true,
       }),
     }

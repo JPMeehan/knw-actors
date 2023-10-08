@@ -51,30 +51,74 @@ export default class WarfareSheet extends ActorSheet {
       },
       choices: CONFIG.KNW.CHOICES,
     }
-    context.traits = this.actor.system.traits.split(";").map((e) => e.trim())
+    context.traits = this.actor.system.traitList.split(";").map((e) => e.trim())
     if (context.traits.length === 1 && !context.traits[0]) context.traits = null
     return context
   }
 
   activateListeners(html) {
-    html.on("click", ".coreStat .label.rollable", this._rollStat)
+    html.on(
+      "click",
+      ".coreStat .label.rollable",
+      {
+        actor: this.actor,
+      },
+      this._rollStat
+    )
+    html.on(
+      "click",
+      ".traits",
+      {
+        sheetID: this.id,
+        actor: this.actor,
+      },
+      this._configureTraits
+    )
   }
 
   async _rollStat(event) {
-    console.log(event)
     const stat = event.currentTarget.dataset.target
     const path = "system." + stat
     const label = game.i18n.localize(`KNW.Warfare.Statistics.${stat}.long`)
-    game.dnd5e.dice.d20Roll({
+    const roll = game.dnd5e.dice.d20Roll({
       parts: ["@stat"],
       data: {
-        stat: foundry.utils.getProperty(this.actor, path),
+        stat: foundry.utils.getProperty(event.data.actor, path),
       },
       title: game.i18n.format("KNW.Warfare.Statistics.Test", { stat: label }),
       event,
-      messageData: {
-        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      // messageData: {
+      //   speaker: ChatMessage.getSpeaker({ actor: event.data.actor }),
+      // },
+    })
+    console.log(await roll)
+  }
+
+  async _configureTraits(event) {
+    const content = `<p>${game.i18n.localize(
+      "KNW.Warfare.Traits.Instructions"
+    )}</p>
+    <input id="${event.data.sheetID}-traits" type="text" value="${
+      event.data.actor.system.traitList
+    }" placeholder="Adaptable; Stalwart">`
+
+    const update = await Dialog.wait({
+      title: game.i18n.localize("KNW.Warfare.Traits.DialogTitle"),
+      content,
+      buttons: {
+        save: {
+          label: game.i18n.localize("SAVE"),
+          icon: '<i class="fa-solid fa-floppy-disk"></i>',
+          callback: (html) => {
+            const input = html.find(`#${event.data.sheetID}-traits`)[0]
+            return {
+              "system.traitList": input.value,
+            }
+          },
+        },
       },
     })
+
+    event.data.actor.update(update)
   }
 }

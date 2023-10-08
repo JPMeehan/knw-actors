@@ -67,7 +67,11 @@
       },
       "Ancestry": "Ancestry",
       "Commander": "Commander",
-      "Traits": "TRAITS",
+      "Traits": {
+        "DialogTitle": "Traits",
+        "SheetLabel": "TRAITS",
+        "Instructions": "Enter a semicolon (;) separated list"
+      },
       "Tier": "Tier"
     },
     "Sheets": {
