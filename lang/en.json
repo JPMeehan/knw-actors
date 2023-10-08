@@ -25,6 +25,7 @@
         "infantry": "Infantry"
       },
       "Statistics": {
+        "Test": "{stat} Test",
         "atk": {
           "long": "Attack",
           "abbr": "ATK"

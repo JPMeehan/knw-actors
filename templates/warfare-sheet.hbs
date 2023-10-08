@@ -62,7 +62,9 @@
     </div>
     {{#each coreStats}}
       <div class="coreStat flexcol">
-        <div class="label {{this.rollable}}">{{this.label}}</div>
+        <div class="label {{this.rollable}}" data-target="{{@key}}">
+            {{this.label}}
+        </div>
         <div class="value">
           <input type="number" name="system.{{@key}}" value={{this.value}} />
         </div>
@@ -81,13 +83,14 @@
         <ul>
             {{#each traits}}
                 <li>{{@this}}</li>
-            {{else}}
             {{/each}}
         </ul>
     </div>
     <div class="tier">
       <label>
-        {{numberInput system.tier name="system.tier"}}
+        <select name="system.tier">
+            {{selectOptions choices.TIER selected=system.tier}}
+        </select>
         {{localize "KNW.Warfare.Tier"}}
       </label>
     </div>

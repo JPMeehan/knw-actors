@@ -23,7 +23,7 @@ export default class WarfareSheet extends ActorSheet {
         atk: {
           label: game.i18n.localize("KNW.Warfare.Statistics.atk.abbr"),
           value: this.actor.system.atk,
-          rollable: "rollable",
+          rollable: this.isEditable ? "rollable" : "",
         },
         def: {
           label: game.i18n.localize("KNW.Warfare.Statistics.def.abbr"),
@@ -32,7 +32,7 @@ export default class WarfareSheet extends ActorSheet {
         pow: {
           label: game.i18n.localize("KNW.Warfare.Statistics.pow.abbr"),
           value: this.actor.system.pow,
-          rollable: "rollable",
+          rollable: this.isEditable ? "rollable" : "",
         },
         tou: {
           label: game.i18n.localize("KNW.Warfare.Statistics.tou.abbr"),
@@ -41,12 +41,12 @@ export default class WarfareSheet extends ActorSheet {
         mor: {
           label: game.i18n.localize("KNW.Warfare.Statistics.mor.abbr"),
           value: this.actor.system.mor,
-          rollable: "rollable",
+          rollable: this.isEditable ? "rollable" : "",
         },
         com: {
           label: game.i18n.localize("KNW.Warfare.Statistics.com.abbr"),
           value: this.actor.system.com,
-          rollable: "rollable",
+          rollable: this.isEditable ? "rollable" : "",
         },
       },
       choices: CONFIG.KNW.CHOICES,
@@ -54,5 +54,27 @@ export default class WarfareSheet extends ActorSheet {
     context.traits = this.actor.system.traits.split(";").map((e) => e.trim())
     if (context.traits.length === 1 && !context.traits[0]) context.traits = null
     return context
+  }
+
+  activateListeners(html) {
+    html.on("click", ".coreStat .label.rollable", this._rollStat)
+  }
+
+  async _rollStat(event) {
+    console.log(event)
+    const stat = event.currentTarget.dataset.target
+    const path = "system." + stat
+    const label = game.i18n.localize(`KNW.Warfare.Statistics.${stat}.long`)
+    game.dnd5e.dice.d20Roll({
+      parts: ["@stat"],
+      data: {
+        stat: foundry.utils.getProperty(this.actor, path),
+      },
+      title: game.i18n.format("KNW.Warfare.Statistics.Test", { stat: label }),
+      event,
+      messageData: {
+        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      },
+    })
   }
 }
