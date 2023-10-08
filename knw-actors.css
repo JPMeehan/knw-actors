@@ -1,0 +1,39 @@
+.actor.warfare .header {
+  flex: 0 0 100px; }
+  .actor.warfare .header .type {
+    flex: 0 0 20px; }
+  .actor.warfare .header .description {
+    flex: 1; }
+    .actor.warfare .header .description .id img.profile {
+      max-width: 60px;
+      height: 60px; }
+    .actor.warfare .header .description .id input {
+      font-size: 32px; }
+    .actor.warfare .header .description .tags .commander .label {
+      flex: 0 0;
+      line-height: 20px;
+      font-weight: bold;
+      padding: 0 3px; }
+    .actor.warfare .header .description .tags .modifiers select {
+      border: none; }
+  .actor.warfare .header .size {
+    flex: 0 0 60px; }
+
+.actor.warfare .statistics {
+  flex: 0 0 100px; }
+  .actor.warfare .statistics .coreStat .label {
+    line-height: 50px; }
+  .actor.warfare .statistics .coreStat .value,
+  .actor.warfare .statistics .coreStat .label {
+    font-size: 24px;
+    text-align: center; }
+
+.actor.warfare .footer {
+  flex: 1; }
+  .actor.warfare .footer .damage {
+    flex: 0 0 100px; }
+  .actor.warfare .footer .traits {
+    flex: 1;
+    cursor: pointer; }
+  .actor.warfare .footer .tier {
+    flex: 0 0 100px; }

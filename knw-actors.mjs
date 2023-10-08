@@ -19,10 +19,12 @@ Hooks.once("init", () => {
   Actors.registerSheet("organization", OrganizationSheet, {
     types: [typeOrganization],
     makeDefault: true,
+    label: "KNW.Sheets.Organization",
   })
 
   Actors.registerSheet("warfare", WarfareSheet, {
     types: [typeWarfare],
     makeDefault: true,
+    label: "KNW.Sheets.Warfare",
   })
 })

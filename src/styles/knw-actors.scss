@@ -1,0 +1,64 @@
+.actor.warfare {
+  .header {
+    flex: 0 0 100px;
+    .type {
+      flex: 0 0 20px;
+    }
+    .description {
+      flex: 1;
+      .id {
+        img.profile {
+          max-width: 60px;
+          height: 60px;
+        }
+        input {
+          font-size: 32px;
+        }
+      }
+      .tags {
+        .commander {
+          .label {
+            flex: 0 0;
+            line-height: 20px;
+            font-weight: bold;
+            padding: 0 3px;
+          }
+        }
+        .modifiers {
+          select {
+            border: none;
+          }
+        }
+      }
+    }
+    .size {
+      flex: 0 0 60px;
+    }
+  }
+  .statistics {
+    flex: 0 0 100px;
+    .coreStat {
+      .label {
+        line-height: 50px;
+      }
+      .value,
+      .label {
+        font-size: 24px;
+        text-align: center;
+      }
+    }
+  }
+  .footer {
+    flex: 1;
+    .damage {
+      flex: 0 0 100px;
+    }
+    .traits {
+      flex: 1;
+      cursor: pointer;
+    }
+    .tier {
+      flex: 0 0 100px;
+    }
+  }
+}

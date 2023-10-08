@@ -2,6 +2,7 @@
  * Data Definition for Warfare actors
  */
 export default class WarfareData extends foundry.abstract.TypeDataModel {
+  /** @override */
   static defineSchema() {
     const fields = foundry.data.fields
     const data = {
@@ -13,14 +14,17 @@ export default class WarfareData extends foundry.abstract.TypeDataModel {
       }),
       experience: new fields.StringField({
         choices: CONFIG.KNW.CHOICES.EXPERIENCE,
+        initial: "regular",
         textSearch: true,
       }),
       gear: new fields.StringField({
         choices: CONFIG.KNW.CHOICES.GEAR,
+        initial: "light",
         textSearch: true,
       }),
       type: new fields.StringField({
         choices: CONFIG.KNW.CHOICES.TYPE,
+        initial: "infantry",
         textSearch: true,
       }),
       atk: new fields.NumberField({

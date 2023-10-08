@@ -22,8 +22,7 @@
         "artillery": "Artillery",
         "artillery-siege": "Artillery (Siege)",
         "cavalry": "Cavalry",
-        "infantry": "Infantry",
-        "infantry-levy": "Infantry (Levy)"
+        "infantry": "Infantry"
       },
       "Statistics": {
         "atk": {
@@ -64,7 +63,15 @@
           "long": "Movement",
           "abbr": "MOV"
         }
-      }
+      },
+      "Ancestry": "Ancestry",
+      "Commander": "Commander",
+      "Traits": "TRAITS",
+      "Tier": "Tier"
+    },
+    "Sheets": {
+      "Warfare": "Default Warfare Sheet",
+      "Organization": "Default Organization Sheet"
     }
   },
   "TYPES.Actor.knw-actors": {

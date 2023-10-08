@@ -1,0 +1,95 @@
+<form class="{{cssClass}} flexcol">
+  <div class="header flexrow">
+    <div class="type">
+      {{system.type}}
+    </div>
+    <div class="description flexcol">
+      <div class="id flexrow">
+        <img
+          class="profile"
+          src="{{actor.img}}"
+          data-tooltip="{{actor.name}}"
+          data-edit="img"
+        />
+        <input
+          type="text"
+          name="name"
+          value="{{actor.name}}"
+          placeholder="{{localize 'DND5E.Name'}}"
+        />
+      </div>
+      <div class="tags flexcol">
+        <div class="commander">
+          <label class="flexrow">
+            <span class="label">{{localize "KNW.Warfare.Commander"}}</span>
+            <input
+              type="text"
+              name="system.commander"
+              value="{{system.commander}}"
+            />
+          </label>
+        </div>
+        <div class="modifiers flexrow">
+          <select name="system.experience">
+            {{selectOptions
+              choices.EXPERIENCE
+              selected=system.experience
+              localize=true
+            }}
+          </select>
+          <select name="system.gear">
+            {{selectOptions choices.GEAR selected=system.gear localize=true}}
+          </select>
+          <input
+            type="text"
+            name="system.ancestry"
+            value="{{system.ancestry}}"
+            placeholder="{{localize 'KNW.Warfare.Ancestry'}}"
+          />
+          <select name="system.type">
+            {{selectOptions choices.TYPE selected=system.type localize=true}}
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="size">
+      {{numberInput system.size.max name="system.size.max"}}
+    </div>
+  </div>
+  <div class="statistics flexrow">
+    <div class="attacks">
+      {{numberInput system.attacks name="system.attacks"}}
+    </div>
+    {{#each coreStats}}
+      <div class="coreStat flexcol">
+        <div class="label {{this.rollable}}">{{this.label}}</div>
+        <div class="value">
+          <input type="number" name="system.{{@key}}" value={{this.value}} />
+        </div>
+      </div>
+    {{/each}}
+  </div>
+  <div class="footer flexrow">
+    <div class="damage">
+      <label>
+        {{numberInput system.dmg name="system.dmg"}}
+        {{localize "KNW.Warfare.Statistics.dmg.abbr"}}
+      </label>
+    </div>
+    <div class="traits">
+        <span class="label">{{localize "KNW.Warfare.Traits"}}</span>
+        <ul>
+            {{#each traits}}
+                <li>{{@this}}</li>
+            {{else}}
+            {{/each}}
+        </ul>
+    </div>
+    <div class="tier">
+      <label>
+        {{numberInput system.tier name="system.tier"}}
+        {{localize "KNW.Warfare.Tier"}}
+      </label>
+    </div>
+  </div>
+</form>

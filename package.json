@@ -1,0 +1,31 @@
+{
+  "name": "knw-actors",
+  "version": "1.0.0",
+  "description": "Warfare Units and Organizations from MCDM's Kingdoms &amp; Warfare as actor types for the dnd5e system using v11 Module subtypes",
+  "main": "knw-actors.mjs",
+  "scripts": {
+    "build:js": "gulp mjs",
+    "build:css": "gulp sass",
+    "build": "gulp buildAll"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JPMeehan/knw-actors.git"
+  },
+  "keywords": [
+    "fvtt"
+  ],
+  "author": "Joseph Meehan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JPMeehan/knw-actors/issues"
+  },
+  "homepage": "https://github.com/JPMeehan/knw-actors#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-sass": "^5.1.0",
+    "node-sass": "^9.0.0",
+    "rollup": "^4.0.2"
+  }
+}
