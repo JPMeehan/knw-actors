@@ -1,3 +1,12 @@
+.actor.warfare.theme-red {
+  --warfare-dark: brown;
+  --warfare-light: indianRed;
+  --warfare-accent: gold; }
+
+.actor.warfare .label {
+  font-family: "Modesto Condensed", "Palatino Linotype", serif;
+  font-weight: 700; }
+
 .actor.warfare .header {
   flex: 0 0 100px; }
   .actor.warfare .header .type {
@@ -12,28 +21,86 @@
     .actor.warfare .header .description .tags .commander .label {
       flex: 0 0;
       line-height: 20px;
-      font-weight: bold;
-      padding: 0 3px; }
+      padding: 0 3px;
+      font-size: 18px; }
     .actor.warfare .header .description .tags .modifiers select {
       border: none; }
   .actor.warfare .header .size {
     flex: 0 0 60px; }
+    .actor.warfare .header .size input {
+      font-size: 30px;
+      flex: 1; }
+      .actor.warfare .header .size input:first-of-type {
+        text-align: left; }
+      .actor.warfare .header .size input:last-of-type {
+        text-align: right; }
+    .actor.warfare .header .size .label {
+      text-align: center;
+      flex: 0 0 20px;
+      line-height: 20px;
+      font-size: 18px; }
 
 .actor.warfare .statistics {
-  flex: 0 0 100px; }
-  .actor.warfare .statistics .coreStat .label {
-    line-height: 50px; }
-  .actor.warfare .statistics .coreStat .value,
-  .actor.warfare .statistics .coreStat .label {
-    font-size: 24px;
-    text-align: center; }
+  flex: 0 0 80px; }
+  .actor.warfare .statistics .attacks {
+    flex: 0 0 30px;
+    font-size: 36px; }
+  .actor.warfare .statistics .coreStat {
+    border: 1px solid var(--warfare-dark);
+    border-top-width: 4px;
+    border-bottom-width: 4px; }
+    .actor.warfare .statistics .coreStat .value,
+    .actor.warfare .statistics .coreStat .label {
+      font-size: 24px;
+      text-align: center;
+      border: 1px solid var(--warfare-dark); }
+    .actor.warfare .statistics .coreStat .label {
+      line-height: 40px;
+      background-color: ivory; }
+    .actor.warfare .statistics .coreStat .value {
+      background-color: var(--warfare-light);
+      color: ivory;
+      -webkit-text-stroke: 1.75px black; }
+      .actor.warfare .statistics .coreStat .value input {
+        color: ivory;
+        font-weight: 1000; }
+        .actor.warfare .statistics .coreStat .value input:not(:focus) {
+          text-decoration: underline; }
+          .actor.warfare .statistics .coreStat .value input:not(:focus)::before {
+            content: "+"; }
 
 .actor.warfare .footer {
   flex: 1; }
   .actor.warfare .footer .damage {
     flex: 0 0 100px; }
+    .actor.warfare .footer .damage label {
+      height: 100%; }
+      .actor.warfare .footer .damage label input {
+        flex: 1;
+        font-size: 36px;
+        text-align: center;
+        background-color: var(--warfare-dark);
+        color: white;
+        border: 2px solid var(--warfare-accent); }
+      .actor.warfare .footer .damage label .label {
+        flex: 0 0 24px;
+        line-height: 24px;
+        font-size: 18px;
+        text-align: center; }
   .actor.warfare .footer .traits {
     flex: 1;
     cursor: pointer; }
   .actor.warfare .footer .tier {
     flex: 0 0 100px; }
+    .actor.warfare .footer .tier label {
+      height: 100%; }
+      .actor.warfare .footer .tier label select {
+        flex: 1;
+        font-size: 36px;
+        text-align: center; }
+      .actor.warfare .footer .tier label .label {
+        flex: 0 0 24px;
+        line-height: 24px;
+        font-size: 18px;
+        text-align: center;
+        margin-right: 16px; }

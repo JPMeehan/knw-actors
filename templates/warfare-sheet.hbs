@@ -52,13 +52,15 @@
         </div>
       </div>
     </div>
-    <div class="size">
-      {{numberInput system.size.max name="system.size.max"}}
+    <div class="size flexcol">
+      {{numberInput system.size.value name="system.size.value" min=0}}
+      {{numberInput system.size.max name="system.size.max" min=0}}
+      <span class="label">{{localize "KNW.Warfare.Size"}}</span>
     </div>
   </div>
   <div class="statistics flexrow">
-    <div class="attacks">
-      {{numberInput system.attacks name="system.attacks"}}
+    <div class="attacks" data-tooltip="{{localize "KNW.Warfare.Statistics.attacks.long"}}">
+      {{numberInput system.attacks name="system.attacks" min=0}}
     </div>
     {{#each coreStats}}
       <div class="coreStat flexcol">
@@ -66,16 +68,18 @@
             {{this.label}}
         </div>
         <div class="value">
-          <input type="number" name="system.{{@key}}" value={{this.value}} />
+          <input class="{{this.rollable}}" type="number" name="system.{{@key}}" value={{this.value}} />
         </div>
       </div>
     {{/each}}
   </div>
   <div class="footer flexrow">
     <div class="damage">
-      <label>
-        {{numberInput system.dmg name="system.dmg"}}
-        {{localize "KNW.Warfare.Statistics.dmg.abbr"}}
+      <label class="flexcol">
+        {{numberInput system.dmg name="system.dmg" min=0}}
+        <span class="label">
+          {{localize "KNW.Warfare.Statistics.dmg.abbr"}}
+        </span>
       </label>
     </div>
     <div class="traits">
@@ -87,11 +91,11 @@
         </ul>
     </div>
     <div class="tier">
-      <label>
+      <label class="flexcol">
         <select name="system.tier">
             {{selectOptions choices.TIER selected=system.tier}}
         </select>
-        {{localize "KNW.Warfare.Tier"}}
+        <span class="label">{{localize "KNW.Warfare.Tier"}}</span>
       </label>
     </div>
   </div>

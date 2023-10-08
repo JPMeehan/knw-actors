@@ -1,4 +1,14 @@
+.actor.warfare.theme-red {
+  --warfare-dark: brown;
+  --warfare-light: indianRed;
+  --warfare-accent: gold;
+}
+
 .actor.warfare {
+  .label {
+    font-family: "Modesto Condensed", "Palatino Linotype", serif;
+    font-weight: 700;
+  }
   .header {
     flex: 0 0 100px;
     .type {
@@ -20,8 +30,8 @@
           .label {
             flex: 0 0;
             line-height: 20px;
-            font-weight: bold;
             padding: 0 3px;
+            font-size: 18px;
           }
         }
         .modifiers {
@@ -33,18 +43,52 @@
     }
     .size {
       flex: 0 0 60px;
+      input {
+        font-size: 30px;
+        flex: 1;
+        &:first-of-type {
+          text-align: left;
+        }
+        &:last-of-type {
+          text-align: right;
+        }
+      }
+      .label {
+        text-align: center;
+        flex: 0 0 20px;
+        line-height: 20px;
+        font-size: 18px;
+      }
     }
   }
   .statistics {
-    flex: 0 0 100px;
+    flex: 0 0 80px;
+    .attacks {
+      flex: 0 0 30px;
+      font-size: 36px;
+    }
     .coreStat {
-      .label {
-        line-height: 50px;
-      }
+      border: 1px solid var(--warfare-dark);
+      border-top-width: 4px;
+      border-bottom-width: 4px;
       .value,
       .label {
         font-size: 24px;
         text-align: center;
+        border: 1px solid var(--warfare-dark);
+      }
+      .label {
+        line-height: 40px;
+        background-color: ivory;
+      }
+      .value {
+        background-color: var(--warfare-light);
+        color: ivory;
+        -webkit-text-stroke: 1.75px black;
+        input {
+          color: ivory;
+          font-weight: 1000;
+        }
       }
     }
   }
@@ -52,6 +96,23 @@
     flex: 1;
     .damage {
       flex: 0 0 100px;
+      label {
+        height: 100%;
+        input {
+          flex: 1;
+          font-size: 36px;
+          text-align: center;
+          background-color: var(--warfare-dark);
+          color: white;
+          border: 2px solid var(--warfare-accent);
+        }
+        .label {
+          flex: 0 0 24px;
+          line-height: 24px;
+          font-size: 18px;
+          text-align: center;
+        }
+      }
     }
     .traits {
       flex: 1;
@@ -59,6 +120,21 @@
     }
     .tier {
       flex: 0 0 100px;
+      label {
+        height: 100%;
+        select {
+          flex: 1;
+          font-size: 36px;
+          text-align: center;
+        }
+        .label {
+          flex: 0 0 24px;
+          line-height: 24px;
+          font-size: 18px;
+          text-align: center;
+          margin-right: 16px;
+        }
+      }
     }
   }
 }

@@ -51,7 +51,7 @@
           "abbr": "COM"
         },
         "attacks": {
-          "long": "Number of Attack"
+          "long": "Number of Attacks"
         },
         "dmg": {
           "long": "Damage",
@@ -67,6 +67,7 @@
       },
       "Ancestry": "Ancestry",
       "Commander": "Commander",
+      "Size": "Size",
       "Traits": {
         "DialogTitle": "Traits",
         "SheetLabel": "TRAITS",

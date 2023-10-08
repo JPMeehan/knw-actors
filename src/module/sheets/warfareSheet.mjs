@@ -7,7 +7,7 @@ export default class WarfareSheet extends ActorSheet {
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["dnd5e", "sheet", "actor", "warfare"],
+      classes: ["dnd5e", "sheet", "actor", "warfare", "theme-red"],
       width: 600,
       height: 360,
     })
