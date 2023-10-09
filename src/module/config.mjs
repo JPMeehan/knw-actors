@@ -16,11 +16,26 @@ const KNWCONFIG = {
         superHeavy: "KNW.Warfare.Gear.super-heavy",
       },
       TYPE: {
-        aerial: "KNW.Warfare.Type.aerial",
-        artillery: "KNW.Warfare.Type.artillery",
-        artillerySiege: "KNW.Warfare.Type.artillery-siege",
-        cavalry: "KNW.Warfare.Type.cavalry",
-        infantry: "KNW.Warfare.Type.infantry",
+        aerial: {
+          label: "KNW.Warfare.Type.aerial",
+          img: "modules/knw-actors/assets/icons/aerial.png",
+        },
+        artillery: {
+          label: "KNW.Warfare.Type.artillery",
+          img: "modules/knw-actors/assets/icons/artillery.png",
+        },
+        artillerySiege: {
+          label: "KNW.Warfare.Type.artillery-siege",
+          img: "modules/knw-actors/assets/icons/artillery-siege.png",
+        },
+        cavalry: {
+          label: "KNW.Warfare.Type.cavalry",
+          img: "modules/knw-actors/assets/icons/cavalry.png",
+        },
+        infantry: {
+          label: "KNW.Warfare.Type.infantry",
+          img: "modules/knw-actors/assets/icons/infantry.png",
+        },
       },
       TIER: {
         1: "Ⅰ",

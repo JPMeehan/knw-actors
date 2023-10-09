@@ -68,6 +68,7 @@
       "Ancestry": "Ancestry",
       "Commander": "Commander",
       "Size": "Size",
+      "CasualtyDie": "Casualty Die",
       "Traits": {
         "DialogTitle": "Traits",
         "SheetLabel": "TRAITS",

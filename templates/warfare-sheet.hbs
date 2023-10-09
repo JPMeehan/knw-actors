@@ -1,7 +1,7 @@
 <form class="{{cssClass}} flexcol">
   <div class="header flexrow">
     <div class="type">
-      {{system.type}}
+      <img class="typeImage" src="{{typeImage}}">
     </div>
     <div class="description flexcol">
       <div class="id flexrow">
@@ -30,31 +30,35 @@
           </label>
         </div>
         <div class="modifiers flexrow">
-          <select name="system.experience">
+          <select class="experience" name="system.experience">
             {{selectOptions
               choices.EXPERIENCE
               selected=system.experience
               localize=true
             }}
           </select>
-          <select name="system.gear">
+          <select class="gear" name="system.gear">
             {{selectOptions choices.GEAR selected=system.gear localize=true}}
           </select>
-          <input
+          <input 
+            class="ancestry"
             type="text"
             name="system.ancestry"
             value="{{system.ancestry}}"
             placeholder="{{localize 'KNW.Warfare.Ancestry'}}"
           />
-          <select name="system.type">
-            {{selectOptions choices.TYPE selected=system.type localize=true}}
+          <select class="type" name="system.type">
+            {{selectOptions choices.TYPE labelAttr="label" selected=system.type localize=true}}
           </select>
         </div>
       </div>
     </div>
     <div class="size flexcol">
-      {{numberInput system.size.value name="system.size.value" min=0}}
-      {{numberInput system.size.max name="system.size.max" min=0}}
+      <div class="flexcol">
+        {{numberInput system.size.value name="system.size.value" min=0}}
+        <div class="divider"></div>
+        {{numberInput system.size.max name="system.size.max" min=0}}
+      </div>
       <span class="label">{{localize "KNW.Warfare.Size"}}</span>
     </div>
   </div>
@@ -68,18 +72,18 @@
             {{this.label}}
         </div>
         <div class="value">
-          <input class="{{this.rollable}}" type="number" name="system.{{@key}}" value={{this.value}} />
+          <input type="number" name="system.{{@key}}" value={{this.value}} />
         </div>
       </div>
     {{/each}}
   </div>
   <div class="footer flexrow">
     <div class="damage">
-      <label class="flexcol">
+      <label>
         {{numberInput system.dmg name="system.dmg" min=0}}
-        <span class="label">
+        <p class="label">
           {{localize "KNW.Warfare.Statistics.dmg.abbr"}}
-        </span>
+        </p>
       </label>
     </div>
     <div class="traits">
@@ -91,11 +95,11 @@
         </ul>
     </div>
     <div class="tier">
-      <label class="flexcol">
+      <label>
         <select name="system.tier">
             {{selectOptions choices.TIER selected=system.tier}}
         </select>
-        <span class="label">{{localize "KNW.Warfare.Tier"}}</span>
+        <p class="label">{{localize "KNW.Warfare.Tier"}}</p>
       </label>
     </div>
   </div>

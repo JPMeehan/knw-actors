@@ -1,25 +1,42 @@
 .actor.warfare.theme-red {
+  --warfare-title: sienna;
   --warfare-dark: brown;
   --warfare-light: indianRed;
   --warfare-accent: gold;
 }
 
 .actor.warfare {
+  --groove5e: 2px groove #eeede0;
   .label {
     font-family: "Modesto Condensed", "Palatino Linotype", serif;
     font-weight: 700;
   }
+  input[type="number"] {
+    font-family: "Modesto Condensed", "Palatino Linotype", serif;
+  }
   .header {
     flex: 0 0 100px;
     .type {
-      flex: 0 0 20px;
+      flex: 0 0 30px;
+      margin: 0 5px;
+      .typeImage {
+        border: none;
+        margin: 40px 0;
+      }
     }
     .description {
       flex: 1;
+      padding: 0 3px;
+      border-left: var(--groove5e);
+      border-right: var(--groove5e);
       .id {
+        border-bottom: var(--groove5e);
+        margin-bottom: 2px;
+        padding-bottom: 2px;
         img.profile {
           max-width: 60px;
           height: 60px;
+          border: none;
         }
         input {
           font-size: 32px;
@@ -33,18 +50,26 @@
             padding: 0 3px;
             font-size: 18px;
           }
+          input {
+            border-bottom: 1px solid black;
+          }
         }
         .modifiers {
           select {
             border: none;
+            flex: 0 0 80px;
+          }
+          input {
+            flex: 1;
           }
         }
       }
     }
     .size {
       flex: 0 0 60px;
+      padding: 2px;
       input {
-        font-size: 30px;
+        font-size: 36px;
         flex: 1;
         &:first-of-type {
           text-align: left;
@@ -52,6 +77,14 @@
         &:last-of-type {
           text-align: right;
         }
+      }
+      .divider {
+        position: fixed;
+        width: 46px;
+        height: 65px;
+        margin: 12.5px 0 0 4px;
+        background-color: #7a7971;
+        clip-path: polygon(90% 0, 100% 0%, 10% 100%, 0% 100%);
       }
       .label {
         text-align: center;
@@ -63,32 +96,27 @@
   }
   .statistics {
     flex: 0 0 80px;
+    margin: 2px 0;
+    padding: 2px 0;
+    border-top: var(--groove5e);
+    border-bottom: var(--groove5e);
     .attacks {
       flex: 0 0 30px;
       font-size: 36px;
     }
     .coreStat {
-      border: 1px solid var(--warfare-dark);
-      border-top-width: 4px;
-      border-bottom-width: 4px;
+      padding: 2px;
       .value,
       .label {
         font-size: 24px;
         text-align: center;
-        border: 1px solid var(--warfare-dark);
       }
       .label {
         line-height: 40px;
-        background-color: ivory;
+        border-bottom: var(--groove5e);
       }
-      .value {
-        background-color: var(--warfare-light);
-        color: ivory;
-        -webkit-text-stroke: 1.75px black;
-        input {
-          color: ivory;
-          font-weight: 1000;
-        }
+      &:not(:last-of-type) {
+        border-right: var(--groove5e);
       }
     }
   }
@@ -96,34 +124,40 @@
     flex: 1;
     .damage {
       flex: 0 0 100px;
+      border-right: var(--groove5e);
       label {
         height: 100%;
         input {
-          flex: 1;
+          height: 90px;
+          width: 94px;
           font-size: 36px;
           text-align: center;
-          background-color: var(--warfare-dark);
-          color: white;
-          border: 2px solid var(--warfare-accent);
+          margin: 2px;
         }
         .label {
           flex: 0 0 24px;
           line-height: 24px;
           font-size: 18px;
           text-align: center;
+          margin: 0;
         }
       }
     }
     .traits {
       flex: 1;
       cursor: pointer;
+      padding: 0 5px;
     }
     .tier {
       flex: 0 0 100px;
+      border-left: var(--groove5e);
       label {
         height: 100%;
         select {
-          flex: 1;
+          height: 92px;
+          width: 94px;
+          margin: 2px;
+          border: none;
           font-size: 36px;
           text-align: center;
         }
@@ -132,7 +166,7 @@
           line-height: 24px;
           font-size: 18px;
           text-align: center;
-          margin-right: 16px;
+          margin: 0 16px 0 0;
         }
       }
     }

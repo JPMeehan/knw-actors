@@ -108,4 +108,11 @@ export default class WarfareData extends foundry.abstract.TypeDataModel {
 
     return data
   }
+
+  /**
+   * @returns {number} Current units remaining for a battle
+   */
+  get casualtyDie() {
+    return this.size.value
+  }
 }

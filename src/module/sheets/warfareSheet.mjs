@@ -50,9 +50,9 @@ export default class WarfareSheet extends ActorSheet {
         },
       },
       choices: CONFIG.KNW.CHOICES,
+      traits: this.traits,
+      typeImage: this.typeImage,
     }
-    context.traits = this.actor.system.traitList.split(";").map((e) => e.trim())
-    if (context.traits.length === 1 && !context.traits[0]) context.traits = null
     return context
   }
 
@@ -120,5 +120,17 @@ export default class WarfareSheet extends ActorSheet {
     })
 
     event.data.actor.update(update)
+  }
+
+  get traits() {
+    const traits = this.actor.system.traitList.split(";").map((e) => e.trim())
+    return traits.length === 1 && !traits[0] ? null : traits
+  }
+
+  get typeImage() {
+    const system = this.actor.system
+    if (system.type === "infantry" && system.experience === "levy")
+      return "modules/knw-actors/assets/icons/levy.png"
+    else return CONFIG.KNW.CHOICES.TYPE[system.type].img
   }
 }
