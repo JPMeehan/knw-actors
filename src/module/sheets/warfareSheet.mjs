@@ -1,16 +1,16 @@
 export default class WarfareSheet extends ActorSheet {
   /** @override */
   get template() {
-    return "modules/knw-actors/templates/warfare-sheet.hbs"
+    return "modules/knw-actors/templates/warfare-sheet.hbs";
   }
 
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["dnd5e", "sheet", "actor", "warfare", "theme-red"],
+      classes: ["dnd5e", "sheet", "actor", "warfare"],
       width: 600,
       height: 360,
-    })
+    });
   }
 
   /** @override */
@@ -52,8 +52,8 @@ export default class WarfareSheet extends ActorSheet {
       choices: CONFIG.KNW.CHOICES,
       traits: this.traits,
       typeImage: this.typeImage,
-    }
-    return context
+    };
+    return context;
   }
 
   activateListeners(html) {
@@ -64,7 +64,7 @@ export default class WarfareSheet extends ActorSheet {
         actor: this.actor,
       },
       this._rollStat
-    )
+    );
     html.on(
       "click",
       ".traits",
@@ -73,13 +73,13 @@ export default class WarfareSheet extends ActorSheet {
         actor: this.actor,
       },
       this._configureTraits
-    )
+    );
   }
 
   async _rollStat(event) {
-    const stat = event.currentTarget.dataset.target
-    const path = "system." + stat
-    const label = game.i18n.localize(`KNW.Warfare.Statistics.${stat}.long`)
+    const stat = event.currentTarget.dataset.target;
+    const path = "system." + stat;
+    const label = game.i18n.localize(`KNW.Warfare.Statistics.${stat}.long`);
     const roll = game.dnd5e.dice.d20Roll({
       parts: ["@stat"],
       data: {
@@ -90,8 +90,8 @@ export default class WarfareSheet extends ActorSheet {
       // messageData: {
       //   speaker: ChatMessage.getSpeaker({ actor: event.data.actor }),
       // },
-    })
-    console.log(await roll)
+    });
+    console.log(await roll);
   }
 
   async _configureTraits(event) {
@@ -100,7 +100,7 @@ export default class WarfareSheet extends ActorSheet {
     )}</p>
     <input id="${event.data.sheetID}-traits" type="text" value="${
       event.data.actor.system.traitList
-    }" placeholder="Adaptable; Stalwart">`
+    }" placeholder="Adaptable; Stalwart">`;
 
     const update = await Dialog.wait({
       title: game.i18n.localize("KNW.Warfare.Traits.DialogTitle"),
@@ -110,27 +110,27 @@ export default class WarfareSheet extends ActorSheet {
           label: game.i18n.localize("SAVE"),
           icon: '<i class="fa-solid fa-floppy-disk"></i>',
           callback: (html) => {
-            const input = html.find(`#${event.data.sheetID}-traits`)[0]
+            const input = html.find(`#${event.data.sheetID}-traits`)[0];
             return {
               "system.traitList": input.value,
-            }
+            };
           },
         },
       },
-    })
+    });
 
-    event.data.actor.update(update)
+    event.data.actor.update(update);
   }
 
   get traits() {
-    const traits = this.actor.system.traitList.split(";").map((e) => e.trim())
-    return traits.length === 1 && !traits[0] ? null : traits
+    const traits = this.actor.system.traitList.split(";").map((e) => e.trim());
+    return traits.length === 1 && !traits[0] ? null : traits;
   }
 
   get typeImage() {
-    const system = this.actor.system
+    const system = this.actor.system;
     if (system.type === "infantry" && system.experience === "levy")
-      return "modules/knw-actors/assets/icons/levy.png"
-    else return CONFIG.KNW.CHOICES.TYPE[system.type].img
+      return "modules/knw-actors/assets/icons/levy.png";
+    else return CONFIG.KNW.CHOICES.TYPE[system.type].img;
   }
 }

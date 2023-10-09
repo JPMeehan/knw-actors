@@ -1,10 +1,29 @@
 /**
  * Data Definition for Warfare actors
+ * @prop {string} commander
+ * @prop {string} ancestry
+ * @prop {string} experience
+ * @prop {string} gear
+ * @prop {string} type
+ * @prop {number} atk
+ * @prop {number} def
+ * @prop {number} pow
+ * @prop {number} tou
+ * @prop {number} mor
+ * @prop {number} com
+ * @prop {number} attacks
+ * @prop {number} dmg
+ * @prop {number} mov
+ * @prop {number} tier
+ * @prop {object} size
+ * @prop {number} size.value
+ * @prop {number} size.max
+ * @prop {string} traitList
  */
 export default class WarfareData extends foundry.abstract.TypeDataModel {
   /** @override */
   static defineSchema() {
-    const fields = foundry.data.fields
+    const fields = foundry.data.fields;
     const data = {
       commander: new fields.StringField({
         textSearch: true,
@@ -104,15 +123,15 @@ export default class WarfareData extends foundry.abstract.TypeDataModel {
         nullable: false,
         textSearch: true,
       }),
-    }
+    };
 
-    return data
+    return data;
   }
 
   /**
    * @returns {number} Current units remaining for a battle
    */
   get casualtyDie() {
-    return this.size.value
+    return this.size.value;
   }
 }

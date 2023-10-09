@@ -44,8 +44,42 @@ const KNWCONFIG = {
         4: "Ⅳ",
         5: "Ⅴ",
       },
+      COMMUNICATIONS: {
+        "-3": "KNW.Organization.com.-3",
+        "-2": "KNW.Organization.com.-2",
+        "-1": "KNW.Organization.com.-1",
+        0: "KNW.Organization.com.0",
+        1: "KNW.Organization.com.1",
+        2: "KNW.Organization.com.2",
+        3: "KNW.Organization.com.3",
+      },
+      RESOLVE: {
+        "-3": "KNW.Organization.rlv.-3",
+        "-2": "KNW.Organization.rlv.-2",
+        "-1": "KNW.Organization.rlv.-1",
+        0: "KNW.Organization.rlv.0",
+        1: "KNW.Organization.rlv.1",
+        2: "KNW.Organization.rlv.2",
+        3: "KNW.Organization.rlv.3",
+      },
+      RESOURCES: {
+        "-3": "KNW.Organization.rsc.-3",
+        "-2": "KNW.Organization.rsc.-2",
+        "-1": "KNW.Organization.rsc.-1",
+        0: "KNW.Organization.rsc.0",
+        1: "KNW.Organization.rsc.1",
+        2: "KNW.Organization.rsc.2",
+        3: "KNW.Organization.rsc.3",
+      },
+      POWERDIE: {
+        4: "d4",
+        6: "d6",
+        8: "d8",
+        10: "d10",
+        12: "d12",
+      },
     },
   },
-}
+};
 
-export default KNWCONFIG
+export default KNWCONFIG;

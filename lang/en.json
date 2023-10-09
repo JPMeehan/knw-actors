@@ -76,6 +76,35 @@
       },
       "Tier": "Tier"
     },
+    "Organization": {
+      "com": {
+        "-3": "Broken",
+        "-2": "Garbled",
+        "-1": "Compromised",
+        "0": "Normal",
+        "1": "Secure",
+        "2": "Coded",
+        "3": "Unbreakable"
+      },
+      "rlv": {
+        "-3": "Revolt",
+        "-2": "Rebellious",
+        "-1": "Discontented",
+        "0": "Normal",
+        "1": "Loyal",
+        "2": "Fanatic",
+        "3": "Zealous"
+      },
+      "rsc": {
+        "-3": "Bankrupt",
+        "-2": "Poor",
+        "-1": "Low",
+        "0": "Normal",
+        "1": "Surplus",
+        "2": "Abundant",
+        "3": "Booming"
+      }
+    },
     "Sheets": {
       "Warfare": "Default Warfare Sheet",
       "Organization": "Default Organization Sheet"
