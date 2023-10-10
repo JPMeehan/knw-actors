@@ -71,12 +71,12 @@ const KNWCONFIG = {
         2: "KNW.Organization.rsc.2",
         3: "KNW.Organization.rsc.3",
       },
-      POWERDIE: {
-        4: "d4",
-        6: "d6",
-        8: "d8",
-        10: "d10",
-        12: "d12",
+      SIZE: {
+        1: { powerDie: 4, diePath: "modules/knw-actors/assets/dice/d4.svg" },
+        2: { powerDie: 6, diePath: "modules/knw-actors/assets/dice/d6.svg" },
+        3: { powerDie: 8, diePath: "modules/knw-actors/assets/dice/d8.svg" },
+        4: { powerDie: 10, diePath: "modules/knw-actors/assets/dice/d10.svg" },
+        5: { powerDie: 12, diePath: "modules/knw-actors/assets/dice/d12.svg" },
       },
     },
   },

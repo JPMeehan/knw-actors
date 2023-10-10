@@ -1,0 +1,84 @@
+.actor.organization {
+  --groove5e: 2px groove #eeede0;
+  --labelFont: "Modesto Condensed", "Palatino Linotype", serif;
+  .label,
+  h2,
+  input[type="number"] {
+    font-family: var(--labelFont);
+  }
+  .header {
+    flex: 0 0 100px;
+    padding-bottom: 2px;
+    border-bottom: var(--groove5e);
+    margin-bottom: 2px;
+    img.profile {
+      flex: 0 0 100px;
+      max-width: 100px;
+      height: 100px;
+      border: none;
+    }
+    .name {
+      flex: 3;
+      font-size: 32px;
+    }
+    .orgDetails {
+      flex: 1;
+      font-size: 24px;
+    }
+  }
+  .body {
+    flex: 0 0 250px;
+    padding-top: 2px;
+    h2 {
+      flex: 0 0 40px;
+      border: none;
+      text-align: center;
+      font-size: 36px;
+    }
+    input[type="number"] {
+      text-align: center;
+      font-size: 24px;
+    }
+    .skills {
+      flex: 0.25 0.25 100px;
+      border-right: var(--groove5e);
+      div.skill:nth-child(even) {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+      .label {
+        text-align: center;
+        font-size: 28px;
+        line-height: 48px;
+        border-left: var(--groove5e);
+      }
+    }
+    .powerPool {
+      flex: 0.5 0.5;
+    }
+    .defenses {
+      border-left: var(--groove5e);
+      flex: 0.25 0.25 100px;
+      div:nth-child(even) {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+      .label {
+        text-align: center;
+        font-size: 28px;
+        line-height: 40px;
+        border-right: var(--groove5e);
+      }
+      .value {
+        flex: 0 0 60px;
+      }
+      .powerDie {
+        img {
+          max-height: 40px;
+          border: none;
+        }
+      }
+    }
+  }
+  .footer {
+    flex: 0 0 200px;
+  }
+}

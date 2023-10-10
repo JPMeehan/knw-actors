@@ -1,16 +1,74 @@
-.actor.warfare.theme-red {
-  --warfare-title: sienna;
-  --warfare-dark: brown;
-  --warfare-light: indianRed;
-  --warfare-accent: gold; }
+.actor.organization {
+  --groove5e: 2px groove #eeede0;
+  --labelFont: "Modesto Condensed", "Palatino Linotype", serif; }
+  .actor.organization .label,
+  .actor.organization h2,
+  .actor.organization input[type="number"] {
+    font-family: var(--labelFont); }
+  .actor.organization .header {
+    flex: 0 0 100px;
+    padding-bottom: 2px;
+    border-bottom: var(--groove5e);
+    margin-bottom: 2px; }
+    .actor.organization .header img.profile {
+      flex: 0 0 100px;
+      max-width: 100px;
+      height: 100px;
+      border: none; }
+    .actor.organization .header .name {
+      flex: 3;
+      font-size: 32px; }
+    .actor.organization .header .orgDetails {
+      flex: 1;
+      font-size: 24px; }
+  .actor.organization .body {
+    flex: 0 0 250px;
+    padding-top: 2px; }
+    .actor.organization .body h2 {
+      flex: 0 0 40px;
+      border: none;
+      text-align: center;
+      font-size: 36px; }
+    .actor.organization .body input[type="number"] {
+      text-align: center;
+      font-size: 24px; }
+    .actor.organization .body .skills {
+      flex: 0.25 0.25 100px;
+      border-right: var(--groove5e); }
+      .actor.organization .body .skills div.skill:nth-child(even) {
+        background-color: rgba(0, 0, 0, 0.05); }
+      .actor.organization .body .skills .label {
+        text-align: center;
+        font-size: 28px;
+        line-height: 48px;
+        border-left: var(--groove5e); }
+    .actor.organization .body .powerPool {
+      flex: 0.5 0.5; }
+    .actor.organization .body .defenses {
+      border-left: var(--groove5e);
+      flex: 0.25 0.25 100px; }
+      .actor.organization .body .defenses div:nth-child(even) {
+        background-color: rgba(0, 0, 0, 0.05); }
+      .actor.organization .body .defenses .label {
+        text-align: center;
+        font-size: 28px;
+        line-height: 40px; }
+      .actor.organization .body .defenses .value {
+        flex: 0 0 60px; }
+      .actor.organization .body .defenses .powerDie img {
+        max-height: 40px;
+        border: none; }
+  .actor.organization .footer {
+    flex: 0 0 200px; }
 
 .actor.warfare {
-  --groove5e: 2px groove #eeede0; }
+  --groove5e: 2px groove #eeede0;
+  --labelFont: "Modesto Condensed", "Palatino Linotype", serif; }
   .actor.warfare .label {
-    font-family: "Modesto Condensed", "Palatino Linotype", serif;
+    font-family: var(--labelFont);
     font-weight: 700; }
   .actor.warfare input[type="number"] {
-    font-family: "Modesto Condensed", "Palatino Linotype", serif; }
+    font-family: var(--labelFont); }
   .actor.warfare .header {
     flex: 0 0 100px; }
     .actor.warfare .header .type {

@@ -77,33 +77,50 @@
       "Tier": "Tier"
     },
     "Organization": {
-      "com": {
-        "-3": "Broken",
-        "-2": "Garbled",
-        "-1": "Compromised",
-        "0": "Normal",
-        "1": "Secure",
-        "2": "Coded",
-        "3": "Unbreakable"
+      "Skills": {
+        "Label": "Skills",
+        "dip": "Diplomacy",
+        "esp": "Espionage",
+        "lor": "Lore",
+        "opr": "Operations"
       },
-      "rlv": {
-        "-3": "Revolt",
-        "-2": "Rebellious",
-        "-1": "Discontented",
-        "0": "Normal",
-        "1": "Loyal",
-        "2": "Fanatic",
-        "3": "Zealous"
+      "Defenses": {
+        "Label": "Defenses",
+        "com": {
+          "Label": "Communications",
+          "-3": "Broken",
+          "-2": "Garbled",
+          "-1": "Compromised",
+          "0": "Normal",
+          "1": "Secure",
+          "2": "Coded",
+          "3": "Unbreakable"
+        },
+        "rlv": {
+          "Label": "Resolve",
+          "-3": "Revolt",
+          "-2": "Rebellious",
+          "-1": "Discontented",
+          "0": "Normal",
+          "1": "Loyal",
+          "2": "Fanatic",
+          "3": "Zealous"
+        },
+        "rsc": {
+          "Label": "Resources",
+          "-3": "Bankrupt",
+          "-2": "Poor",
+          "-1": "Low",
+          "0": "Normal",
+          "1": "Surplus",
+          "2": "Abundant",
+          "3": "Booming"
+        }
       },
-      "rsc": {
-        "-3": "Bankrupt",
-        "-2": "Poor",
-        "-1": "Low",
-        "0": "Normal",
-        "1": "Surplus",
-        "2": "Abundant",
-        "3": "Booming"
-      }
+      "Size": "Size",
+      "PowerDie": "Power Die",
+      "Type": "Organization Type",
+      "Specialization": "Organization Specialization"
     },
     "Sheets": {
       "Warfare": "Default Warfare Sheet",

@@ -1,0 +1,82 @@
+<form class="flexcol">
+  <div class="header flexrow">
+    <img
+      class="profile"
+      src="{{actor.img}}"
+      data-tooltip="{{actor.name}}"
+      data-edit="img"
+    />
+    <div class="flexcol">
+      <input
+        class="name"
+        type="text"
+        name="name"
+        value="{{actor.name}}"
+        placeholder="{{localize 'DND5E.Name'}}"
+      />
+      <div class="orgDetails flexrow">
+        <input
+          type="text"
+          name="system.org.type"
+          value="{{system.org.type}}"
+          placeholder="{{localize 'KNW.Organization.Type'}}"
+        />
+        <input
+          type="text"
+          name="system.org.specialization"
+          value="{{system.org.specialization}}"
+          placeholder="{{localize 'KNW.Organization.Specialization'}}"
+        />
+
+      </div>
+    </div>
+  </div>
+  <div class="body flexrow">
+    <div class="skills flexcol">
+      <h2>{{localize "KNW.Organization.Skills.Label"}}</h2>
+      {{#each skills}}
+        <div class="skill flexrow">
+          {{numberInput this.value name=(concat "system." @key)}}
+          <div class="rollable label" data-target="{{@key}}">
+            {{this.label}}
+          </div>
+        </div>
+      {{/each}}
+    </div>
+    <div class="powerPool">
+      {{#each system.powerPool}}
+        <p>DIE</p>
+      {{/each}}
+    </div>
+    <div class="defenses flexcol">
+      <h2>{{localize "KNW.Organization.Defenses.Label"}}</h2>
+      <div class="size flexrow">
+        <div class="label">
+          {{localize "KNW.Organization.Size"}}
+        </div>
+        {{numberInput system.size class="value" name="system.size" max=5 min=1}}
+      </div>
+      <div class="powerDie flexrow rollable" data-target="powerDie">
+        <div class="label">
+          {{localize "KNW.Organization.PowerDie"}}
+        </div>
+        <img class="value" src="{{powerDieIMG}}" />
+      </div>
+      {{#each defenses}}
+        <div class="defense flexrow">
+          <div class="label">
+            {{this.label}}
+          </div>
+          {{numberInput
+            this.score
+            class="value"
+            name=(concat "system." @key ".score")
+          }}
+        </div>
+      {{/each}}
+    </div>
+  </div>
+  <div class="footer flexrow">
+
+  </div>
+</form>

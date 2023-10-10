@@ -1,18 +1,12 @@
-.actor.warfare.theme-red {
-  --warfare-title: sienna;
-  --warfare-dark: brown;
-  --warfare-light: indianRed;
-  --warfare-accent: gold;
-}
-
 .actor.warfare {
   --groove5e: 2px groove #eeede0;
+  --labelFont: "Modesto Condensed", "Palatino Linotype", serif;
   .label {
-    font-family: "Modesto Condensed", "Palatino Linotype", serif;
+    font-family: var(--labelFont);
     font-weight: 700;
   }
   input[type="number"] {
-    font-family: "Modesto Condensed", "Palatino Linotype", serif;
+    font-family: var(--labelFont);
   }
   .header {
     flex: 0 0 100px;

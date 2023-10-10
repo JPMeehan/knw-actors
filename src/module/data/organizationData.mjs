@@ -1,5 +1,8 @@
 /**
  * Data Definition for Organization actors
+ * @prop {object} org   -       Organization Info
+ * @prop {string} org.type   -  Organization Type
+ * @prop {string} org.specialization    -   Organization Specialization
  * @prop {number} dip   -       Diplomacy
  * @prop {number} esp   -       Espionage
  * @prop {number} lor   -       Lore
@@ -19,6 +22,10 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
     const fields = foundry.data.fields;
     const MappingField = game.dnd5e.dataModels.fields.MappingField;
     const data = {
+      org: new fields.SchemaField({
+        type: new fields.StringField({ textSearch: true }),
+        specialization: new fields.StringField({ textSearch: true }),
+      }),
       dip: new fields.NumberField({
         required: true,
         initial: -1,
@@ -82,24 +89,22 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
           choices: CONFIG.KNW.CHOICES.RESOURCES,
         }),
       }),
-      power: new fields.SchemaField({
-        die: new fields.NumberField({
-          required: true,
-          initial: 4,
-          choices: CONFIG.KNW.CHOICES.POWERDIE,
-        }),
-        pool: new MappingField(
-          new fields.NumberField({
-            required: true,
-            nullable: false,
-            initial: 4,
-            integer: true,
-            max: 12,
-            min: 0,
-          }),
-          {}
-        ),
+      size: new fields.NumberField({
+        required: true,
+        initial: 1,
+        choices: CONFIG.KNW.CHOICES.SIZE,
       }),
+      powerPool: new MappingField(
+        new fields.NumberField({
+          required: true,
+          nullable: false,
+          initial: 4,
+          integer: true,
+          max: 12,
+          min: 0,
+        }),
+        {}
+      ),
       powers: new MappingField(
         new fields.SchemaField({
           label: new fields.StringField({
@@ -123,5 +128,9 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
     };
 
     return data;
+  }
+
+  get powerDie() {
+    return CONFIG.KNW.CHOICES.SIZE[this.size].powerDie;
   }
 }
