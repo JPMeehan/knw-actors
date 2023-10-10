@@ -55,12 +55,11 @@
           {{localize "KNW.Organization.Size"}}
         </div>
         {{numberInput system.size class="value" name="system.size" max=5 min=1}}
-      </div>
-      <div class="powerDie flexrow rollable" data-target="powerDie">
-        <div class="label">
-          {{localize "KNW.Organization.PowerDie"}}
-        </div>
-        <img class="value" src="{{powerDieIMG}}" />
+        <img
+          class="powerDie rollable"
+          src="{{powerDieIMG}}"
+          data-tooltip="{{localize 'KNW.Organization.PowerDie'}}"
+        />
       </div>
       {{#each defenses}}
         <div class="defense flexrow">
@@ -72,6 +71,15 @@
             class="value"
             name=(concat "system." @key ".score")
           }}
+          <select class="level" name="{{concat 'system.' @key '.level'}}">
+            {{selectOptions
+              this.choices
+              selected=this.level
+              nameAttr="value"
+              labelAttr="label"
+              localize=true
+            }}
+          </select>
         </div>
       {{/each}}
     </div>

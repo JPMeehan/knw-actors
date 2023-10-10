@@ -19,7 +19,6 @@ export default class OrganizationSheet extends ActorSheet {
       ...super.getData(options),
       actor: this.actor,
       system: this.actor.system,
-      choices: CONFIG.KNW.CHOICES,
       skills: {
         dip: {
           label: game.i18n.localize("KNW.Organization.Skills.dip"),
@@ -43,16 +42,19 @@ export default class OrganizationSheet extends ActorSheet {
           label: game.i18n.localize("KNW.Organization.Defenses.com.Label"),
           level: this.actor.system.com.level,
           score: this.actor.system.com.score,
+          choices: CONFIG.KNW.CHOICES.COMMUNICATIONS
         },
         rlv: {
           label: game.i18n.localize("KNW.Organization.Defenses.rlv.Label"),
           level: this.actor.system.rlv.level,
           score: this.actor.system.rlv.score,
+          choices: CONFIG.KNW.CHOICES.RESOLVE
         },
         rsc: {
           label: game.i18n.localize("KNW.Organization.Defenses.rsc.Label"),
           level: this.actor.system.rsc.level,
           score: this.actor.system.rsc.score,
+          choices: CONFIG.KNW.CHOICES.RESOURCES
         },
       },
       powerDieIMG: this.powerDieIMG,

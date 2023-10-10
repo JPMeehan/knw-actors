@@ -60,7 +60,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
         level: new fields.NumberField({
           required: true,
           initial: 0,
-          choices: CONFIG.KNW.CHOICES.COMMUNICATIONS,
+          choices: Array.from(CONFIG.KNW.CHOICES.COMMUNICATIONS, level => level.value),
         }),
       }),
       rlv: new fields.SchemaField({
@@ -73,7 +73,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
         level: new fields.NumberField({
           required: true,
           initial: 0,
-          choices: CONFIG.KNW.CHOICES.RESOLVE,
+          choices: Array.from(CONFIG.KNW.CHOICES.RESOLVE, level => level.value),
         }),
       }),
       rsc: new fields.SchemaField({
@@ -86,7 +86,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
         level: new fields.NumberField({
           required: true,
           initial: 0,
-          choices: CONFIG.KNW.CHOICES.RESOURCES,
+          choices: Array.from(CONFIG.KNW.CHOICES.RESOURCES, level => level.value),
         }),
       }),
       size: new fields.NumberField({
