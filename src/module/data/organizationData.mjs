@@ -130,7 +130,41 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
     return data;
   }
 
+  /**
+   * @returns {string}
+   */
   get powerDie() {
     return CONFIG.KNW.CHOICES.SIZE[this.size].powerDie;
+  }
+
+  get sortedPowers() {
+    return this.#sortMap(this.powers)
+  }
+
+  get sortedFeatures() {
+    return this.#sortMap(this.features)
+  }
+
+  /**
+   * Sorts a mapping field by its sort value
+   * @param {Map} target  The field to sort
+   * @returns {Array}     The sorted results
+   */
+  #sortMap(target) {
+    const entries = Object.entries(target);
+    
+    entries.sort((a,b) => {
+        return a.sort - b.sort;
+      }
+    )
+
+    const sorted = Array.from(entries, 
+      ([mapID, entry]) => ({
+        mapID, 
+        ...entry
+      })
+    )
+
+    return sorted;
   }
 }

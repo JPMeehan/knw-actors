@@ -118,6 +118,7 @@
         }
       },
       "Size": "Size",
+      "PowerPool": "Power Pool",
       "PowerDie": "Power Die",
       "Type": "Organization Type",
       "Specialization": "Organization Specialization"

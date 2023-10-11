@@ -6,7 +6,7 @@
   .actor.organization input[type="number"] {
     font-family: var(--labelFont); }
   .actor.organization .header {
-    flex: 0 0 100px;
+    flex: 0 0 104px;
     padding-bottom: 2px;
     border-bottom: var(--groove5e);
     margin-bottom: 2px; }
@@ -25,7 +25,8 @@
       font-size: 24px; }
   .actor.organization .body {
     flex: 0 0 250px;
-    padding-top: 2px; }
+    padding-top: 2px;
+    --body-row-height: 50px; }
     .actor.organization .body h2 {
       flex: 0 0 40px;
       border: none;
@@ -34,6 +35,10 @@
     .actor.organization .body input[type="number"] {
       text-align: center;
       font-size: 24px; }
+    .actor.organization .body .label {
+      text-align: center;
+      font-size: 28px;
+      line-height: var(--body-row-height); }
     .actor.organization .body .skills {
       flex: 0 0 210px;
       border-right: var(--groove5e); }
@@ -42,9 +47,6 @@
       .actor.organization .body .skills input {
         flex: 0 0 60px; }
       .actor.organization .body .skills .label {
-        text-align: center;
-        font-size: 28px;
-        line-height: 60px;
         border-left: var(--groove5e); }
     .actor.organization .body .powerPool {
       flex: 1; }
@@ -54,9 +56,6 @@
       .actor.organization .body .defenses div:nth-child(even) {
         background-color: rgba(0, 0, 0, 0.05); }
       .actor.organization .body .defenses .label {
-        text-align: center;
-        font-size: 28px;
-        line-height: 60px;
         border-right: var(--groove5e); }
       .actor.organization .body .defenses .value {
         flex: 0 0 60px; }
@@ -66,14 +65,34 @@
         height: 100%;
         border: none; }
       .actor.organization .body .defenses .powerDie {
-        max-height: 60px;
+        max-height: var(--body-row-height);
         padding-right: 16px; }
       .actor.organization .body .defenses .level {
         font-size: 20px;
         font-family: var(--labelFont);
         text-align: center; }
   .actor.organization .footer {
-    flex: 0 0 200px; }
+    flex: 1;
+    border-top: var(--groove5e); }
+    .actor.organization .footer .footerHeader h3 {
+      font-family: var(--labelFont);
+      font-size: 32px; }
+    .actor.organization .footer .footerHeader a {
+      flex: 0 0 30px;
+      font-size: 30px; }
+    .actor.organization .footer .powers,
+    .actor.organization .footer .features {
+      padding: 2px 5px; }
+    .actor.organization .footer .powersList,
+    .actor.organization .footer .featuresList {
+      list-style: none;
+      padding: 0;
+      margin: 0; }
+      .actor.organization .footer .powersList li,
+      .actor.organization .footer .featuresList li {
+        padding: 2px 0; }
+    .actor.organization .footer .features {
+      border-left: var(--groove5e); }
 
 .actor.warfare {
   --groove5e: 2px groove #eeede0;
@@ -105,7 +124,8 @@
           height: 60px;
           border: none; }
         .actor.warfare .header .description .id input {
-          font-size: 32px; }
+          font-size: 32px;
+          font-family: var(--labelFont); }
       .actor.warfare .header .description .tags .commander .label {
         flex: 0 0;
         line-height: 20px;

@@ -7,7 +7,7 @@
     font-family: var(--labelFont);
   }
   .header {
-    flex: 0 0 100px;
+    flex: 0 0 104px;
     padding-bottom: 2px;
     border-bottom: var(--groove5e);
     margin-bottom: 2px;
@@ -32,6 +32,7 @@
   .body {
     flex: 0 0 250px;
     padding-top: 2px;
+    --body-row-height: 50px;
     h2 {
       flex: 0 0 40px;
       border: none;
@@ -41,6 +42,11 @@
     input[type="number"] {
       text-align: center;
       font-size: 24px;
+    }
+    .label {
+      text-align: center;
+      font-size: 28px;
+      line-height: var(--body-row-height);
     }
     .skills {
       flex: 0 0 210px;
@@ -52,9 +58,6 @@
         flex: 0 0 60px;
       }
       .label {
-        text-align: center;
-        font-size: 28px;
-        line-height: 60px;
         border-left: var(--groove5e);
       }
     }
@@ -68,9 +71,6 @@
         background-color: rgba(0, 0, 0, 0.05);
       }
       .label {
-        text-align: center;
-        font-size: 28px;
-        line-height: 60px;
         border-right: var(--groove5e);
       }
       .value {
@@ -83,7 +83,7 @@
         border: none;
       }
       .powerDie {
-        max-height: 60px;
+        max-height: var(--body-row-height);
         padding-right: 16px;
       }
       .level {
@@ -94,6 +94,33 @@
     }
   }
   .footer {
-    flex: 0 0 200px;
+    flex: 1;
+    border-top: var(--groove5e);
+    .footerHeader {
+      h3 {
+        font-family: var(--labelFont);
+        font-size: 32px;
+      }
+      a {
+        flex: 0 0 30px;
+        font-size: 30px;
+      }
+    }
+    .powers,
+    .features {
+      padding: 2px 5px;
+    }
+    .powersList,
+    .featuresList {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      li {
+        padding: 2px 0;
+      }
+    }
+    .features {
+      border-left: var(--groove5e);
+    }
   }
 }
