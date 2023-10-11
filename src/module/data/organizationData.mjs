@@ -131,7 +131,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
   }
 
   /**
-   * @returns {string}
+   * @returns {number} The number of sides on the power die
    */
   get powerDie() {
     return CONFIG.KNW.CHOICES.SIZE[this.size].powerDie;
@@ -166,5 +166,13 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
     )
 
     return sorted;
+  }
+
+  async rollPowerDie() {
+    console.log(this)
+  }
+
+  async rollSkillTest(target) {
+    console.log(target)
   }
 }

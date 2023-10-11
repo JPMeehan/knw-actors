@@ -65,4 +65,40 @@ export default class OrganizationSheet extends ActorSheet {
   get powerDieIMG() {
     return CONFIG.KNW.CHOICES.SIZE[this.actor.system.size].diePath;
   }
+
+  activateListeners(html) {
+    html.on("click", ".powerDie.rollable", {actor: this.actor}, this._rollPowerDie)
+    html.on("click", ".skills .label.rollable", {actor: this.actor}, this._rollStat)
+    html.on("click", "a.item-edit", {actor: this.actor}, this._editPowerFeature)
+  }
+
+  async _rollPowerDie(event) {
+    event.data.actor.system.rollPowerDie()
+  }
+
+  async _rollStat(event) {
+    const stat = event.currentTarget.dataset.target;
+    event.data.actor.system.rollSkillTest(stat);
+    // const path = "system." + stat;
+    // const label = game.i18n.localize(`KNW.Warfare.Statistics.${stat}.long`);
+    // const prof = 2
+    // const roll = game.dnd5e.dice.d20Roll({
+    //   parts: ["@stat", "@prof"],
+    //   data: {
+    //     stat: foundry.utils.getProperty(event.data.actor, path),
+    //     prof
+    //   },
+    //   title: game.i18n.format("KNW.Warfare.Statistics.Test", { stat: label }),
+    //   event,
+    //   // messageData: {
+    //   //   speaker: ChatMessage.getSpeaker({ actor: event.data.actor }),
+    //   // },
+    // });
+    // console.log(await roll);
+  }
+
+  async _editPowerFeature(event) {
+    const target = event.currentTarget.dataset.target;
+    console.log(target)
+  }
 }

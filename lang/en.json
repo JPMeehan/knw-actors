@@ -117,6 +117,12 @@
           "3": "Booming"
         }
       },
+      "Features": {
+        "Label": "Features"
+      },
+      "Powers": {
+        "Label": "Powers"
+      },
       "Size": "Size",
       "PowerPool": "Power Pool",
       "PowerDie": "Power Die",
