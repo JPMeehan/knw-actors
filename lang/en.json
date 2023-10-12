@@ -121,11 +121,13 @@
         "Label": "Features"
       },
       "Powers": {
-        "Label": "Powers"
+        "Label": "Powers",
+        "Die": "Power Die",
+        "RollFlavor": "Rolls their power die",
+        "Roll": "Roll Power Die",
+        "Pool": "Power Pool"
       },
       "Size": "Size",
-      "PowerPool": "Power Pool",
-      "PowerDie": "Power Die",
       "Type": "Organization Type",
       "Specialization": "Organization Specialization"
     },

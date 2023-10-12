@@ -174,8 +174,17 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
     return sorted;
   }
 
-  async rollPowerDie() {
-    console.log(this);
+  /**
+   *
+   * @param {string} id The ID of the actor rolling their power die
+   */
+  async rollPowerDie(id) {
+    const roll = new Roll("1d@powerDie", { powerDie: this.powerDie });
+    await roll.toMessage({
+      speaker: { actor: id },
+      flavor: game.i18n.localize("KNW.Organization.Powers.RollFlavor"),
+    });
+    this.parent.update({ [`system.powerPool.${id}`]: roll.total });
   }
 
   async rollSkillTest(target) {

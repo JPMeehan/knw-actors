@@ -59,6 +59,9 @@
       }
       .label {
         border-left: var(--groove5e);
+        &.rollable {
+          cursor: pointer;
+        }
       }
     }
     .powerPool {
@@ -78,11 +81,14 @@
           flex: 1;
           overflow-wrap: anywhere;
         }
-        .value {
+        .powerDie {
           flex: 0 0 27px;
           text-align: right;
           padding: 0 4px 0 2px;
           border-left: var(--groove5e);
+          &.rollable {
+            cursor: pointer;
+          }
         }
         .edit {
           flex: 0 0 56px;

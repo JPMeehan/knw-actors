@@ -37,21 +37,27 @@
       {{#each skills}}
         <div class="skill flexrow">
           {{numberInput this.value name=(concat "system." @key)}}
-          <div class="rollable label" data-target="{{@key}}">
+          <div 
+            class="label {{#if @root.editable}} rollable {{/if}}" 
+            data-target="{{@key}}"
+          >
             {{this.label}}
           </div>
         </div>
       {{/each}}
     </div>
     <div class="powerPool">
-      <h2>{{localize "KNW.Organization.PowerPool"}}</h2>
+      <h2>{{localize "KNW.Organization.Powers.Pool"}}</h2>
       <ol class="powerPoolList">
         {{#each powerPool}}
           <li class="flexrow" data-id="{{this.id}}">
             <div class="name">
               {{this.name}}
             </div>
-            <div class="value">
+            <div
+              class="powerDie {{#if @root.editable}} rollable {{/if}}"
+              data-tooltip="{{localize 'KNW.Organization.Powers.Roll'}}"
+            >
               {{this.value}}
             </div>
             <div class="edit flexrow">
@@ -71,9 +77,9 @@
         </div>
         {{numberInput system.size class="value" name="system.size" max=5 min=1}}
         <img
-          class="powerDie rollable"
+          class="powerDie"
           src="{{powerDieIMG}}"
-          data-tooltip="{{localize 'KNW.Organization.PowerDie'}}"
+          data-tooltip="{{localize 'KNW.Organization.Power.Die'}}"
         />
       </div>
       {{#each defenses}}

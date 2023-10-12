@@ -48,6 +48,8 @@
         flex: 0 0 60px; }
       .actor.organization .body .skills .label {
         border-left: var(--groove5e); }
+        .actor.organization .body .skills .label.rollable {
+          cursor: pointer; }
     .actor.organization .body .powerPool {
       flex: 1; }
       .actor.organization .body .powerPool .powerPoolList {
@@ -62,11 +64,13 @@
         .actor.organization .body .powerPool .powerPoolList .name {
           flex: 1;
           overflow-wrap: anywhere; }
-        .actor.organization .body .powerPool .powerPoolList .value {
+        .actor.organization .body .powerPool .powerPoolList .powerDie {
           flex: 0 0 27px;
           text-align: right;
           padding: 0 4px 0 2px;
           border-left: var(--groove5e); }
+          .actor.organization .body .powerPool .powerPoolList .powerDie.rollable {
+            cursor: pointer; }
         .actor.organization .body .powerPool .powerPoolList .edit {
           flex: 0 0 56px;
           border-left: var(--groove5e); }

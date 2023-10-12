@@ -78,7 +78,9 @@ export default class OrganizationSheet extends ActorSheet {
     });
   }
 
+  /** @override */
   activateListeners(html) {
+    super.activateListeners(html);
     html.on(
       "click",
       ".powerDie.rollable",
@@ -100,7 +102,7 @@ export default class OrganizationSheet extends ActorSheet {
   }
 
   async #rollPowerDie(event) {
-    event.data.actor.system.rollPowerDie();
+    event.data.actor.system.rollPowerDie(this.parentElement.dataset.id);
   }
 
   async #rollStat(event) {
