@@ -60,7 +60,10 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
         level: new fields.NumberField({
           required: true,
           initial: 0,
-          choices: Array.from(CONFIG.KNW.CHOICES.COMMUNICATIONS, level => level.value),
+          choices: Array.from(
+            CONFIG.KNW.CHOICES.COMMUNICATIONS,
+            (level) => level.value
+          ),
         }),
       }),
       rlv: new fields.SchemaField({
@@ -73,7 +76,10 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
         level: new fields.NumberField({
           required: true,
           initial: 0,
-          choices: Array.from(CONFIG.KNW.CHOICES.RESOLVE, level => level.value),
+          choices: Array.from(
+            CONFIG.KNW.CHOICES.RESOLVE,
+            (level) => level.value
+          ),
         }),
       }),
       rsc: new fields.SchemaField({
@@ -86,7 +92,10 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
         level: new fields.NumberField({
           required: true,
           initial: 0,
-          choices: Array.from(CONFIG.KNW.CHOICES.RESOURCES, level => level.value),
+          choices: Array.from(
+            CONFIG.KNW.CHOICES.RESOURCES,
+            (level) => level.value
+          ),
         }),
       }),
       size: new fields.NumberField({
@@ -138,11 +147,11 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
   }
 
   get sortedPowers() {
-    return this.#sortMap(this.powers)
+    return this.#sortMap(this.powers);
   }
 
   get sortedFeatures() {
-    return this.#sortMap(this.features)
+    return this.#sortMap(this.features);
   }
 
   /**
@@ -152,27 +161,24 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
    */
   #sortMap(target) {
     const entries = Object.entries(target);
-    
-    entries.sort((a,b) => {
-        return a.sort - b.sort;
-      }
-    )
 
-    const sorted = Array.from(entries, 
-      ([mapID, entry]) => ({
-        mapID, 
-        ...entry
-      })
-    )
+    entries.sort((a, b) => {
+      return a.sort - b.sort;
+    });
+
+    const sorted = Array.from(entries, ([mapID, entry]) => ({
+      mapID,
+      ...entry,
+    }));
 
     return sorted;
   }
 
   async rollPowerDie() {
-    console.log(this)
+    console.log(this);
   }
 
   async rollSkillTest(target) {
-    console.log(target)
+    console.log(target);
   }
 }

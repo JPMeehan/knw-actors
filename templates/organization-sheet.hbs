@@ -45,11 +45,23 @@
     </div>
     <div class="powerPool">
       <h2>{{localize "KNW.Organization.PowerPool"}}</h2>
-      <div class="flexcol">
-        {{#each system.powerPool}}
-          <p>DIE</p>
+      <ol class="powerPoolList">
+        {{#each powerPool}}
+          <li class="flexrow" data-id="{{this.id}}">
+            <div class="name">
+              {{this.name}}
+            </div>
+            <div class="value">
+              {{this.value}}
+            </div>
+            <div class="edit flexrow">
+              <a class="add"><i class="fas fa-plus"></i></a>
+              <a class="subtract"><i class="fas fa-minus"></i></a>
+              <a class="delete"><i class="fas fa-trash"></i></a>
+            </div>
+          </li>
         {{/each}}
-      </div>
+      </ol>
     </div>
     <div class="defenses flexcol">
       <h2>{{localize "KNW.Organization.Defenses.Label"}}</h2>

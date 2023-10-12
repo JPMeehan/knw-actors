@@ -42,22 +42,23 @@ export default class OrganizationSheet extends ActorSheet {
           label: game.i18n.localize("KNW.Organization.Defenses.com.Label"),
           level: this.actor.system.com.level,
           score: this.actor.system.com.score,
-          choices: CONFIG.KNW.CHOICES.COMMUNICATIONS
+          choices: CONFIG.KNW.CHOICES.COMMUNICATIONS,
         },
         rlv: {
           label: game.i18n.localize("KNW.Organization.Defenses.rlv.Label"),
           level: this.actor.system.rlv.level,
           score: this.actor.system.rlv.score,
-          choices: CONFIG.KNW.CHOICES.RESOLVE
+          choices: CONFIG.KNW.CHOICES.RESOLVE,
         },
         rsc: {
           label: game.i18n.localize("KNW.Organization.Defenses.rsc.Label"),
           level: this.actor.system.rsc.level,
           score: this.actor.system.rsc.score,
-          choices: CONFIG.KNW.CHOICES.RESOURCES
+          choices: CONFIG.KNW.CHOICES.RESOURCES,
         },
       },
       powerDieIMG: this.powerDieIMG,
+      powerPool: this.getMemberPowerPool(),
     };
     return context;
   }
@@ -66,17 +67,43 @@ export default class OrganizationSheet extends ActorSheet {
     return CONFIG.KNW.CHOICES.SIZE[this.actor.system.size].diePath;
   }
 
+  getMemberPowerPool() {
+    return Object.entries(this.actor.system.powerPool).map(([id, value]) => {
+      const actor = game.actors.get(id);
+      return {
+        id: id,
+        name: actor?.name,
+        value,
+      };
+    });
+  }
+
   activateListeners(html) {
-    html.on("click", ".powerDie.rollable", {actor: this.actor}, this._rollPowerDie)
-    html.on("click", ".skills .label.rollable", {actor: this.actor}, this._rollStat)
-    html.on("click", "a.item-edit", {actor: this.actor}, this._editPowerFeature)
+    html.on(
+      "click",
+      ".powerDie.rollable",
+      { actor: this.actor },
+      this.#rollPowerDie
+    );
+    html.on(
+      "click",
+      ".skills .label.rollable",
+      { actor: this.actor },
+      this.#rollStat
+    );
+    html.on(
+      "click",
+      "a.item-edit",
+      { actor: this.actor },
+      this.#editPowerFeature
+    );
   }
 
-  async _rollPowerDie(event) {
-    event.data.actor.system.rollPowerDie()
+  async #rollPowerDie(event) {
+    event.data.actor.system.rollPowerDie();
   }
 
-  async _rollStat(event) {
+  async #rollStat(event) {
     const stat = event.currentTarget.dataset.target;
     event.data.actor.system.rollSkillTest(stat);
     // const path = "system." + stat;
@@ -97,8 +124,8 @@ export default class OrganizationSheet extends ActorSheet {
     // console.log(await roll);
   }
 
-  async _editPowerFeature(event) {
+  async #editPowerFeature(event) {
     const target = event.currentTarget.dataset.target;
-    console.log(target)
+    console.log(target);
   }
 }

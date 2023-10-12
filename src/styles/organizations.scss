@@ -63,6 +63,35 @@
     }
     .powerPool {
       flex: 1;
+      .powerPoolList {
+        height: calc(100% - 40px - 0.5rem - 0.5em);
+        padding: 0;
+        li {
+          padding: 0 3px;
+          font-size: 16px;
+          line-height: 26px;
+          &:nth-child(odd) {
+            background-color: rgba(0, 0, 0, 0.05);
+          }
+        }
+        .name {
+          flex: 1;
+          overflow-wrap: anywhere;
+        }
+        .value {
+          flex: 0 0 27px;
+          text-align: right;
+          padding: 0 4px 0 2px;
+          border-left: var(--groove5e);
+        }
+        .edit {
+          flex: 0 0 56px;
+          border-left: var(--groove5e);
+          a {
+            padding-left: 4px;
+          }
+        }
+      }
     }
     .defenses {
       border-left: var(--groove5e);
