@@ -106,9 +106,8 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
       powerPool: new MappingField(
         new fields.NumberField({
           required: true,
-          nullable: false,
-          initial: 4,
-          integer: true,
+          nullable: true,
+          initial: null,
           max: 12,
           min: 0,
         }),

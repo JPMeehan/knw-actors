@@ -60,11 +60,13 @@
             >
               {{this.value}}
             </div>
+            {{#if @root.editable}}
             <div class="edit flexrow">
               <a class="add"><i class="fas fa-plus"></i></a>
               <a class="subtract"><i class="fas fa-minus"></i></a>
               <a class="delete"><i class="fas fa-trash"></i></a>
             </div>
+            {{/if}}
           </li>
         {{/each}}
       </ol>
@@ -79,7 +81,7 @@
         <img
           class="powerDie"
           src="{{powerDieIMG}}"
-          data-tooltip="{{localize 'KNW.Organization.Power.Die'}}"
+          data-tooltip="{{localize 'KNW.Organization.Powers.Die'}}"
         />
       </div>
       {{#each defenses}}

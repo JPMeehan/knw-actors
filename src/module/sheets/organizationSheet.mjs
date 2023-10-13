@@ -89,6 +89,24 @@ export default class OrganizationSheet extends ActorSheet {
     );
     html.on(
       "click",
+      ".powerPoolList .edit .add",
+      { actor: this.actor, action: "add" },
+      this.#updatePowerDie
+    );
+    html.on(
+      "click",
+      ".powerPoolList .edit .subtract",
+      { actor: this.actor, action: "subtract" },
+      this.#updatePowerDie
+    );
+    html.on(
+      "click",
+      ".powerPoolList .edit .delete",
+      { actor: this.actor, action: "delete" },
+      this.#updatePowerDie
+    );
+    html.on(
+      "click",
       ".skills .label.rollable",
       { actor: this.actor },
       this.#rollStat
@@ -103,6 +121,32 @@ export default class OrganizationSheet extends ActorSheet {
 
   async #rollPowerDie(event) {
     event.data.actor.system.rollPowerDie(this.parentElement.dataset.id);
+  }
+
+  async #updatePowerDie(event) {
+    const thisActor = event.data.actor;
+    const actorID = this.parentElement.parentElement.dataset.id;
+    const powerPool = thisActor.system.powerPool;
+    const currentValue = powerPool[actorID];
+    switch (event.data.action) {
+      case "add":
+        thisActor.update({
+          ["system.powerPool." + actorID]: Math.min(
+            currentValue + 1,
+            thisActor.system.powerDie
+          ),
+        });
+        break;
+      case "subtract":
+        thisActor.update({
+          ["system.powerPool." + actorID]: Math.max(currentValue - 1, 0),
+        });
+        break;
+      case "delete":
+        thisActor.update({
+          ["system.powerPool." + actorID]: null,
+        });
+    }
   }
 
   async #rollStat(event) {
