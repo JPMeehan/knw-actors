@@ -82,7 +82,14 @@
         "dip": "Diplomacy",
         "esp": "Espionage",
         "lor": "Lore",
-        "opr": "Operations"
+        "opr": "Operations",
+        "Warning": {
+          "Prof": "No proficiency bonus found",
+          "noActors": "You don't have any characters that are also a part of this organization"
+        },
+        "Test": "{skill} Test",
+        "RollTest": "Roll Test",
+        "ChooseActor": "Choose an actor to roll with"
       },
       "Defenses": {
         "Label": "Defenses",

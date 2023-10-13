@@ -174,7 +174,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
   }
 
   /**
-   *
+   * Rolls and sets the given actor's power die in the pool
    * @param {string} id The ID of the actor rolling their power die
    */
   async rollPowerDie(id) {
@@ -186,7 +186,24 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
     this.parent.update({ [`system.powerPool.${id}`]: roll.total });
   }
 
-  async rollSkillTest(target) {
-    console.log(target);
+  /**
+   * Rolls a given skill using an actor's proficiency bonus
+   * @param {string} skill    The abbreviation of the skill being rolled
+   * @param {Actor5e} actor   The actor making the skill test
+   */
+  async rollSkillTest(skill, actor) {
+    const prof = foundry.utils.getProperty(actor, "system.attributes.prof");
+    if (!prof)
+      ui.notifications.warn(
+        game.i18n.localize("KNW.Organization.Skills.Warning.Prof")
+      );
+    console.log(skill);
+    const label = game.i18n.localize("KNW.Organization.Skills." + skill);
+    const roll = game.dnd5e.dice.d20Roll({
+      parts: ["@skill", "@prof"],
+      data: { skill: this[skill], prof },
+      title: game.i18n.format("KNW.Organization.Skills.Test", { skill: label }),
+    });
+    console.log(await roll);
   }
 }

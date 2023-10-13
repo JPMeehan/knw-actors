@@ -109,7 +109,7 @@ export default class OrganizationSheet extends ActorSheet {
       "click",
       ".skills .label.rollable",
       { actor: this.actor },
-      this.#rollStat
+      this.#rollSkill
     );
     html.on(
       "click",
@@ -149,25 +149,38 @@ export default class OrganizationSheet extends ActorSheet {
     }
   }
 
-  async #rollStat(event) {
+  async #rollSkill(event) {
     const stat = event.currentTarget.dataset.target;
-    event.data.actor.system.rollSkillTest(stat);
-    // const path = "system." + stat;
-    // const label = game.i18n.localize(`KNW.Warfare.Statistics.${stat}.long`);
-    // const prof = 2
-    // const roll = game.dnd5e.dice.d20Roll({
-    //   parts: ["@stat", "@prof"],
-    //   data: {
-    //     stat: foundry.utils.getProperty(event.data.actor, path),
-    //     prof
-    //   },
-    //   title: game.i18n.format("KNW.Warfare.Statistics.Test", { stat: label }),
-    //   event,
-    //   // messageData: {
-    //   //   speaker: ChatMessage.getSpeaker({ actor: event.data.actor }),
-    //   // },
-    // });
-    // console.log(await roll);
+    const thisActor = event.data.actor;
+    const validActors = Object.keys(thisActor.system.powerPool).reduce(
+      (accumulator, actorID) => {
+        const actor = game.actors.get(actorID);
+        if (actor.isOwner) accumulator.push(actor);
+      },
+      []
+    );
+    if (validActors.length === 0)
+      ui.notifications.warn("KNW.Organization.Skills.Warning.noActors");
+    else if (validActors.length === 1)
+      thisActor.system.rollSkillTest(stat, validActors[0]);
+    else {
+      const chosenActor = Dialog.wait({
+        title: game.i18n.localize("KNW.Organization.Skills.ChooseActor"),
+        content: `<select id='orgChooseActor'>
+        ${Handlebars.helpers.selectOptions()}
+        </select>`,
+        buttons: {
+          default: {
+            icon: '<i class="fa-solid fa-floppy-disk"></i>',
+            label: game.i18n.localize("KNW.Organization.Skills.RollTest"),
+            callback: (html) => {
+              return game.actors.get(html.find("#orgChooseActor")[0].value);
+            },
+          },
+        },
+      });
+      if (chosenActor) thisActor.system.rollSkillTest(stat, chosenActor);
+    }
   }
 
   async #editPowerFeature(event) {
