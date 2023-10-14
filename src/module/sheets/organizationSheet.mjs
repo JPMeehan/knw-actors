@@ -68,12 +68,22 @@ export default class OrganizationSheet extends ActorSheet {
   }
 
   getMemberPowerPool() {
-    return Object.entries(this.actor.system.powerPool).map(([id, value]) => {
+    return Object.entries(this.actor.system.powerPool).map(([id, current]) => {
       const actor = game.actors.get(id);
+      let value = current;
+      let tooltip = "KNW.Organization.Powers.Take";
+      if (value === undefined) {
+        value = '<i class="fa-solid fa-dice-d20"></i>';
+        tooltip = "KNW.Organization.Powers.Roll";
+      } else if (value === null) {
+        value = '<i class="fa-solid fa-repeat"></i>';
+        tooltip = "KNW.Organization.Powers.Rest";
+      }
       return {
         id: id,
         name: actor?.name,
         value,
+        tooltip: game.i18n.localize(tooltip),
       };
     });
   }

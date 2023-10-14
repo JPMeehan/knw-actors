@@ -58,11 +58,8 @@
               {{this.name}}
             </div>
             {{#if @root.editable}}
-              <div
-                class="powerDie rollable"
-                data-tooltip="{{localize 'KNW.Organization.Powers.Roll'}}"
-              >
-                <a>{{this.value}}</a>
+              <div class="powerDie rollable" data-tooltip="{{this.tooltip}}">
+                <a>{{{this.value}}}</a>
               </div>
               <div
                 class="edit flexrow"
@@ -71,11 +68,8 @@
                 <a class="subtract"><i class="fas fa-minus"></i></a>
               </div>
             {{else}}
-              <div
-                class="powerDie"
-                data-tooltip="{{localize 'KNW.Organization.Powers.Roll'}}"
-              >
-                <a>{{this.value}}</a>
+              <div class="powerDie" data-tooltip="{{this.tooltip}}">
+                <a>{{{this.value}}}</a>
               </div>
             {{/if}}
           </li>

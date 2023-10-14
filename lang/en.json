@@ -132,6 +132,8 @@
         "Die": "Power Die",
         "RollFlavor": "Rolls their power die",
         "Roll": "Roll Power Die",
+        "Take": "Take Power Die",
+        "Rest": "Extended Rest",
         "Decrement": "Decrement Power Die",
         "Pool": "Power Pool",
         "SetValue": "Set Die Value",
