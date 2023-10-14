@@ -95,7 +95,7 @@ export default class OrganizationSheet extends ActorSheet {
       "click",
       ".powerDie.rollable",
       { actor: this.actor },
-      this.#rollPowerDie
+      this.#cyclePowerDie
     );
     html.on(
       "click",
@@ -116,7 +116,33 @@ export default class OrganizationSheet extends ActorSheet {
       this.#editPowerFeature
     );
 
-    const powerPoolItemMenu = [
+    ContextMenu.create(this, html, ".powerPoolMember", this.powerPoolItemMenu);
+  }
+
+  async #cyclePowerDie(event) {
+    const memberID = this.parentElement.dataset.id;
+    const thisActor = event.data.actor;
+    switch (thisActor.system.powerPool[memberID]) {
+      case undefined: // Available
+        thisActor.system.rollPowerDie(memberID);
+        break;
+      case null: // Extended Rest
+        thisActor.update({ [`system.powerPool.${memberID}`]: undefined });
+        break;
+      default:
+        thisActor.update({ [`system.powerPool.${memberID}`]: null });
+    }
+  }
+
+  async #updatePowerDie(event) {
+    event.data.actor.system.editPowerDie(
+      this.parentElement.parentElement.dataset.id,
+      event.data.action
+    );
+  }
+
+  static get powerPoolItemMenu() {
+    return [
       {
         name: game.i18n.localize("KNW.Organization.Powers.SetValue"),
         icon: "<i class='fas fa-edit'></i>",
@@ -136,19 +162,6 @@ export default class OrganizationSheet extends ActorSheet {
         callback: (html) => this.deleteMember(html, this.actor),
       },
     ];
-
-    ContextMenu.create(this, html, ".powerPoolMember", powerPoolItemMenu);
-  }
-
-  async #rollPowerDie(event) {
-    event.data.actor.system.rollPowerDie(this.parentElement.dataset.id);
-  }
-
-  async #updatePowerDie(event) {
-    event.data.actor.system.editPowerDie(
-      this.parentElement.parentElement.dataset.id,
-      event.data.action
-    );
   }
 
   async setDieValue(html, thisActor) {
