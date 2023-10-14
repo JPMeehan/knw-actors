@@ -105,11 +105,11 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
       }),
       powerPool: new MappingField(
         new fields.NumberField({
-          required: false,
+          required: true,
           nullable: true,
-          initial: undefined,
+          initial: null,
           max: 12,
-          min: 1,
+          min: 0,
         }),
         {}
       ),
@@ -187,32 +187,14 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
   }
 
   /**
-   * Updates the power die for the provided actor
-   * @param {string} actorID  The ID of the actor who's power die is being updated
-   * @param {string} mode     Add, subtract, or delete
+   * Decrements the power die for the provided actor
+   * @param {string} actorID  The ID of the organization member
    */
-  async editPowerDie(actorID, mode) {
+  async decrementPowerDie(actorID) {
     const currentValue = this.powerPool[actorID];
-    switch (mode) {
-      case "add":
-        this.parent.update({
-          ["system.powerPool." + actorID]: Math.min(
-            currentValue + 1,
-            this.powerDie
-          ),
-        });
-        break;
-      case "subtract":
-        const newValue = Math.max(currentValue - 1, 0);
-        this.parent.update({
-          ["system.powerPool." + actorID]: newValue ? newValue : null,
-        });
-        break;
-      case "delete":
-        this.parent.update({
-          ["system.powerPool." + actorID]: null,
-        });
-    }
+    this.parent.update({
+      ["system.powerPool." + actorID]: Math.max(currentValue - 1, 0),
+    });
   }
 
   /**

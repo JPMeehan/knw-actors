@@ -72,10 +72,10 @@ export default class OrganizationSheet extends ActorSheet {
       const actor = game.actors.get(id);
       let value = current;
       let tooltip = "KNW.Organization.Powers.Take";
-      if (value === undefined) {
+      if (value === null) {
         value = '<i class="fa-solid fa-dice-d20"></i>';
         tooltip = "KNW.Organization.Powers.Roll";
-      } else if (value === null) {
+      } else if (value === 0) {
         value = '<i class="fa-solid fa-repeat"></i>';
         tooltip = "KNW.Organization.Powers.Rest";
       }
@@ -122,15 +122,17 @@ export default class OrganizationSheet extends ActorSheet {
   async #cyclePowerDie(event) {
     const memberID = this.parentElement.dataset.id;
     const thisActor = event.data.actor;
-    switch (thisActor.system.powerPool[memberID]) {
-      case undefined: // Available
+    const currentValue = thisActor.system.powerPool[memberID];
+    switch (currentValue) {
+      case null: // Available
         thisActor.system.rollPowerDie(memberID);
         break;
-      case null: // Extended Rest
-        thisActor.update({ [`system.powerPool.${memberID}`]: undefined });
+      case 0: // Take Extended Rest
+        thisActor.update({ [`system.powerPool.${memberID}`]: null });
         break;
       default:
-        thisActor.update({ [`system.powerPool.${memberID}`]: null });
+        // ChatMessage.create()
+        thisActor.update({ [`system.powerPool.${memberID}`]: 0 });
     }
   }
 
