@@ -87,9 +87,11 @@
           "Prof": "No proficiency bonus found",
           "noActors": "You don't have any characters that are also a part of this organization"
         },
-        "Test": "{skill} Test",
-        "RollTest": "Roll Test",
-        "ChooseActor": "Choose an actor to roll with"
+        "Test": {
+          "Title": "{skill} Test",
+          "Roll": "Roll Test",
+          "DialogContent": "Choose an actor to roll with:"
+        }
       },
       "Defenses": {
         "Label": "Defenses",
@@ -137,13 +139,17 @@
         "Rest": "Extended Rest",
         "Decrement": "Decrement Power Die",
         "Pool": "Power Pool",
-        "SetValue": "Set Die Value",
-        "ViewMember": "View Member",
-        "RemoveMember": "Remove Member",
-        "RemoveMemberMessage": "Removed {memberName} from {organization}",
-        "NoPackActors": "Organizations members cannot be stored in a compendium",
-        "NoProf": "Organization Members must have a proficiency bonus",
-        "AlreadyMember": "That actor is already a member of the organization!"
+        "ContextMenu": {
+          "SetValue": "Set Die Value",
+          "ViewMember": "View Member",
+          "RemoveMember": "Remove Member"
+        },
+        "Warning": {
+          "RemoveMember": "Removed {memberName} from {organization}",
+          "NoPackActors": "Organizations members cannot be stored in a compendium",
+          "NoProf": "Organization Members must have a proficiency bonus",
+          "AlreadyMember": "That actor is already a member of the organization!"
+        }
       },
       "Size": "Size",
       "Type": "Organization Type",

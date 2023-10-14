@@ -94,19 +94,19 @@ export default class OrganizationSheet extends ActorSheet {
     // owners permissions of the organization
     const dropActor = await fromUuid(data.uuid);
     if (dropActor.pack) {
-      ui.notifications.warn("KNW.Organization.Powers.NoPackActors", {
+      ui.notifications.warn("KNW.Organization.Powers.Warning.NoPackActors", {
         localize: true,
       });
       return false;
     } else if (
       !foundry.utils.getProperty(dropActor, "system.attributes.prof")
     ) {
-      ui.notifications.warn("KNW.Organization.Powers.NoProf", {
+      ui.notifications.warn("KNW.Organization.Powers.Warning.NoProf", {
         localize: true,
       });
       return false;
     } else if (this.actor.system.powerPool.hasOwnProperty(dropActor.id)) {
-      ui.notifications.warn("KNW.Organization.Powers.AlreadyMember", {
+      ui.notifications.warn("KNW.Organization.Powers.Warning.AlreadyMember", {
         localize: true,
       });
       return false;
@@ -119,6 +119,12 @@ export default class OrganizationSheet extends ActorSheet {
     super.activateListeners(html);
     html.on(
       "click",
+      ".skills .label.rollable",
+      { actor: this.actor },
+      this.#rollSkill
+    );
+    html.on(
+      "click",
       ".powerDie.rollable",
       { actor: this.actor },
       this.#cyclePowerDie
@@ -126,14 +132,8 @@ export default class OrganizationSheet extends ActorSheet {
     html.on(
       "click",
       ".powerPoolList .edit .subtract",
-      { actor: this.actor, action: "subtract" },
-      this.#updatePowerDie
-    );
-    html.on(
-      "click",
-      ".skills .label.rollable",
       { actor: this.actor },
-      this.#rollSkill
+      this.#decrementPowerDie
     );
     html.on(
       "click",
@@ -148,13 +148,10 @@ export default class OrganizationSheet extends ActorSheet {
   async #rollSkill(event) {
     const stat = event.currentTarget.dataset.target;
     const thisActor = event.data.actor;
-    const validActors = Object.keys(thisActor.system.powerPool).reduce(
-      (accumulator, actorID) => {
-        const actor = game.actors.get(actorID);
-        if (actor.isOwner) accumulator.push(actor);
-      },
-      []
-    );
+    const validActors = Object.keys(thisActor.system.powerPool)
+      .map((memberID) => game.actors.get(memberID))
+      .filter((member) => member.isOwner);
+    console.log(validActors);
     if (validActors.length === 0)
       ui.notifications.warn("KNW.Organization.Skills.Warning.noActors", {
         localize: true,
@@ -162,17 +159,28 @@ export default class OrganizationSheet extends ActorSheet {
     else if (validActors.length === 1)
       thisActor.system.rollSkillTest(stat, validActors[0]);
     else {
-      const chosenActor = Dialog.wait({
-        title: game.i18n.localize("KNW.Organization.Skills.ChooseActor"),
-        content: `<select id='orgChooseActor'>
-        ${Handlebars.helpers.selectOptions()}
-        </select>`,
+      const selectOptions = validActors.map((actor) => ({
+        memberID: actor.id,
+        memberName: actor.name,
+      }));
+      const chosenActor = await Dialog.wait({
+        title: game.i18n.format("KNW.Organization.Skills.Test.Title", {
+          skill: game.i18n.localize("KNW.Organization.Skills." + stat),
+        }),
+        content: `<label class="orgChooseActorLabel">${game.i18n.localize(
+          "KNW.Organization.Skills.Test.DialogContent"
+        )}
+        <select class='orgChooseActor'>
+        ${Handlebars.helpers.selectOptions(selectOptions, {
+          hash: { nameAttr: "memberID", labelAttr: "memberName" },
+        })}
+        </select></label>`,
         buttons: {
           default: {
             icon: '<i class="fa-solid fa-floppy-disk"></i>',
-            label: game.i18n.localize("KNW.Organization.Skills.RollTest"),
+            label: game.i18n.localize("KNW.Organization.Skills.Test.Roll"),
             callback: (html) => {
-              return game.actors.get(html.find("#orgChooseActor")[0].value);
+              return game.actors.get(html.find(".orgChooseActor")[0].value);
             },
           },
         },
@@ -204,7 +212,7 @@ export default class OrganizationSheet extends ActorSheet {
     }
   }
 
-  async #updatePowerDie(event) {
+  async #decrementPowerDie(event) {
     event.data.actor.system.decrementPowerDie(
       this.parentElement.parentElement.dataset.id
     );
@@ -213,19 +221,25 @@ export default class OrganizationSheet extends ActorSheet {
   get powerPoolItemMenu() {
     return [
       {
-        name: game.i18n.localize("KNW.Organization.Powers.SetValue"),
+        name: game.i18n.localize(
+          "KNW.Organization.Powers.ContextMenu.SetValue"
+        ),
         icon: "<i class='fas fa-edit'></i>",
         condition: this.isEditable,
         callback: (html) => this.setDieValue(html, this.actor),
       },
       {
-        name: game.i18n.localize("KNW.Organization.Powers.ViewMember"),
+        name: game.i18n.localize(
+          "KNW.Organization.Powers.ContextMenu.ViewMember"
+        ),
         icon: "<i class='fas fa-eye'></i>",
         condition: true,
         callback: this.viewMember,
       },
       {
-        name: game.i18n.localize("KNW.Organization.Powers.RemoveMember"),
+        name: game.i18n.localize(
+          "KNW.Organization.Powers.ContextMenu.RemoveMember"
+        ),
         icon: "<i class='fas fa-trash'></i>",
         condition: this.isEditable,
         callback: (html) => this.deleteMember(html, this.actor),
@@ -269,7 +283,7 @@ export default class OrganizationSheet extends ActorSheet {
     const memberID = html[0].dataset.id;
     const member = game.actors.get(memberID);
     ui.notifications.info(
-      game.i18n.format("KNW.Organization.Powers.RemoveMemberMessage", {
+      game.i18n.format("KNW.Organization.Powers.Warning.RemoveMember", {
         memberName: member.name,
         organization: thisActor.name,
       })

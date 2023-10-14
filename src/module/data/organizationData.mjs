@@ -208,12 +208,13 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
       ui.notifications.warn("KNW.Organization.Skills.Warning.Prof", {
         localize: true,
       });
-    console.log(skill);
     const label = game.i18n.localize("KNW.Organization.Skills." + skill);
     const roll = game.dnd5e.dice.d20Roll({
       parts: ["@skill", "@prof"],
       data: { skill: this[skill], prof },
-      title: game.i18n.format("KNW.Organization.Skills.Test", { skill: label }),
+      title: game.i18n.format("KNW.Organization.Skills.Test.Title", {
+        skill: label,
+      }),
     });
     console.log(await roll);
   }
