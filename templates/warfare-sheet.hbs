@@ -69,7 +69,9 @@
     {{#each coreStats}}
       <div class="coreStat flexcol">
         <div class="label {{this.rollable}}" data-target="{{@key}}">
-            {{this.label}}
+            {{#if this.rollable}}<a>{{this.label}}</a>
+            {{else}}{{this.label}}
+            {{/if}}
         </div>
         <div class="value">
           <input type="number" name="system.{{@key}}" value={{this.value}} />

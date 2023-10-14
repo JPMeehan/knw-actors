@@ -37,12 +37,15 @@
       {{#each skills}}
         <div class="skill flexrow">
           {{numberInput this.value name=(concat "system." @key)}}
-          <div 
-            class="label {{#if @root.editable}} rollable{{/if}}" 
-            data-target="{{@key}}"
-          >
-            {{this.label}}
-          </div>
+          {{#if @root.editable}}
+            <div class="label rollable" data-target="{{@key}}">
+              <a>{{this.label}}</a>
+            </div>
+          {{else}}
+            <div class="label" data-target="{{@key}}">
+              {{this.label}}
+            </div>
+          {{/if}}
         </div>
       {{/each}}
     </div>
@@ -54,18 +57,25 @@
             <div class="name">
               {{this.name}}
             </div>
-            <div
-              class="powerDie {{#if @root.editable}} rollable {{/if}}"
-              data-tooltip="{{localize 'KNW.Organization.Powers.Roll'}}"
-            >
-              <a>{{this.value}}</a>
-            </div>
             {{#if @root.editable}}
+              <div
+                class="powerDie rollable"
+                data-tooltip="{{localize 'KNW.Organization.Powers.Roll'}}"
+              >
+                <a>{{this.value}}</a>
+              </div>
               <div
                 class="edit flexrow"
                 data-tooltip="{{localize 'KNW.Organization.Powers.Decrement'}}"
               >
                 <a class="subtract"><i class="fas fa-minus"></i></a>
+              </div>
+            {{else}}
+              <div
+                class="powerDie"
+                data-tooltip="{{localize 'KNW.Organization.Powers.Roll'}}"
+              >
+                <a>{{this.value}}</a>
               </div>
             {{/if}}
           </li>
