@@ -203,8 +203,16 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
    * @param {Actor5e} actor   The actor making the skill test
    */
   async rollSkillTest(skill, actor) {
-    const prof = foundry.utils.getProperty(actor, "system.attributes.prof");
-    if (!prof)
+    const isProf = CONFIG.KNW.OrgSkills[skill].reduce(
+      (accumulator, currentValue) => {
+        return actor.system.skills[currentValue].proficient >= 1 || accumulator;
+      },
+      false
+    );
+    const prof = isProf
+      ? foundry.utils.getProperty(actor, "system.attributes.prof")
+      : 0;
+    if (prof === undefined)
       ui.notifications.warn("KNW.Organization.Skills.Warning.Prof", {
         localize: true,
       });
@@ -215,6 +223,11 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
       title: game.i18n.format("KNW.Organization.Skills.Test.Title", {
         skill: label,
       }),
+      messageData: {
+        speaker: {
+          actor,
+        },
+      },
     });
     console.log(await roll);
   }

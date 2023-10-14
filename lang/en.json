@@ -90,7 +90,8 @@
         "Test": {
           "Title": "{skill} Test",
           "Roll": "Roll Test",
-          "DialogContent": "Choose an actor to roll with:"
+          "DialogContent": "Choose an actor to roll with:",
+          "AssocSkills": "Associated Character Skills:"
         }
       },
       "Defenses": {

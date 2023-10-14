@@ -151,7 +151,6 @@ export default class OrganizationSheet extends ActorSheet {
     const validActors = Object.keys(thisActor.system.powerPool)
       .map((memberID) => game.actors.get(memberID))
       .filter((member) => member.isOwner);
-    console.log(validActors);
     if (validActors.length === 0)
       ui.notifications.warn("KNW.Organization.Skills.Warning.noActors", {
         localize: true,
@@ -163,6 +162,17 @@ export default class OrganizationSheet extends ActorSheet {
         memberID: actor.id,
         memberName: actor.name,
       }));
+      const assocSkillsText = CONFIG.KNW.OrgSkills[stat].reduce(
+        (accumulator, currentValue, currentIndex, array) => {
+          return (
+            accumulator +
+            " " +
+            CONFIG.DND5E.skills[currentValue].label +
+            (currentIndex === array.length - 1 ? "" : ",")
+          );
+        },
+        game.i18n.localize("KNW.Organization.Skills.Test.AssocSkills")
+      );
       const chosenActor = await Dialog.wait({
         title: game.i18n.format("KNW.Organization.Skills.Test.Title", {
           skill: game.i18n.localize("KNW.Organization.Skills." + stat),
@@ -174,7 +184,8 @@ export default class OrganizationSheet extends ActorSheet {
         ${Handlebars.helpers.selectOptions(selectOptions, {
           hash: { nameAttr: "memberID", labelAttr: "memberName" },
         })}
-        </select></label>`,
+        </select></label>
+        <p><em>${assocSkillsText}</em></p>`,
         buttons: {
           default: {
             icon: '<i class="fa-solid fa-floppy-disk"></i>',
