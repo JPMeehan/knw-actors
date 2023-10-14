@@ -38,7 +38,7 @@
         <div class="skill flexrow">
           {{numberInput this.value name=(concat "system." @key)}}
           <div 
-            class="label {{#if @root.editable}} rollable {{/if}}" 
+            class="label {{#if @root.editable}} rollable{{/if}}" 
             data-target="{{@key}}"
           >
             {{this.label}}
@@ -50,7 +50,7 @@
       <h2>{{localize "KNW.Organization.Powers.Pool"}}</h2>
       <ol class="powerPoolList">
         {{#each powerPool}}
-          <li class="flexrow" data-id="{{this.id}}">
+          <li class="powerPoolMember flexrow" data-id="{{this.id}}">
             <div class="name">
               {{this.name}}
             </div>
@@ -58,14 +58,15 @@
               class="powerDie {{#if @root.editable}} rollable {{/if}}"
               data-tooltip="{{localize 'KNW.Organization.Powers.Roll'}}"
             >
-              {{this.value}}
+              <a>{{this.value}}</a>
             </div>
             {{#if @root.editable}}
-            <div class="edit flexrow">
-              <a class="add"><i class="fas fa-plus"></i></a>
-              <a class="subtract"><i class="fas fa-minus"></i></a>
-              <a class="delete"><i class="fas fa-trash"></i></a>
-            </div>
+              <div
+                class="edit flexrow"
+                data-tooltip="{{localize 'KNW.Organization.Powers.Decrement'}}"
+              >
+                <a class="subtract"><i class="fas fa-minus"></i></a>
+              </div>
             {{/if}}
           </li>
         {{/each}}

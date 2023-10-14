@@ -72,8 +72,7 @@
           .actor.organization .body .powerPool .powerPoolList .powerDie.rollable {
             cursor: pointer; }
         .actor.organization .body .powerPool .powerPoolList .edit {
-          flex: 0 0 56px;
-          border-left: var(--groove5e); }
+          flex: 0 0 20px; }
           .actor.organization .body .powerPool .powerPoolList .edit a {
             padding-left: 4px; }
     .actor.organization .body .defenses {

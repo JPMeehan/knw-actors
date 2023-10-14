@@ -132,7 +132,11 @@
         "Die": "Power Die",
         "RollFlavor": "Rolls their power die",
         "Roll": "Roll Power Die",
-        "Pool": "Power Pool"
+        "Decrement": "Decrement Power Die",
+        "Pool": "Power Pool",
+        "SetValue": "Set Die Value",
+        "ViewMember": "View Member",
+        "RemoveMember": "Remove Member"
       },
       "Size": "Size",
       "Type": "Organization Type",

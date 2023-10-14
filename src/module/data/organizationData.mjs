@@ -105,11 +105,11 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
       }),
       powerPool: new MappingField(
         new fields.NumberField({
-          required: true,
+          required: false,
           nullable: true,
-          initial: null,
+          initial: undefined,
           max: 12,
-          min: 0,
+          min: 1,
         }),
         {}
       ),
@@ -175,15 +175,44 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
 
   /**
    * Rolls and sets the given actor's power die in the pool
-   * @param {string} id The ID of the actor rolling their power die
+   * @param {string} actorID The ID of the actor rolling their power die
    */
-  async rollPowerDie(id) {
+  async rollPowerDie(actorID) {
     const roll = new Roll("1d@powerDie", { powerDie: this.powerDie });
     await roll.toMessage({
-      speaker: { actor: id },
+      speaker: { actor: actorID },
       flavor: game.i18n.localize("KNW.Organization.Powers.RollFlavor"),
     });
-    this.parent.update({ [`system.powerPool.${id}`]: roll.total });
+    this.parent.update({ [`system.powerPool.${actorID}`]: roll.total });
+  }
+
+  /**
+   * Updates the power die for the provided actor
+   * @param {string} actorID  The ID of the actor who's power die is being updated
+   * @param {string} mode     Add, subtract, or delete
+   */
+  async editPowerDie(actorID, mode) {
+    const currentValue = this.powerPool[actorID];
+    switch (mode) {
+      case "add":
+        this.parent.update({
+          ["system.powerPool." + actorID]: Math.min(
+            currentValue + 1,
+            this.powerDie
+          ),
+        });
+        break;
+      case "subtract":
+        const newValue = Math.max(currentValue - 1, 0);
+        this.parent.update({
+          ["system.powerPool." + actorID]: newValue ? newValue : null,
+        });
+        break;
+      case "delete":
+        this.parent.update({
+          ["system.powerPool." + actorID]: null,
+        });
+    }
   }
 
   /**

@@ -89,20 +89,8 @@ export default class OrganizationSheet extends ActorSheet {
     );
     html.on(
       "click",
-      ".powerPoolList .edit .add",
-      { actor: this.actor, action: "add" },
-      this.#updatePowerDie
-    );
-    html.on(
-      "click",
       ".powerPoolList .edit .subtract",
       { actor: this.actor, action: "subtract" },
-      this.#updatePowerDie
-    );
-    html.on(
-      "click",
-      ".powerPoolList .edit .delete",
-      { actor: this.actor, action: "delete" },
       this.#updatePowerDie
     );
     html.on(
@@ -117,6 +105,29 @@ export default class OrganizationSheet extends ActorSheet {
       { actor: this.actor },
       this.#editPowerFeature
     );
+
+    const powerPoolItemMenu = [
+      {
+        name: game.i18n.localize("KNW.Organization.Powers.SetValue"),
+        icon: "<i class='fas fa-edit'></i>",
+        condition: this.isEditable,
+        callback: (html) => this.setDieValue(html, this.actor),
+      },
+      {
+        name: game.i18n.localize("KNW.Organization.Powers.ViewMember"),
+        icon: "<i class='fas fa-eye'></i>",
+        condition: true,
+        callback: this.viewMember,
+      },
+      {
+        name: game.i18n.localize("KNW.Organization.Powers.RemoveMember"),
+        icon: "<i class='fas fa-trash'></i>",
+        condition: this.isEditable,
+        callback: (html) => this.deleteMember(html, this.actor),
+      },
+    ];
+
+    ContextMenu.create(this, html, ".powerPoolMember", powerPoolItemMenu);
   }
 
   async #rollPowerDie(event) {
@@ -124,29 +135,49 @@ export default class OrganizationSheet extends ActorSheet {
   }
 
   async #updatePowerDie(event) {
-    const thisActor = event.data.actor;
-    const actorID = this.parentElement.parentElement.dataset.id;
-    const powerPool = thisActor.system.powerPool;
-    const currentValue = powerPool[actorID];
-    switch (event.data.action) {
-      case "add":
-        thisActor.update({
-          ["system.powerPool." + actorID]: Math.min(
-            currentValue + 1,
-            thisActor.system.powerDie
-          ),
-        });
-        break;
-      case "subtract":
-        thisActor.update({
-          ["system.powerPool." + actorID]: Math.max(currentValue - 1, 0),
-        });
-        break;
-      case "delete":
-        thisActor.update({
-          ["system.powerPool." + actorID]: null,
-        });
-    }
+    event.data.actor.system.editPowerDie(
+      this.parentElement.parentElement.dataset.id,
+      event.data.action
+    );
+  }
+
+  async setDieValue(html, thisActor) {
+    const memberID = html[0].dataset.id;
+
+    new Dialog({
+      title: game.i18n.localize("KNW.Organization.Powers.SetValue"),
+      content: Handlebars.helpers.numberInput(
+        thisActor.system.powerPool[memberID],
+        { hash: { class: "powerDie", min: 0, max: thisActor.system.powerDie } }
+      ).string,
+      buttons: {
+        default: {
+          icon: '<i class="fa-solid fa-floppy-disk"></i>',
+          label: game.i18n.localize("Save Changes"),
+          callback: (dialogHTML) => {
+            const newValue = dialogHTML.find(".powerDie")[0].value
+              ? dialogHTML.find(".powerDie")[0].value
+              : null;
+            thisActor.update({
+              [`system.powerPool.${memberID}`]: newValue,
+            });
+          },
+        },
+      },
+    }).render(true);
+  }
+
+  async viewMember(html) {
+    const memberID = html[0].dataset.id;
+    const member = game.actors.get(memberID);
+    member.sheet.render(true);
+  }
+
+  async deleteMember(html, thisActor) {
+    const memberID = html[0].dataset.id;
+    const member = game.actors.get(memberID);
+    ui.notifications.info(`Removed ${member.name} from ${thisActor.name}`);
+    // thisActor.update({ [`system.powerPool.-=${memberID}`]: null });
   }
 
   async #rollSkill(event) {
