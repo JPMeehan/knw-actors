@@ -88,6 +88,32 @@ export default class OrganizationSheet extends ActorSheet {
     });
   }
 
+  async _onDropActor(event, data) {
+    // Returns false if user does not have
+    super._onDropActor(event, data);
+    // owners permissions of the organization
+    const dropActor = await fromUuid(data.uuid);
+    if (dropActor.pack) {
+      ui.notifications.warn("KNW.Organization.Powers.NoPackActors", {
+        localize: true,
+      });
+      return false;
+    } else if (
+      !foundry.utils.getProperty(dropActor, "system.attributes.prof")
+    ) {
+      ui.notifications.warn("KNW.Organization.Powers.NoProf", {
+        localize: true,
+      });
+      return false;
+    } else if (this.actor.system.powerPool.hasOwnProperty(dropActor.id)) {
+      ui.notifications.warn("KNW.Organization.Powers.AlreadyMember", {
+        localize: true,
+      });
+      return false;
+    }
+    this.actor.update({ [`system.powerPool.${dropActor.id}`]: null });
+  }
+
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
@@ -117,6 +143,42 @@ export default class OrganizationSheet extends ActorSheet {
     );
 
     ContextMenu.create(this, html, ".powerPoolMember", this.powerPoolItemMenu);
+  }
+
+  async #rollSkill(event) {
+    const stat = event.currentTarget.dataset.target;
+    const thisActor = event.data.actor;
+    const validActors = Object.keys(thisActor.system.powerPool).reduce(
+      (accumulator, actorID) => {
+        const actor = game.actors.get(actorID);
+        if (actor.isOwner) accumulator.push(actor);
+      },
+      []
+    );
+    if (validActors.length === 0)
+      ui.notifications.warn("KNW.Organization.Skills.Warning.noActors", {
+        localize: true,
+      });
+    else if (validActors.length === 1)
+      thisActor.system.rollSkillTest(stat, validActors[0]);
+    else {
+      const chosenActor = Dialog.wait({
+        title: game.i18n.localize("KNW.Organization.Skills.ChooseActor"),
+        content: `<select id='orgChooseActor'>
+        ${Handlebars.helpers.selectOptions()}
+        </select>`,
+        buttons: {
+          default: {
+            icon: '<i class="fa-solid fa-floppy-disk"></i>',
+            label: game.i18n.localize("KNW.Organization.Skills.RollTest"),
+            callback: (html) => {
+              return game.actors.get(html.find("#orgChooseActor")[0].value);
+            },
+          },
+        },
+      });
+      if (chosenActor) thisActor.system.rollSkillTest(stat, chosenActor);
+    }
   }
 
   async #cyclePowerDie(event) {
@@ -206,42 +268,13 @@ export default class OrganizationSheet extends ActorSheet {
   async deleteMember(html, thisActor) {
     const memberID = html[0].dataset.id;
     const member = game.actors.get(memberID);
-    ui.notifications.info(`Removed ${member.name} from ${thisActor.name}`);
-    // thisActor.update({ [`system.powerPool.-=${memberID}`]: null });
-  }
-
-  async #rollSkill(event) {
-    const stat = event.currentTarget.dataset.target;
-    const thisActor = event.data.actor;
-    const validActors = Object.keys(thisActor.system.powerPool).reduce(
-      (accumulator, actorID) => {
-        const actor = game.actors.get(actorID);
-        if (actor.isOwner) accumulator.push(actor);
-      },
-      []
+    ui.notifications.info(
+      game.i18n.format("KNW.Organization.Powers.RemoveMemberMessage", {
+        memberName: member.name,
+        organization: thisActor.name,
+      })
     );
-    if (validActors.length === 0)
-      ui.notifications.warn("KNW.Organization.Skills.Warning.noActors");
-    else if (validActors.length === 1)
-      thisActor.system.rollSkillTest(stat, validActors[0]);
-    else {
-      const chosenActor = Dialog.wait({
-        title: game.i18n.localize("KNW.Organization.Skills.ChooseActor"),
-        content: `<select id='orgChooseActor'>
-        ${Handlebars.helpers.selectOptions()}
-        </select>`,
-        buttons: {
-          default: {
-            icon: '<i class="fa-solid fa-floppy-disk"></i>',
-            label: game.i18n.localize("KNW.Organization.Skills.RollTest"),
-            callback: (html) => {
-              return game.actors.get(html.find("#orgChooseActor")[0].value);
-            },
-          },
-        },
-      });
-      if (chosenActor) thisActor.system.rollSkillTest(stat, chosenActor);
-    }
+    thisActor.update({ [`system.powerPool.-=${memberID}`]: null });
   }
 
   async #editPowerFeature(event) {

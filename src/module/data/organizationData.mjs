@@ -205,9 +205,9 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
   async rollSkillTest(skill, actor) {
     const prof = foundry.utils.getProperty(actor, "system.attributes.prof");
     if (!prof)
-      ui.notifications.warn(
-        game.i18n.localize("KNW.Organization.Skills.Warning.Prof")
-      );
+      ui.notifications.warn("KNW.Organization.Skills.Warning.Prof", {
+        localize: true,
+      });
     console.log(skill);
     const label = game.i18n.localize("KNW.Organization.Skills." + skill);
     const roll = game.dnd5e.dice.d20Roll({

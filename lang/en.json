@@ -139,7 +139,11 @@
         "Pool": "Power Pool",
         "SetValue": "Set Die Value",
         "ViewMember": "View Member",
-        "RemoveMember": "Remove Member"
+        "RemoveMember": "Remove Member",
+        "RemoveMemberMessage": "Removed {memberName} from {organization}",
+        "NoPackActors": "Organizations members cannot be stored in a compendium",
+        "NoProf": "Organization Members must have a proficiency bonus",
+        "AlreadyMember": "That actor is already a member of the organization!"
       },
       "Size": "Size",
       "Type": "Organization Type",
