@@ -131,19 +131,24 @@ export default class OrganizationSheet extends ActorSheet {
         thisActor.update({ [`system.powerPool.${memberID}`]: null });
         break;
       default:
-        // ChatMessage.create()
+        ChatMessage.create({
+          user: game.user,
+          content: game.i18n.format("KNW.Organization.Powers.TakeValue", {
+            currentValue,
+            orgName: thisActor.name,
+          }),
+        });
         thisActor.update({ [`system.powerPool.${memberID}`]: 0 });
     }
   }
 
   async #updatePowerDie(event) {
-    event.data.actor.system.editPowerDie(
-      this.parentElement.parentElement.dataset.id,
-      event.data.action
+    event.data.actor.system.decrementPowerDie(
+      this.parentElement.parentElement.dataset.id
     );
   }
 
-  static get powerPoolItemMenu() {
+  get powerPoolItemMenu() {
     return [
       {
         name: game.i18n.localize("KNW.Organization.Powers.SetValue"),

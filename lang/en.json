@@ -133,6 +133,7 @@
         "RollFlavor": "Rolls their power die",
         "Roll": "Roll Power Die",
         "Take": "Take Power Die",
+        "TakeValue": "Takes a power die with a value of {currentValue} from the power pool of {orgName}",
         "Rest": "Extended Rest",
         "Decrement": "Decrement Power Die",
         "Pool": "Power Pool",
