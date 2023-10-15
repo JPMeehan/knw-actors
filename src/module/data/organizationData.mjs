@@ -203,7 +203,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
    * @param {Actor5e} actor   The actor making the skill test
    */
   async rollSkillTest(skill, actor) {
-    const isProf = CONFIG.KNW.OrgSkills[skill].reduce(
+    const isProf = CONFIG.KNW.ORGANIZATION.assocSkills[skill].reduce(
       (accumulator, currentValue) => {
         return actor.system.skills[currentValue].proficient >= 1 || accumulator;
       },

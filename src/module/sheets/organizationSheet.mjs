@@ -119,6 +119,13 @@ export default class OrganizationSheet extends ActorSheet {
     super.activateListeners(html);
     html.on(
       "click",
+      ".body .editScore>a",
+      { actor: this.actor },
+      this.#editScore
+    );
+
+    html.on(
+      "click",
       ".skills .label.rollable",
       { actor: this.actor },
       this.#rollSkill
@@ -145,6 +152,11 @@ export default class OrganizationSheet extends ActorSheet {
     ContextMenu.create(this, html, ".powerPoolMember", this.powerPoolItemMenu);
   }
 
+  async #editScore(event) {
+    const thisActor = event.data.actor;
+    const score = event.currentTarget.dataset.target;
+  }
+
   async #rollSkill(event) {
     const stat = event.currentTarget.dataset.target;
     const thisActor = event.data.actor;
@@ -164,7 +176,7 @@ export default class OrganizationSheet extends ActorSheet {
         memberName: actor.name,
       }));
 
-      const assocSkillsText = CONFIG.KNW.OrgSkills[stat].reduce(
+      const assocSkillsText = CONFIG.KNW.ORGANIZATION.assocSkills[stat].reduce(
         (accumulator, currentValue, currentIndex, array) => {
           return (
             accumulator +

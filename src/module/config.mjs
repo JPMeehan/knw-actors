@@ -79,12 +79,18 @@ const KNWCONFIG = {
         5: { powerDie: 12, diePath: "modules/knw-actors/assets/dice/d12.svg" },
       },
     },
-    OrgSkills: {
-      // Related skills for each Organization Skill
-      dip: ["ins", "per"],
-      esp: ["inv", "ste"],
-      lor: ["arc", "his", "rel"],
-      opr: ["ath", "ins"],
+    ORGANIZATION: {
+      assocSkills: {
+        // Related skills for each Organization Skill
+        dip: ["ins", "per"],
+        esp: ["inv", "ste"],
+        lor: ["arc", "his", "rel"],
+        opr: ["ath", "ins"],
+      },
+      tracks: {
+        skill: [-1, 0, 1, 2, 2, 3, 3, 3, 4],
+        defense: [10, 11, 12, 13, 14, 14, 15, 15, 16, 16, 17, 17, 17, 18],
+      },
     },
   },
 };
