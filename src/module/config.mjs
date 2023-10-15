@@ -44,7 +44,7 @@ const KNWCONFIG = {
         4: "Ⅳ",
         5: "Ⅴ",
       },
-      COMMUNICATIONS: [
+      com: [
         { value: -3, label: "KNW.Organization.Defenses.com.-3" },
         { value: -2, label: "KNW.Organization.Defenses.com.-2" },
         { value: -1, label: "KNW.Organization.Defenses.com.-1" },
@@ -53,7 +53,7 @@ const KNWCONFIG = {
         { value: 2, label: "KNW.Organization.Defenses.com.2" },
         { value: 3, label: "KNW.Organization.Defenses.com.3" },
       ],
-      RESOLVE: [
+      rlv: [
         { value: -3, label: "KNW.Organization.Defenses.rlv.-3" },
         { value: -2, label: "KNW.Organization.Defenses.rlv.-2" },
         { value: -1, label: "KNW.Organization.Defenses.rlv.-1" },
@@ -62,7 +62,7 @@ const KNWCONFIG = {
         { value: 2, label: "KNW.Organization.Defenses.rlv.2" },
         { value: 3, label: "KNW.Organization.Defenses.rlv.3" },
       ],
-      RESOURCES: [
+      rsc: [
         { value: -3, label: "KNW.Organization.Defenses.rsc.-3" },
         { value: -2, label: "KNW.Organization.Defenses.rsc.-2" },
         { value: -1, label: "KNW.Organization.Defenses.rsc.-1" },

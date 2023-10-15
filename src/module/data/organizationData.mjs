@@ -26,76 +26,80 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
         type: new fields.StringField({ textSearch: true }),
         specialization: new fields.StringField({ textSearch: true }),
       }),
-      dip: new fields.NumberField({
-        required: true,
-        initial: -1,
-        nullable: false,
-        integer: true,
-      }),
-      esp: new fields.NumberField({
-        required: true,
-        initial: -1,
-        nullable: false,
-        integer: true,
-      }),
-      lor: new fields.NumberField({
-        required: true,
-        initial: -1,
-        nullable: false,
-        integer: true,
-      }),
-      opr: new fields.NumberField({
-        required: true,
-        initial: -1,
-        nullable: false,
-        integer: true,
-      }),
-      com: new fields.SchemaField({
-        score: new fields.NumberField({
+      skills: new fields.SchemaField({
+        dip: new fields.NumberField({
           required: true,
-          initial: 10,
+          initial: -1,
           nullable: false,
           integer: true,
         }),
-        level: new fields.NumberField({
+        esp: new fields.NumberField({
           required: true,
-          initial: 0,
-          choices: Array.from(
-            CONFIG.KNW.CHOICES.COMMUNICATIONS,
-            (level) => level.value
-          ),
-        }),
-      }),
-      rlv: new fields.SchemaField({
-        score: new fields.NumberField({
-          required: true,
-          initial: 10,
+          initial: -1,
           nullable: false,
           integer: true,
         }),
-        level: new fields.NumberField({
+        lor: new fields.NumberField({
           required: true,
-          initial: 0,
-          choices: Array.from(
-            CONFIG.KNW.CHOICES.RESOLVE,
-            (level) => level.value
-          ),
-        }),
-      }),
-      rsc: new fields.SchemaField({
-        score: new fields.NumberField({
-          required: true,
-          initial: 10,
+          initial: -1,
           nullable: false,
           integer: true,
         }),
-        level: new fields.NumberField({
+        opr: new fields.NumberField({
           required: true,
-          initial: 0,
-          choices: Array.from(
-            CONFIG.KNW.CHOICES.RESOURCES,
-            (level) => level.value
-          ),
+          initial: -1,
+          nullable: false,
+          integer: true,
+        }),
+      }),
+      defenses: new fields.SchemaField({
+        com: new fields.SchemaField({
+          score: new fields.NumberField({
+            required: true,
+            initial: 10,
+            nullable: false,
+            integer: true,
+          }),
+          level: new fields.NumberField({
+            required: true,
+            initial: 0,
+            choices: Array.from(
+              CONFIG.KNW.CHOICES.COMMUNICATIONS,
+              (level) => level.value
+            ),
+          }),
+        }),
+        rlv: new fields.SchemaField({
+          score: new fields.NumberField({
+            required: true,
+            initial: 10,
+            nullable: false,
+            integer: true,
+          }),
+          level: new fields.NumberField({
+            required: true,
+            initial: 0,
+            choices: Array.from(
+              CONFIG.KNW.CHOICES.RESOLVE,
+              (level) => level.value
+            ),
+          }),
+        }),
+        rsc: new fields.SchemaField({
+          score: new fields.NumberField({
+            required: true,
+            initial: 10,
+            nullable: false,
+            integer: true,
+          }),
+          level: new fields.NumberField({
+            required: true,
+            initial: 0,
+            choices: Array.from(
+              CONFIG.KNW.CHOICES.RESOURCES,
+              (level) => level.value
+            ),
+          }),
         }),
       }),
       size: new fields.NumberField({
@@ -219,7 +223,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
     const label = game.i18n.localize("KNW.Organization.Skills." + skill);
     const roll = game.dnd5e.dice.d20Roll({
       parts: ["@skill", "@prof"],
-      data: { skill: this[skill], prof },
+      data: { skill: this.skills[skill], prof },
       title: game.i18n.format("KNW.Organization.Skills.Test.Title", {
         skill: label,
       }),
