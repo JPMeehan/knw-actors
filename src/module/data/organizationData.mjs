@@ -27,79 +27,99 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
         specialization: new fields.StringField({ textSearch: true }),
       }),
       skills: new fields.SchemaField({
-        dip: new fields.NumberField({
-          required: true,
-          initial: -1,
-          nullable: false,
-          integer: true,
+        dip: new fields.SchemaField({
+          // value: new fields.NumberField({
+          //   required: true,
+          //   initial: -1,
+          //   nullable: false,
+          //   integer: true,
+          // }),
+          development: this.#developmentField(
+            CONFIG.KNW.ORGANIZATION.tracks.skill
+          ),
         }),
-        esp: new fields.NumberField({
-          required: true,
-          initial: -1,
-          nullable: false,
-          integer: true,
+        esp: new fields.SchemaField({
+          // value: new fields.NumberField({
+          //   required: true,
+          //   initial: -1,
+          //   nullable: false,
+          //   integer: true,
+          // }),
+          development: this.#developmentField(
+            CONFIG.KNW.ORGANIZATION.tracks.skill
+          ),
         }),
-        lor: new fields.NumberField({
-          required: true,
-          initial: -1,
-          nullable: false,
-          integer: true,
+        lor: new fields.SchemaField({
+          // value: new fields.NumberField({
+          //   required: true,
+          //   initial: -1,
+          //   nullable: false,
+          //   integer: true,
+          // }),
+          development: this.#developmentField(
+            CONFIG.KNW.ORGANIZATION.tracks.skill
+          ),
         }),
-        opr: new fields.NumberField({
-          required: true,
-          initial: -1,
-          nullable: false,
-          integer: true,
+        opr: new fields.SchemaField({
+          // value: new fields.NumberField({
+          //   required: true,
+          //   initial: -1,
+          //   nullable: false,
+          //   integer: true,
+          // }),
+          development: this.#developmentField(
+            CONFIG.KNW.ORGANIZATION.tracks.skill
+          ),
         }),
       }),
       defenses: new fields.SchemaField({
         com: new fields.SchemaField({
-          score: new fields.NumberField({
-            required: true,
-            initial: 10,
-            nullable: false,
-            integer: true,
-          }),
+          // score: new fields.NumberField({
+          //   required: true,
+          //   initial: 10,
+          //   nullable: false,
+          //   integer: true,
+          // }),
           level: new fields.NumberField({
             required: true,
             initial: 0,
-            choices: Array.from(
-              CONFIG.KNW.CHOICES.COMMUNICATIONS,
-              (level) => level.value
-            ),
+            choices: Array.from(CONFIG.KNW.CHOICES.com, (level) => level.value),
           }),
+          development: this.#developmentField(
+            CONFIG.KNW.ORGANIZATION.tracks.defense
+          ),
         }),
         rlv: new fields.SchemaField({
-          score: new fields.NumberField({
-            required: true,
-            initial: 10,
-            nullable: false,
-            integer: true,
-          }),
+          // score: new fields.NumberField({
+          //   required: true,
+          //   initial: 10,
+          //   nullable: false,
+          //   integer: true,
+          // }),
           level: new fields.NumberField({
             required: true,
             initial: 0,
-            choices: Array.from(
-              CONFIG.KNW.CHOICES.RESOLVE,
-              (level) => level.value
-            ),
+            choices: Array.from(CONFIG.KNW.CHOICES.rlv, (level) => level.value),
           }),
+          development: this.#developmentField(
+            CONFIG.KNW.ORGANIZATION.tracks.defense
+          ),
         }),
         rsc: new fields.SchemaField({
-          score: new fields.NumberField({
-            required: true,
-            initial: 10,
-            nullable: false,
-            integer: true,
-          }),
+          // score: new fields.NumberField({
+          //   required: true,
+          //   initial: 10,
+          //   nullable: false,
+          //   integer: true,
+          // }),
           level: new fields.NumberField({
             required: true,
             initial: 0,
-            choices: Array.from(
-              CONFIG.KNW.CHOICES.RESOURCES,
-              (level) => level.value
-            ),
+            choices: Array.from(CONFIG.KNW.CHOICES.rsc, (level) => level.value),
           }),
+          development: this.#developmentField(
+            CONFIG.KNW.ORGANIZATION.tracks.defense
+          ),
         }),
       }),
       size: new fields.NumberField({
@@ -143,12 +163,66 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
   }
 
   /**
+   * Creates the data necessary for the various stats
+   * @param {array} track The track for this field
+   */
+  static #developmentField(track) {
+    return new fields.SchemaField({
+      points: new fields.NumberField({
+        initial: 0,
+        nullable: false,
+        min: 0,
+        max: track.length,
+        integer: true,
+      }),
+      start: new fields.NumberField({
+        initial: track[0],
+        nullable: false,
+        min: track[0],
+        max: track.slice(-1),
+      }),
+      spec: new fields.NumberField({ initial: 0, integer: true }),
+    });
+  }
+
+  /**
+   * Prepare data related to this DataModel itself, before any derived data is computed.
+   */
+  prepareBaseData() {
+    for (const skill of this.skills) {
+      skill.value = 0;
+    }
+    for (const def of this.defenses) {
+      def.score = 0;
+    }
+  }
+
+  /**
+   * Apply transformations of derivations to the values of the source data object.
+   * Compute data fields whose values are not stored to the database.
+   */
+  prepareDerivedData() {
+    for (const skill of this.skills) {
+      skill.value +=
+        CONFIG.KNW.ORGANIZATION.tracks.skill[skill.development.points];
+    }
+    for (const def of this.defenses) {
+      def.score +=
+        CONFIG.KNW.ORGANIZATION.tracks.defense[def.development.points] +
+        def.level;
+    }
+  }
+
+  /**
    * @returns {number} The number of sides on the power die
    */
   get powerDie() {
     return CONFIG.KNW.CHOICES.SIZE[this.size].powerDie;
   }
 
+  /**
+   * @returns The sorted object of powers
+   */
   get sortedPowers() {
     return this.#sortMap(this.powers);
   }

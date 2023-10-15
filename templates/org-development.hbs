@@ -1,0 +1,30 @@
+<section class="orgdev flexcol">
+  <div class="header">
+
+  </div>
+  {{#each stats}}
+    <div class="statrange">
+      <div class="statheader">
+        <span class="label">{{this.label}}</span>
+        <input
+          type="number"
+          name={{concat "system." @key ".development.start"}}
+          value={{this.development.start}}
+        />
+
+        <input
+          type="number"
+          name={{concat "system." @key ".development.spec"}}
+          value={{this.development.spec}}
+        />
+      </div>
+      {{rangePicker
+        name=(concat "system." @key ".development.points")
+        value=this.development.points
+        min=0
+        max=this.max
+        step=1
+      }}
+    </div>
+  {{/each}}
+</section>
