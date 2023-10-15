@@ -2,8 +2,7 @@
   --groove5e: 2px groove #eeede0;
   --labelFont: "Modesto Condensed", "Palatino Linotype", serif;
   .label,
-  h2,
-  input[type="number"] {
+  h2 {
     font-family: var(--labelFont);
   }
   .header {
@@ -34,14 +33,19 @@
     padding-top: 2px;
     --body-row-height: 50px;
     h2 {
-      flex: 0 0 40px;
       border: none;
       text-align: center;
       font-size: 36px;
     }
-    input[type="number"] {
+    .editScore {
+      flex: 0 0 25px;
+      font-size: 20px;
+    }
+    .value {
       text-align: center;
       font-size: 24px;
+      line-height: 50px;
+      font-family: var(--labelFont);
     }
     .label {
       text-align: center;
@@ -54,7 +58,7 @@
       div.skill:nth-child(even) {
         background-color: rgba(0, 0, 0, 0.05);
       }
-      input {
+      .value {
         flex: 0 0 60px;
       }
       .label {
@@ -101,7 +105,7 @@
     .defenses {
       border-left: var(--groove5e);
       flex: 0 0 320px;
-      div:nth-child(even) {
+      div.defense:nth-child(even) {
         background-color: rgba(0, 0, 0, 0.05);
       }
       .label {

@@ -2,8 +2,7 @@
   --groove5e: 2px groove #eeede0;
   --labelFont: "Modesto Condensed", "Palatino Linotype", serif; }
   .actor.organization .label,
-  .actor.organization h2,
-  .actor.organization input[type="number"] {
+  .actor.organization h2 {
     font-family: var(--labelFont); }
   .actor.organization .header {
     flex: 0 0 104px;
@@ -28,13 +27,17 @@
     padding-top: 2px;
     --body-row-height: 50px; }
     .actor.organization .body h2 {
-      flex: 0 0 40px;
       border: none;
       text-align: center;
       font-size: 36px; }
-    .actor.organization .body input[type="number"] {
+    .actor.organization .body .editScore {
+      flex: 0 0 25px;
+      font-size: 20px; }
+    .actor.organization .body .value {
       text-align: center;
-      font-size: 24px; }
+      font-size: 24px;
+      line-height: 50px;
+      font-family: var(--labelFont); }
     .actor.organization .body .label {
       text-align: center;
       font-size: 28px;
@@ -44,7 +47,7 @@
       border-right: var(--groove5e); }
       .actor.organization .body .skills div.skill:nth-child(even) {
         background-color: rgba(0, 0, 0, 0.05); }
-      .actor.organization .body .skills input {
+      .actor.organization .body .skills .value {
         flex: 0 0 60px; }
       .actor.organization .body .skills .label {
         border-left: var(--groove5e); }
@@ -78,7 +81,7 @@
     .actor.organization .body .defenses {
       border-left: var(--groove5e);
       flex: 0 0 320px; }
-      .actor.organization .body .defenses div:nth-child(even) {
+      .actor.organization .body .defenses div.defense:nth-child(even) {
         background-color: rgba(0, 0, 0, 0.05); }
       .actor.organization .body .defenses .label {
         border-right: var(--groove5e); }

@@ -33,10 +33,17 @@
   </div>
   <div class="body flexrow">
     <div class="skills flexcol">
-      <h2>{{localize "KNW.Organization.Skills.Label"}}</h2>
+      <div class="skillHeader flexrow">
+        <h2>{{localize "KNW.Organization.Skills.Label"}}</h2>
+        {{#if editable}}
+          <div class="editScore">
+            <a data-target="skills"><i class="fas fa-edit"></i></a>
+          </div>
+        {{/if}}
+      </div>
       {{#each skills}}
         <div class="skill flexrow">
-          {{numberInput this.value name=(concat "system." @key)}}
+          <div class="value">{{numberFormat this.value sign=true}}</div>
           {{#if @root.editable}}
             <div class="label rollable" data-target="{{@key}}">
               <a>{{this.label}}</a>
@@ -77,8 +84,15 @@
       </ol>
     </div>
     <div class="defenses flexcol">
-      <h2>{{localize "KNW.Organization.Defenses.Label"}}</h2>
-      <div class="size flexrow">
+      <div class="defHeader flexrow">
+        <h2>{{localize "KNW.Organization.Defenses.Label"}}</h2>
+        {{#if editable}}
+          <div class="editScore">
+            <a data-target="defenses"><i class="fas fa-edit"></i></a>
+          </div>
+        {{/if}}
+      </div>
+      <div class="defense flexrow">
         <div class="label">
           {{localize "KNW.Organization.Size"}}
         </div>
@@ -94,11 +108,7 @@
           <div class="label">
             {{this.label}}
           </div>
-          {{numberInput
-            this.score
-            class="value"
-            name=(concat "system." @key ".score")
-          }}
+          <div class="value">{{this.score}}</div>
           <select class="level" name="{{concat 'system.' @key '.level'}}">
             {{selectOptions
               this.choices
