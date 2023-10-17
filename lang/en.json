@@ -77,8 +77,8 @@
       "Tier": "Tier"
     },
     "Organization": {
-      "Skills": {
-        "Label": "Skills",
+      "skills": {
+        "label": "Skills",
         "dip": "Diplomacy",
         "esp": "Espionage",
         "lor": "Lore",
@@ -94,8 +94,8 @@
           "AssocSkills": "Associated Character Skills:"
         }
       },
-      "Defenses": {
-        "Label": "Defenses",
+      "defenses": {
+        "label": "Defenses",
         "com": {
           "Label": "Communications",
           "-3": "Broken",

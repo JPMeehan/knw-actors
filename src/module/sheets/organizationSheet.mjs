@@ -24,7 +24,7 @@ export default class OrganizationSheet extends ActorSheet {
       skills: Object.entries(this.actor.system.skills).map(([key, skill]) => {
         return {
           key,
-          label: game.i18n.localize("KNW.Organization.Skills." + key),
+          label: game.i18n.localize("KNW.Organization.skills." + key),
           value: skill.value,
         };
       }),
@@ -33,7 +33,7 @@ export default class OrganizationSheet extends ActorSheet {
           return {
             key,
             label: game.i18n.localize(
-              "KNW.Organization.Defenses." + key + ".Label"
+              "KNW.Organization.defenses." + key + ".Label"
             ),
             level: value.level,
             score: value.score,
@@ -133,9 +133,9 @@ export default class OrganizationSheet extends ActorSheet {
   async #editScore(event) {
     const thisActor = event.data.actor;
     const statGroup = event.currentTarget.dataset.target;
-    console.log(thisActor);
-    console.log(statGroup);
     const context = {
+      title: game.i18n.localize("KNW.Organization.Development.Configure"),
+      statGroup,
       stats: thisActor.system[statGroup],
       max: CONFIG.KNW.ORGANIZATION.tracks[statGroup].length,
     };
@@ -151,7 +151,7 @@ export default class OrganizationSheet extends ActorSheet {
       .filter((member) => member.isOwner);
 
     if (validActors.length === 0)
-      ui.notifications.warn("KNW.Organization.Skills.Warning.noActors", {
+      ui.notifications.warn("KNW.Organization.skills.Warning.noActors", {
         localize: true,
       });
     else if (validActors.length === 1)
@@ -171,15 +171,15 @@ export default class OrganizationSheet extends ActorSheet {
             (currentIndex === array.length - 1 ? "" : ",")
           );
         },
-        game.i18n.localize("KNW.Organization.Skills.Test.AssocSkills")
+        game.i18n.localize("KNW.Organization.skills.Test.AssocSkills")
       );
 
       const chosenActor = await Dialog.wait({
-        title: game.i18n.format("KNW.Organization.Skills.Test.Title", {
-          skill: game.i18n.localize("KNW.Organization.Skills." + stat),
+        title: game.i18n.format("KNW.Organization.skills.Test.Title", {
+          skill: game.i18n.localize("KNW.Organization.skills." + stat),
         }),
         content: `<label class="orgChooseActorLabel">${game.i18n.localize(
-          "KNW.Organization.Skills.Test.DialogContent"
+          "KNW.Organization.skills.Test.DialogContent"
         )}
         <select class='orgChooseActor'>
         ${Handlebars.helpers.selectOptions(selectOptions, {
@@ -190,7 +190,7 @@ export default class OrganizationSheet extends ActorSheet {
         buttons: {
           default: {
             icon: '<i class="fa-solid fa-floppy-disk"></i>',
-            label: game.i18n.localize("KNW.Organization.Skills.Test.Roll"),
+            label: game.i18n.localize("KNW.Organization.skills.Test.Roll"),
             callback: (html) => {
               return game.actors.get(html.find(".orgChooseActor")[0].value);
             },

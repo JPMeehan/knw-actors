@@ -1,6 +1,8 @@
 <form class="orgdev flexcol">
   <div class="header">
-    <h3>{{localize "KNW.Organization.Development.Configure"}}</h3>
+    <h3>{{localize
+        (concat "KNW.Organization." options.statGroup ".label")
+      }}</h3>
   </div>
   {{#each stats}}
     <div class="statrange">
