@@ -25,14 +25,17 @@ export default class OrgDevEditor extends FormApplication {
   /** @inheritdoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
+      classes: ["organization", "orgDev"],
       closeOnSubmit: false,
       submitOnChange: true,
+      width: 360,
     });
   }
 
   /** @inheritdoc */
   async getData(options) {
     const statGroup = this.options.statGroup;
+    const track = CONFIG.KNW.ORGANIZATION.tracks[statGroup];
     const context = {
       title: game.i18n.localize("KNW.Organization.Development.Configure"),
       ...super.getData(options),
@@ -50,7 +53,10 @@ export default class OrgDevEditor extends FormApplication {
           };
         }
       ),
-      max: this.options.max,
+      track,
+      length: CONFIG.KNW.ORGANIZATION.tracks[statGroup].length - 1,
+      min: track[0],
+      max: track.slice(-1)[0],
     };
     return context;
   }

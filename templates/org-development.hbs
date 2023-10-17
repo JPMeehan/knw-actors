@@ -1,31 +1,50 @@
-<form class="orgdev flexcol">
+<form class="flexcol">
   <div class="header">
     <h3>{{localize
         (concat "KNW.Organization." options.statGroup ".label")
       }}</h3>
   </div>
   {{#each stats}}
-    <div class="statrange">
-      <div class="statheader">
-        <span class="label">{{this.label}}</span>
-        <input
-          type="number"
-          name={{concat this.name ".start"}}
-          value={{this.development.start}}
-        />
-        <input
-          type="number"
-          name={{concat this.name ".spec"}}
-          value={{this.development.spec}}
-        />
+    <div class="stat">
+      <div class="statHeader">
+        <h4 class="statName">{{this.label}}</h4>
+        <div class="flexrow">
+          <label class="statStart">
+            {{localize "KNW.Organization.Development.Start"}}
+            <input
+              type="number"
+              name={{concat this.name ".start"}}
+              value={{this.development.start}}
+              min={{@root.min}}
+              max={{@root.max}}
+            />
+          </label>
+          <label class="statSpec">
+            {{localize "KNW.Organization.Development.Spec"}}
+            <input
+              type="number"
+              name={{concat this.name ".spec"}}
+              value={{this.development.spec}}
+            />
+          </label>
+        </div>
       </div>
-      {{rangePicker
-        name=(concat this.name ".points")
-        value=this.development.points
-        min=0
-        max=@root.max
-        step=1
-      }}
+      <div class="flexrow dividers">
+        {{#each @root.track as |value index|}}
+          <div class="box">
+            {{value}}
+          </div>
+        {{/each}}
+      </div>
+      <div class="flexrow statRange">
+        {{rangePicker
+          name=(concat this.name ".points")
+          value=this.development.points
+          min=0
+          max=@root.length
+          step=1
+        }}
+      </div>
     </div>
   {{/each}}
 </form>

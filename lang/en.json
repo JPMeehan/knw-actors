@@ -156,7 +156,9 @@
       "Type": "Organization Type",
       "Specialization": "Organization Specialization",
       "Development": {
-        "Configure": "Configure Development Points"
+        "Configure": "Configure Development Points",
+        "Start": "Starting Value",
+        "Spec": "Specialization Bonus"
       }
     },
     "Sheets": {

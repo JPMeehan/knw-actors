@@ -139,7 +139,6 @@ export default class OrganizationSheet extends ActorSheet {
     const statGroup = event.currentTarget.dataset.target;
     const context = {
       statGroup,
-      max: CONFIG.KNW.ORGANIZATION.tracks[statGroup].length,
     };
     const orgDevEditor = new OrgDevEditor(thisActor, context);
     orgDevEditor.render(true);

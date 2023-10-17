@@ -152,3 +152,37 @@
     }
   }
 }
+
+.organization.orgDev {
+  --labelFont: "Modesto Condensed", "Palatino Linotype", serif;
+  h3 {
+    font-family: var(--labelFont);
+    font-size: 2.25em;
+  }
+  .stat {
+    h4 {
+      font-family: var(--labelFont);
+      font-size: 1.75em;
+    }
+    input[type="number"] {
+      max-width: 30px;
+      text-align: right;
+    }
+    .statHeader {
+      .statSpec {
+        text-align: right;
+      }
+    }
+    .dividers {
+      padding-right: 34px;
+      margin-top: 3px;
+      text-align: center;
+    }
+    .statRange {
+      padding-left: 5px;
+      .range-value {
+        flex: 0 0 30px;
+      }
+    }
+  }
+}
