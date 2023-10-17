@@ -56,17 +56,21 @@ export default class OrganizationSheet extends ActorSheet {
       const actor = game.actors.get(id);
       let value = current;
       let tooltip = "KNW.Organization.Powers.Take";
+      let decrement = `<a class="subtract"><i class="fas fa-minus"></i></a>`;
       if (value === null) {
         value = '<i class="fa-solid fa-dice-d20"></i>';
         tooltip = "KNW.Organization.Powers.Roll";
+        decrement = "";
       } else if (value === 0) {
         value = '<i class="fa-solid fa-repeat"></i>';
         tooltip = "KNW.Organization.Powers.Rest";
+        decrement = "";
       }
       return {
         id: id,
         name: actor?.name,
         value,
+        decrement,
         tooltip: game.i18n.localize(tooltip),
       };
     });

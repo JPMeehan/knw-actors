@@ -263,6 +263,5 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
         },
       },
     });
-    console.log(await roll);
   }
 }

@@ -44,11 +44,17 @@
       {{#each skills}}
         <div class="skill flexrow">
           {{!-- <div class="value">{{numberFormat this.value sign=true}}</div> --}}
-          {{numberInput
+          {{!-- {{numberInput
             this.value
             class="value"
             name=(concat "system.skills." this.key ".value")
-          }}
+          }} --}}
+          <input
+            type="text"
+            value="{{numberFormat this.value sign=true}}"
+            class="value"
+            name="{{concat 'system.skills.' this.key '.value'}}"
+          />
           {{#if @root.editable}}
             <div class="label rollable" data-target="{{this.key}}">
               <a>{{this.label}}</a>
@@ -77,7 +83,7 @@
                 class="edit flexrow"
                 data-tooltip="{{localize 'KNW.Organization.Powers.Decrement'}}"
               >
-                <a class="subtract"><i class="fas fa-minus"></i></a>
+                {{{this.decrement}}}
               </div>
             {{else}}
               <div class="powerDie" data-tooltip="{{this.tooltip}}">
