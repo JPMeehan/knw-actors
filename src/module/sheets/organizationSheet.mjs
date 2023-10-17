@@ -124,12 +124,6 @@ export default class OrganizationSheet extends ActorSheet {
       { actor: this.actor },
       this.#decrementPowerDie
     );
-    html.on(
-      "click",
-      "a.item-edit",
-      { actor: this.actor },
-      this.#editPowerFeature
-    );
 
     ContextMenu.create(this, html, ".powerPoolMember", this.powerPoolItemMenu);
   }
@@ -297,10 +291,5 @@ export default class OrganizationSheet extends ActorSheet {
       })
     );
     thisActor.update({ [`system.powerPool.-=${memberID}`]: null });
-  }
-
-  async #editPowerFeature(event) {
-    const target = event.currentTarget.dataset.target;
-    console.log(target);
   }
 }

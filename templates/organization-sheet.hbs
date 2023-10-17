@@ -137,40 +137,32 @@
   </div>
   <div class="footer flexrow">
     <div class="powers">
-      <div class="footerHeader flexrow">
+      <div class="footerHeader">
         <h3>{{localize "KNW.Organization.Powers.Label"}}</h3>
-        {{#if editable}}
-          <a class="item-control item-edit" data-target="powers">
-            <i class="fas fa-edit"></i>
-          </a>
-        {{/if}}
       </div>
-      <ul class="powersList">
-        {{#each system.sortedPowers}}
-          <li class="power">
-            <strong>{{this.label}}.</strong>
-            {{this.description}}
-          </li>
-        {{/each}}
-      </ul>
+      <div class="footerBody">
+        {{editor
+          system.powers
+          button="false"
+          target="system.powers"
+          engine="prosemirror"
+          collaborate=true
+        }}
+      </div>
     </div>
     <div class="features">
-      <div class="footerHeader flexrow">
+      <div class="footerHeader">
         <h3>{{localize "KNW.Organization.Features.Label"}}</h3>
-        {{#if editable}}
-          <a class="item-control item-edit" data-target="features">
-            <i class="fas fa-edit"></i>
-          </a>
-        {{/if}}
       </div>
-      <ul class="featuresList">
-        {{#each system.sortedFeatures}}
-          <li class="feature">
-            <strong>{{this.label}}.</strong>
-            {{this.description}}
-          </li>
-        {{/each}}
-      </ul>
+      <div class="footerBody">
+        {{editor
+          system.features
+          button="false"
+          target="system.features"
+          engine="prosemirror"
+          collaborate=true
+        }}
+      </div>
     </div>
   </div>
 </form>

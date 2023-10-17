@@ -61,7 +61,7 @@
         .actor.organization .body .powerPool .powerPoolList li {
           padding: 0 3px;
           font-size: 16px;
-          line-height: 26px; }
+          line-height: 25px; }
           .actor.organization .body .powerPool .powerPoolList li:nth-child(odd) {
             background-color: rgba(0, 0, 0, 0.05); }
         .actor.organization .body .powerPool .powerPoolList .name {
@@ -102,23 +102,16 @@
   .actor.organization .footer {
     flex: 1;
     border-top: var(--groove5e); }
-    .actor.organization .footer .footerHeader h3 {
-      font-family: var(--labelFont);
-      font-size: 32px; }
-    .actor.organization .footer .footerHeader a {
-      flex: 0 0 30px;
-      font-size: 30px; }
     .actor.organization .footer .powers,
     .actor.organization .footer .features {
       padding: 2px 5px; }
-    .actor.organization .footer .powersList,
-    .actor.organization .footer .featuresList {
-      list-style: none;
-      padding: 0;
-      margin: 0; }
-      .actor.organization .footer .powersList li,
-      .actor.organization .footer .featuresList li {
-        padding: 2px 0; }
+      .actor.organization .footer .powers .footerHeader h3,
+      .actor.organization .footer .features .footerHeader h3 {
+        font-family: var(--labelFont);
+        font-size: 32px; }
+      .actor.organization .footer .powers .footerBody,
+      .actor.organization .footer .features .footerBody {
+        height: calc(100% - 35px); }
     .actor.organization .footer .features {
       border-left: var(--groove5e); }
 
