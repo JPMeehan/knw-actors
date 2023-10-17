@@ -28,45 +28,45 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
       }),
       skills: new fields.SchemaField({
         dip: new fields.SchemaField({
-          // value: new fields.NumberField({
-          //   required: true,
-          //   initial: -1,
-          //   nullable: false,
-          //   integer: true,
-          // }),
+          value: new fields.NumberField({
+            required: true,
+            initial: -1,
+            nullable: false,
+            integer: true,
+          }),
           development: this.#developmentField(
             CONFIG.KNW.ORGANIZATION.tracks.skill
           ),
         }),
         esp: new fields.SchemaField({
-          // value: new fields.NumberField({
-          //   required: true,
-          //   initial: -1,
-          //   nullable: false,
-          //   integer: true,
-          // }),
+          value: new fields.NumberField({
+            required: true,
+            initial: -1,
+            nullable: false,
+            integer: true,
+          }),
           development: this.#developmentField(
             CONFIG.KNW.ORGANIZATION.tracks.skill
           ),
         }),
         lor: new fields.SchemaField({
-          // value: new fields.NumberField({
-          //   required: true,
-          //   initial: -1,
-          //   nullable: false,
-          //   integer: true,
-          // }),
+          value: new fields.NumberField({
+            required: true,
+            initial: -1,
+            nullable: false,
+            integer: true,
+          }),
           development: this.#developmentField(
             CONFIG.KNW.ORGANIZATION.tracks.skill
           ),
         }),
         opr: new fields.SchemaField({
-          // value: new fields.NumberField({
-          //   required: true,
-          //   initial: -1,
-          //   nullable: false,
-          //   integer: true,
-          // }),
+          value: new fields.NumberField({
+            required: true,
+            initial: -1,
+            nullable: false,
+            integer: true,
+          }),
           development: this.#developmentField(
             CONFIG.KNW.ORGANIZATION.tracks.skill
           ),
@@ -74,12 +74,12 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
       }),
       defenses: new fields.SchemaField({
         com: new fields.SchemaField({
-          // score: new fields.NumberField({
-          //   required: true,
-          //   initial: 10,
-          //   nullable: false,
-          //   integer: true,
-          // }),
+          score: new fields.NumberField({
+            required: true,
+            initial: 10,
+            nullable: false,
+            integer: true,
+          }),
           level: new fields.NumberField({
             required: true,
             initial: 0,
@@ -90,12 +90,12 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
           ),
         }),
         rlv: new fields.SchemaField({
-          // score: new fields.NumberField({
-          //   required: true,
-          //   initial: 10,
-          //   nullable: false,
-          //   integer: true,
-          // }),
+          score: new fields.NumberField({
+            required: true,
+            initial: 10,
+            nullable: false,
+            integer: true,
+          }),
           level: new fields.NumberField({
             required: true,
             initial: 0,
@@ -106,12 +106,12 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
           ),
         }),
         rsc: new fields.SchemaField({
-          // score: new fields.NumberField({
-          //   required: true,
-          //   initial: 10,
-          //   nullable: false,
-          //   integer: true,
-          // }),
+          score: new fields.NumberField({
+            required: true,
+            initial: 10,
+            nullable: false,
+            integer: true,
+          }),
           level: new fields.NumberField({
             required: true,
             initial: 0,
@@ -167,6 +167,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
    * @param {array} track The track for this field
    */
   static #developmentField(track) {
+    const fields = foundry.data.fields;
     return new fields.SchemaField({
       points: new fields.NumberField({
         initial: 0,
@@ -185,33 +186,37 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
     });
   }
 
-  /**
-   * Prepare data related to this DataModel itself, before any derived data is computed.
-   */
-  prepareBaseData() {
-    for (const skill of this.skills) {
-      skill.value = 0;
-    }
-    for (const def of this.defenses) {
-      def.score = 0;
-    }
-  }
+  // /**
+  //  * Prepare data related to this DataModel itself, before any derived data is computed.
+  //  * @override
+  //  */
+  // prepareBaseData() {
+  //   for (const skill of this.skills) {
+  //     skill.value = 0;
+  //     console.log(skill);
+  //   }
+  //   for (const def of this.defenses) {
+  //     def.score = 0;
+  //     console.log(def);
+  //   }
+  // }
 
-  /**
-   * Apply transformations of derivations to the values of the source data object.
-   * Compute data fields whose values are not stored to the database.
-   */
-  prepareDerivedData() {
-    for (const skill of this.skills) {
-      skill.value +=
-        CONFIG.KNW.ORGANIZATION.tracks.skill[skill.development.points];
-    }
-    for (const def of this.defenses) {
-      def.score +=
-        CONFIG.KNW.ORGANIZATION.tracks.defense[def.development.points] +
-        def.level;
-    }
-  }
+  // /**
+  //  * Apply transformations of derivations to the values of the source data object.
+  //  * Compute data fields whose values are not stored to the database.
+  //  * @override
+  //  */
+  // prepareDerivedData() {
+  //   for (const skill of this.skills) {
+  //     skill.value +=
+  //       CONFIG.KNW.ORGANIZATION.tracks.skill[skill.development.points];
+  //   }
+  //   for (const def of this.defenses) {
+  //     def.score +=
+  //       CONFIG.KNW.ORGANIZATION.tracks.defense[def.development.points] +
+  //       def.level;
+  //   }
+  // }
 
   /**
    * @returns {number} The number of sides on the power die

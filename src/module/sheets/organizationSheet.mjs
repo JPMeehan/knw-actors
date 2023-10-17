@@ -19,10 +19,10 @@ export default class OrganizationSheet extends ActorSheet {
       ...super.getData(options),
       actor: this.actor,
       system: this.actor.system,
-      skills: Object.entries(this.actor.system.skills).map(([key, value]) => {
+      skills: Object.entries(this.actor.system.skills).map(([key, skill]) => {
         return {
           label: game.i18n.localize("KNW.Organization.Skills." + key),
-          value,
+          value: skill.value,
         };
       }),
       defenses: Object.entries(this.actor.system.defenses).map(
