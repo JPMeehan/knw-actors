@@ -302,7 +302,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
     const label = game.i18n.localize("KNW.Organization.Skills." + skill);
     const roll = game.dnd5e.dice.d20Roll({
       parts: ["@skill", "@prof"],
-      data: { skill: this.skills[skill], prof },
+      data: { skill: this.skills[skill].value, prof },
       title: game.i18n.format("KNW.Organization.Skills.Test.Title", {
         skill: label,
       }),
