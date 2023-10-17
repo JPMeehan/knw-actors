@@ -1,6 +1,6 @@
-<section class="orgdev flexcol">
+<form class="orgdev flexcol">
   <div class="header">
-
+    <h3>{{localize "KNW.Organization.Development.Configure"}}</h3>
   </div>
   {{#each stats}}
     <div class="statrange">
@@ -11,7 +11,6 @@
           name={{concat "system." @key ".development.start"}}
           value={{this.development.start}}
         />
-
         <input
           type="number"
           name={{concat "system." @key ".development.spec"}}
@@ -22,9 +21,9 @@
         name=(concat "system." @key ".development.points")
         value=this.development.points
         min=0
-        max=this.max
+        max=@root.max
         step=1
       }}
     </div>
   {{/each}}
-</section>
+</form>

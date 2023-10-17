@@ -1,3 +1,5 @@
+import OrgDevEditor from "./orgDevEditor.mjs";
+
 export default class OrganizationSheet extends ActorSheet {
   /** @override */
   get template() {
@@ -130,7 +132,15 @@ export default class OrganizationSheet extends ActorSheet {
 
   async #editScore(event) {
     const thisActor = event.data.actor;
-    const score = event.currentTarget.dataset.target;
+    const statGroup = event.currentTarget.dataset.target;
+    console.log(thisActor);
+    console.log(statGroup);
+    const context = {
+      stats: thisActor.system[statGroup],
+      max: CONFIG.KNW.ORGANIZATION.tracks[statGroup].length,
+    };
+    const orgDevEditor = new OrgDevEditor(thisActor, context);
+    orgDevEditor.render(true);
   }
 
   async #rollSkill(event) {

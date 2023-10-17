@@ -154,7 +154,10 @@
       },
       "Size": "Size",
       "Type": "Organization Type",
-      "Specialization": "Organization Specialization"
+      "Specialization": "Organization Specialization",
+      "Development": {
+        "Configure": "Configure Development Points"
+      }
     },
     "Sheets": {
       "Warfare": "Default Warfare Sheet",

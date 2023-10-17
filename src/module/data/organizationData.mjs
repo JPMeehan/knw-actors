@@ -35,7 +35,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
             integer: true,
           }),
           development: this.#developmentField(
-            CONFIG.KNW.ORGANIZATION.tracks.skill
+            CONFIG.KNW.ORGANIZATION.tracks.skills
           ),
         }),
         esp: new fields.SchemaField({
@@ -46,7 +46,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
             integer: true,
           }),
           development: this.#developmentField(
-            CONFIG.KNW.ORGANIZATION.tracks.skill
+            CONFIG.KNW.ORGANIZATION.tracks.skills
           ),
         }),
         lor: new fields.SchemaField({
@@ -57,7 +57,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
             integer: true,
           }),
           development: this.#developmentField(
-            CONFIG.KNW.ORGANIZATION.tracks.skill
+            CONFIG.KNW.ORGANIZATION.tracks.skills
           ),
         }),
         opr: new fields.SchemaField({
@@ -68,7 +68,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
             integer: true,
           }),
           development: this.#developmentField(
-            CONFIG.KNW.ORGANIZATION.tracks.skill
+            CONFIG.KNW.ORGANIZATION.tracks.skills
           ),
         }),
       }),
@@ -86,7 +86,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
             choices: Array.from(CONFIG.KNW.CHOICES.com, (level) => level.value),
           }),
           development: this.#developmentField(
-            CONFIG.KNW.ORGANIZATION.tracks.defense
+            CONFIG.KNW.ORGANIZATION.tracks.defenses
           ),
         }),
         rlv: new fields.SchemaField({
@@ -102,7 +102,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
             choices: Array.from(CONFIG.KNW.CHOICES.rlv, (level) => level.value),
           }),
           development: this.#developmentField(
-            CONFIG.KNW.ORGANIZATION.tracks.defense
+            CONFIG.KNW.ORGANIZATION.tracks.defenses
           ),
         }),
         rsc: new fields.SchemaField({
@@ -118,7 +118,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
             choices: Array.from(CONFIG.KNW.CHOICES.rsc, (level) => level.value),
           }),
           development: this.#developmentField(
-            CONFIG.KNW.ORGANIZATION.tracks.defense
+            CONFIG.KNW.ORGANIZATION.tracks.defenses
           ),
         }),
       }),
