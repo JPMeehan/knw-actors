@@ -10,17 +10,17 @@
         <span class="label">{{this.label}}</span>
         <input
           type="number"
-          name={{concat "system." @key ".development.start"}}
+          name={{concat this.name ".start"}}
           value={{this.development.start}}
         />
         <input
           type="number"
-          name={{concat "system." @key ".development.spec"}}
+          name={{concat this.name ".spec"}}
           value={{this.development.spec}}
         />
       </div>
       {{rangePicker
-        name=(concat "system." @key ".development.points")
+        name=(concat this.name ".points")
         value=this.development.points
         min=0
         max=@root.max

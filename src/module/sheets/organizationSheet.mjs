@@ -134,9 +134,7 @@ export default class OrganizationSheet extends ActorSheet {
     const thisActor = event.data.actor;
     const statGroup = event.currentTarget.dataset.target;
     const context = {
-      title: game.i18n.localize("KNW.Organization.Development.Configure"),
       statGroup,
-      stats: thisActor.system[statGroup],
       max: CONFIG.KNW.ORGANIZATION.tracks[statGroup].length,
     };
     const orgDevEditor = new OrgDevEditor(thisActor, context);
