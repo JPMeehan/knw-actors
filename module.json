@@ -29,10 +29,7 @@
   "documentTypes": {
     "Actor": {
       "organization": {
-        "htmlFields": ["features", "powers"],
-        "filePathFields": {
-          "img": ["IMAGE"]
-        }
+        "htmlFields": ["features", "powers"]
       },
       "warfare": {}
     }
