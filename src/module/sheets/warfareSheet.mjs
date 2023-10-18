@@ -56,6 +56,39 @@ export default class WarfareSheet extends ActorSheet {
     return context;
   }
 
+  get traits() {
+    const traits = this.actor.system.traitList.split(";").map((e) => e.trim());
+    return traits.length === 1 && !traits[0] ? null : traits;
+  }
+
+  get typeImage() {
+    const system = this.actor.system;
+    if (system.type === "infantry" && system.experience === "levy")
+      return "modules/knw-actors/assets/icons/levy.png";
+    else return CONFIG.KNW.CHOICES.TYPE[system.type].img;
+  }
+
+  async _onDropActor(event, data) {
+    // Returns false if user does not have
+    super._onDropActor(event, data);
+    // owners permissions of the organization
+    const dropActor = await fromUuid(data.uuid);
+    if (dropActor.pack) {
+      ui.notifications.warn("KNW.Warfare.Commander.Warning.Pack", {
+        localize: true,
+      });
+      return false;
+    } else if (
+      !foundry.utils.getProperty(dropActor, "system.attributes.prof")
+    ) {
+      ui.notifications.warn("KNW.Warfare.Commander.Warning.NoProf", {
+        localize: true,
+      });
+      return false;
+    }
+    this.actor.update({ "system.commander": dropActor.id });
+  }
+
   activateListeners(html) {
     html.on(
       "click",
@@ -74,6 +107,8 @@ export default class WarfareSheet extends ActorSheet {
       },
       this._configureTraits
     );
+
+    ContextMenu.create(this, html, ".commander .name", this.commanderMenu);
   }
 
   async _rollStat(event) {
@@ -122,15 +157,38 @@ export default class WarfareSheet extends ActorSheet {
     event.data.actor.update(update);
   }
 
-  get traits() {
-    const traits = this.actor.system.traitList.split(";").map((e) => e.trim());
-    return traits.length === 1 && !traits[0] ? null : traits;
+  get commanderMenu() {
+    return [
+      {
+        name: game.i18n.localize("KNW.Warfare.Commander.View"),
+        icon: "<i class='fas fa-eye'></i>",
+        condition: true,
+        callback: this.viewCommander,
+      },
+      {
+        name: game.i18n.localize("KNW.Warfare.Commander.Clear"),
+        icon: "<i class='fas fa-trash'></i>",
+        condition: this.isEditable,
+        callback: (html) => this.clearCommander(html, this.actor),
+      },
+    ];
   }
 
-  get typeImage() {
-    const system = this.actor.system;
-    if (system.type === "infantry" && system.experience === "levy")
-      return "modules/knw-actors/assets/icons/levy.png";
-    else return CONFIG.KNW.CHOICES.TYPE[system.type].img;
+  async viewCommander(html) {
+    const commanderID = html[0].dataset.id;
+    const commander = game.actors.get(commanderID);
+    commander.sheet.render(true);
+  }
+
+  async clearCommander(html, thisActor) {
+    const commanderID = html[0].dataset.id;
+    const commander = game.actors.get(commanderID);
+    ui.notifications.info(
+      game.i18n.format("KNW.Warfare.Commander.Warning.Remove", {
+        commanderName: commander.name,
+        warfareUnit: thisActor.name,
+      })
+    );
+    thisActor.update({ "system.commander": "" });
   }
 }

@@ -174,8 +174,10 @@
         line-height: 20px;
         padding: 0 3px;
         font-size: 18px; }
-      .actor.warfare .header .description .tags .commander input {
-        border-bottom: 1px solid black; }
+      .actor.warfare .header .description .tags .commander .name {
+        border-bottom: 1px solid black;
+        line-height: 20px;
+        padding-left: 5px; }
       .actor.warfare .header .description .tags .modifiers select {
         border: none;
         flex: 0 0 80px; }

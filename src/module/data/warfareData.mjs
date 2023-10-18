@@ -134,4 +134,10 @@ export default class WarfareData extends foundry.abstract.TypeDataModel {
   get casualtyDie() {
     return this.size.value;
   }
+
+  get commanderName() {
+    const commander = game.actors.get(this.commander);
+    if (commander) return commander.name;
+    else return game.i18n.localize("KNW.Warfare.Commander.None");
+  }
 }

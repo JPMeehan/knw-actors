@@ -45,8 +45,10 @@
             padding: 0 3px;
             font-size: 18px;
           }
-          input {
+          .name {
             border-bottom: 1px solid black;
+            line-height: 20px;
+            padding-left: 5px;
           }
         }
         .modifiers {

@@ -66,7 +66,17 @@
         }
       },
       "Ancestry": "Ancestry",
-      "Commander": "Commander",
+      "Commander": {
+        "Label": "Commander",
+        "None": "None; drop a character on this sheet to assign",
+        "View": "View Commander",
+        "Clear": "Clear Commander",
+        "Warning": {
+          "Pack": "Warfare unit commanders cannot be stored in a compendium",
+          "NoProf": "Warfare unit commanders must have a proficiency bonus",
+          "Remove": "Removed {commanderName} as the commander of {warfareUnit}"
+        }
+      },
       "Size": "Size",
       "CasualtyDie": "Casualty Die",
       "Traits": {

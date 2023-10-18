@@ -1,7 +1,7 @@
 <form class="{{cssClass}} flexcol">
   <div class="header flexrow">
     <div class="type">
-      <img class="typeImage" src="{{typeImage}}">
+      <img class="typeImage" src="{{typeImage}}" />
     </div>
     <div class="description flexcol">
       <div class="id flexrow">
@@ -21,12 +21,12 @@
       <div class="tags flexcol">
         <div class="commander">
           <label class="flexrow">
-            <span class="label">{{localize "KNW.Warfare.Commander"}}</span>
-            <input
-              type="text"
-              name="system.commander"
-              value="{{system.commander}}"
-            />
+            <span class="label">{{localize
+                "KNW.Warfare.Commander.Label"
+              }}</span>
+            <span class="name" data-id="{{system.commander}}">
+              {{system.commanderName}}
+            </span>
           </label>
         </div>
         <div class="modifiers flexrow">
@@ -40,7 +40,7 @@
           <select class="gear" name="system.gear">
             {{selectOptions choices.GEAR selected=system.gear localize=true}}
           </select>
-          <input 
+          <input
             class="ancestry"
             type="text"
             name="system.ancestry"
@@ -48,7 +48,12 @@
             placeholder="{{localize 'KNW.Warfare.Ancestry'}}"
           />
           <select class="type" name="system.type">
-            {{selectOptions choices.TYPE labelAttr="label" selected=system.type localize=true}}
+            {{selectOptions
+              choices.TYPE
+              labelAttr="label"
+              selected=system.type
+              localize=true
+            }}
           </select>
         </div>
       </div>
@@ -63,15 +68,18 @@
     </div>
   </div>
   <div class="statistics flexrow">
-    <div class="attacks" data-tooltip="{{localize "KNW.Warfare.Statistics.attacks.long"}}">
+    <div
+      class="attacks"
+      data-tooltip="{{localize 'KNW.Warfare.Statistics.attacks.long'}}"
+    >
       {{numberInput system.attacks name="system.attacks" min=0}}
     </div>
     {{#each coreStats}}
       <div class="coreStat flexcol">
         <div class="label {{this.rollable}}" data-target="{{@key}}">
-            {{#if this.rollable}}<a>{{this.label}}</a>
-            {{else}}{{this.label}}
-            {{/if}}
+          {{#if this.rollable}}<a>{{this.label}}</a>
+          {{else}}{{this.label}}
+          {{/if}}
         </div>
         <div class="value">
           <input type="number" name="system.{{@key}}" value={{this.value}} />
@@ -89,17 +97,17 @@
       </label>
     </div>
     <div class="traits">
-        <span class="label">{{localize "KNW.Warfare.Traits.SheetLabel"}}</span>
-        <ul>
-            {{#each traits}}
-                <li>{{@this}}</li>
-            {{/each}}
-        </ul>
+      <span class="label">{{localize "KNW.Warfare.Traits.SheetLabel"}}</span>
+      <ul>
+        {{#each traits}}
+          <li>{{this}}</li>
+        {{/each}}
+      </ul>
     </div>
     <div class="tier">
       <label>
         <select name="system.tier">
-            {{selectOptions choices.TIER selected=system.tier}}
+          {{selectOptions choices.TIER selected=system.tier}}
         </select>
         <p class="label">{{localize "KNW.Warfare.Tier"}}</p>
       </label>
