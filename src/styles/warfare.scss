@@ -115,6 +115,9 @@
       &:not(:last-of-type) {
         border-right: var(--groove5e);
       }
+      .value {
+        font-family: var(--labelFont);
+      }
     }
   }
   .footer {
@@ -144,6 +147,9 @@
       flex: 1;
       cursor: pointer;
       padding: 0 5px;
+      .traitList {
+        column-width: 130px;
+      }
     }
     .tier {
       flex: 0 0 100px;

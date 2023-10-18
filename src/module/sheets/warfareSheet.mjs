@@ -22,7 +22,7 @@ export default class WarfareSheet extends ActorSheet {
       coreStats: {
         atk: {
           label: game.i18n.localize("KNW.Warfare.Statistics.atk.abbr"),
-          value: this.actor.system.atk,
+          value: this.actor.system.atk.signedString(),
           rollable: this.isEditable ? "rollable" : "",
         },
         def: {
@@ -31,7 +31,7 @@ export default class WarfareSheet extends ActorSheet {
         },
         pow: {
           label: game.i18n.localize("KNW.Warfare.Statistics.pow.abbr"),
-          value: this.actor.system.pow,
+          value: this.actor.system.pow.signedString(),
           rollable: this.isEditable ? "rollable" : "",
         },
         tou: {
@@ -40,12 +40,12 @@ export default class WarfareSheet extends ActorSheet {
         },
         mor: {
           label: game.i18n.localize("KNW.Warfare.Statistics.mor.abbr"),
-          value: this.actor.system.mor,
+          value: this.actor.system.mor.signedString(),
           rollable: this.isEditable ? "rollable" : "",
         },
         com: {
           label: game.i18n.localize("KNW.Warfare.Statistics.com.abbr"),
-          value: this.actor.system.com,
+          value: this.actor.system.com.signedString(),
           rollable: this.isEditable ? "rollable" : "",
         },
       },
@@ -90,6 +90,7 @@ export default class WarfareSheet extends ActorSheet {
   }
 
   activateListeners(html) {
+    super.activateListeners(html);
     html.on(
       "click",
       ".coreStat .label.rollable",

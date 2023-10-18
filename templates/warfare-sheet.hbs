@@ -82,7 +82,12 @@
           {{/if}}
         </div>
         <div class="value">
-          <input type="number" name="system.{{@key}}" value={{this.value}} />
+          <input
+            type="text"
+            name="system.{{@key}}"
+            value={{this.value}}
+            data-dtype="Number"
+          />
         </div>
       </div>
     {{/each}}
@@ -98,7 +103,7 @@
     </div>
     <div class="traits">
       <span class="label">{{localize "KNW.Warfare.Traits.SheetLabel"}}</span>
-      <ul>
+      <ul class="traitList">
         {{#each traits}}
           <li>{{this}}</li>
         {{/each}}

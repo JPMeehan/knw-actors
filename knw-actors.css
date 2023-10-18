@@ -225,6 +225,8 @@
         border-bottom: var(--groove5e); }
       .actor.warfare .statistics .coreStat:not(:last-of-type) {
         border-right: var(--groove5e); }
+      .actor.warfare .statistics .coreStat .value {
+        font-family: var(--labelFont); }
   .actor.warfare .footer {
     flex: 1; }
     .actor.warfare .footer .damage {
@@ -248,6 +250,8 @@
       flex: 1;
       cursor: pointer;
       padding: 0 5px; }
+      .actor.warfare .footer .traits .traitList {
+        column-width: 130px; }
     .actor.warfare .footer .tier {
       flex: 0 0 100px;
       border-left: var(--groove5e); }
