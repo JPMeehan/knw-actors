@@ -1,6 +1,6 @@
 # Kingdoms and Warfare Actors
 
-Fan implementation of Warfare Units and Factions for MCDM's [Kingdoms & Warfare](https://shop.mcdmproductions.com/collections/kingdoms-warfare) as v11 subtypes for FVTT's dnd5e system.
+Fan implementation of Organizations and Warfare Units for MCDM's [Kingdoms & Warfare](https://shop.mcdmproductions.com/collections/kingdoms-warfare) as v11 subtypes for FVTT's dnd5e system.
 
 ## Using this module
 
