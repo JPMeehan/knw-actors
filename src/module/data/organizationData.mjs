@@ -258,9 +258,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
         skill: label,
       }),
       messageData: {
-        speaker: {
-          actor,
-        },
+        speaker: { actor },
       },
     });
   }

@@ -140,4 +140,22 @@ export default class WarfareData extends foundry.abstract.TypeDataModel {
     if (commander) return commander.name;
     else return game.i18n.localize("KNW.Warfare.Commander.None");
   }
+
+  async rollStat(stat) {
+    const commander = game.actors.get(this.commander);
+
+    const roll = game.dnd5e.dice.d20Roll({
+      parts: ["@stat"],
+      data: {
+        stat: this[stat],
+      },
+      title: game.i18n.format("KNW.Warfare.Statistics.Test", {
+        stat: game.i18n.localize(`KNW.Warfare.Statistics.${stat}.long`),
+      }),
+      messageData: {
+        speaker: { actor: commander },
+      },
+    });
+    // console.log(await roll);
+  }
 }

@@ -97,7 +97,7 @@ export default class WarfareSheet extends ActorSheet {
       {
         actor: this.actor,
       },
-      this._rollStat
+      this.#rollStat
     );
     html.on(
       "click",
@@ -112,22 +112,9 @@ export default class WarfareSheet extends ActorSheet {
     ContextMenu.create(this, html, ".commander .name", this.commanderMenu);
   }
 
-  async _rollStat(event) {
+  async #rollStat(event) {
     const stat = event.currentTarget.dataset.target;
-    const path = "system." + stat;
-    const label = game.i18n.localize(`KNW.Warfare.Statistics.${stat}.long`);
-    const roll = game.dnd5e.dice.d20Roll({
-      parts: ["@stat"],
-      data: {
-        stat: foundry.utils.getProperty(event.data.actor, path),
-      },
-      title: game.i18n.format("KNW.Warfare.Statistics.Test", { stat: label }),
-      event,
-      // messageData: {
-      //   speaker: ChatMessage.getSpeaker({ actor: event.data.actor }),
-      // },
-    });
-    // console.log(await roll);
+    event.data.actor.system.rollStat(stat);
   }
 
   async _configureTraits(event) {
