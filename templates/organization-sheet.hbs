@@ -45,15 +45,16 @@
         <div class="skill flexrow">
           {{!-- <div class="value">{{numberFormat this.value sign=true}}</div> --}}
           {{!-- {{numberInput
-            this.value
+            this.bonus
             class="value"
-            name=(concat "system.skills." this.key ".value")
+            name=(concat "system.skills." this.key ".bonus")
           }} --}}
           <input
             type="text"
-            value="{{numberFormat this.value sign=true}}"
+            value="{{numberFormat this.bonus sign=true}}"
             class="value"
-            name="{{concat 'system.skills.' this.key '.value'}}"
+            name="{{concat 'system.skills.' this.key '.bonus'}}"
+            data-dtype="Number"
           />
           {{#if @root.editable}}
             <div class="label rollable" data-target="{{this.key}}">

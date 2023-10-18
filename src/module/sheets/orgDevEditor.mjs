@@ -63,8 +63,6 @@ export default class OrgDevEditor extends FormApplication {
 
   /** @inheritdoc */
   async _updateObject(event, formData) {
-    console.log(formData);
-    console.log(this.object);
     if (!this.object.id) return;
     return this.object.update(formData);
   }

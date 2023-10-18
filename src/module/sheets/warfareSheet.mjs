@@ -91,7 +91,7 @@ export default class WarfareSheet extends ActorSheet {
       //   speaker: ChatMessage.getSpeaker({ actor: event.data.actor }),
       // },
     });
-    console.log(await roll);
+    // console.log(await roll);
   }
 
   async _configureTraits(event) {

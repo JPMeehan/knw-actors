@@ -25,22 +25,20 @@ export default class OrganizationSheet extends ActorSheet {
         return {
           key,
           label: game.i18n.localize("KNW.Organization.skills." + key),
-          value: skill.value,
+          bonus: skill.bonus,
         };
       }),
-      defenses: Object.entries(this.actor.system.defenses).map(
-        ([key, value]) => {
-          return {
-            key,
-            label: game.i18n.localize(
-              "KNW.Organization.defenses." + key + ".Label"
-            ),
-            level: value.level,
-            score: value.score,
-            choices: CONFIG.KNW.CHOICES[key],
-          };
-        }
-      ),
+      defenses: Object.entries(this.actor.system.defenses).map(([key, def]) => {
+        return {
+          key,
+          label: game.i18n.localize(
+            "KNW.Organization.defenses." + key + ".Label"
+          ),
+          level: def.level,
+          score: def.score,
+          choices: CONFIG.KNW.CHOICES[key],
+        };
+      }),
       powerDieIMG: this.powerDieIMG,
       powerPool: this.getMemberPowerPool(),
     };

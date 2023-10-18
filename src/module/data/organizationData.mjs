@@ -28,7 +28,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
       }),
       skills: new fields.SchemaField({
         dip: new fields.SchemaField({
-          value: new fields.NumberField({
+          bonus: new fields.NumberField({
             required: true,
             initial: -1,
             nullable: false,
@@ -39,7 +39,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
           ),
         }),
         esp: new fields.SchemaField({
-          value: new fields.NumberField({
+          bonus: new fields.NumberField({
             required: true,
             initial: -1,
             nullable: false,
@@ -50,7 +50,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
           ),
         }),
         lor: new fields.SchemaField({
-          value: new fields.NumberField({
+          bonus: new fields.NumberField({
             required: true,
             initial: -1,
             nullable: false,
@@ -61,7 +61,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
           ),
         }),
         opr: new fields.SchemaField({
-          value: new fields.NumberField({
+          bonus: new fields.NumberField({
             required: true,
             initial: -1,
             nullable: false,
@@ -174,7 +174,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
   //  */
   // prepareBaseData() {
   //   for (const skill of this.skills) {
-  //     skill.value = 0;
+  //     skill.bonus = 0;
   //     console.log(skill);
   //   }
   //   for (const def of this.defenses) {
@@ -190,7 +190,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
   //  */
   // prepareDerivedData() {
   //   for (const skill of this.skills) {
-  //     skill.value +=
+  //     skill.bonus +=
   //       CONFIG.KNW.ORGANIZATION.tracks.skill[skill.development.points];
   //   }
   //   for (const def of this.defenses) {
@@ -253,7 +253,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
     const label = game.i18n.localize("KNW.Organization.skills." + skill);
     const roll = game.dnd5e.dice.d20Roll({
       parts: ["@skill", "@prof"],
-      data: { skill: this.skills[skill].value, prof },
+      data: { skill: this.skills[skill].bonus, prof },
       title: game.i18n.format("KNW.Organization.skills.Test.Title", {
         skill: label,
       }),
