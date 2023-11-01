@@ -159,7 +159,9 @@
           "RemoveMember": "Removed {memberName} from {organization}",
           "NoPackActors": "Organizations members cannot be stored in a compendium",
           "NoProf": "Organization Members must have a proficiency bonus",
-          "AlreadyMember": "That actor is already a member of the organization!"
+          "AlreadyMember": "That actor is already a member of the organization!",
+          "MustOwnRoll": "You must be an owner of the member to roll their power die!",
+          "MustOwnRest": "You must be an owner of the member to take an extended rest!"
         }
       },
       "Size": "Size",

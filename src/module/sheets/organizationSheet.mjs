@@ -204,12 +204,22 @@ export default class OrganizationSheet extends ActorSheet {
     const memberID = this.parentElement.dataset.id;
     const thisActor = event.data.actor;
     const currentValue = thisActor.system.powerPool[memberID];
+    const memberActor = game.actors.get(memberID);
     switch (currentValue) {
       case null: // Available
-        thisActor.system.rollPowerDie(memberID);
+        if (memberActor.isOwner) thisActor.system.rollPowerDie(memberID);
+        else
+          ui.notifications.warn("KNW.Organization.Powers.Warning.MustOwnRoll", {
+            localize: true,
+          });
         break;
       case 0: // Take Extended Rest
-        thisActor.update({ [`system.powerPool.${memberID}`]: null });
+        if (memberActor.isOwner)
+          thisActor.update({ [`system.powerPool.${memberID}`]: null });
+        else
+          ui.notifications.warn("KNW.Organization.Powers.Warning.MustOwnRest", {
+            localize: true,
+          });
         break;
       default:
         ChatMessage.create({
