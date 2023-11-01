@@ -1,4 +1,10 @@
-# 0.9.0 Beta Release
+# Changelog
+
+## 1.0.0 Full Release
+
+- Updated SVG files to have defined height and width for firefox users
+
+## 0.9.0 Beta Release
 
 - Support for Organizations and Warfare Units!
 - Organizations do not currently support deriving skill bonuses or defense scores
