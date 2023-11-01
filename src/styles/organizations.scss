@@ -133,9 +133,11 @@
   }
   .footer {
     flex: 1;
+    height: calc(100% - 354px);
     border-top: var(--groove5e);
     .powers,
     .features {
+      height: 100%;
       padding: 2px 5px;
       .footerHeader {
         h3 {

@@ -101,9 +101,11 @@
         text-align: center; }
   .actor.organization .footer {
     flex: 1;
+    height: calc(100% - 354px);
     border-top: var(--groove5e); }
     .actor.organization .footer .powers,
     .actor.organization .footer .features {
+      height: 100%;
       padding: 2px 5px; }
       .actor.organization .footer .powers .footerHeader h3,
       .actor.organization .footer .features .footerHeader h3 {
