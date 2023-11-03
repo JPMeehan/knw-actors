@@ -5,6 +5,7 @@
 - Updated SVG files to have defined height and width for firefox users
 - Long power and feature descriptions now have scrollbars when they overflow (#9)
 - Changed permission handling for the power pool; players can take rolled dice from anyone, but the extended rest and rolling functions require you to own the relevant character (#10)
+- Added checkbox confirming proficiency bonus usage on domain skill tests (#13)
 
 ## 0.9.0 Beta Release
 
