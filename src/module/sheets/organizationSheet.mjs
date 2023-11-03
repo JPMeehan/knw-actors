@@ -149,6 +149,18 @@ export default class OrganizationSheet extends ActorSheet {
       .map((memberID) => game.actors.get(memberID))
       .filter((member) => member.isOwner);
 
+    const assocSkillsText = CONFIG.KNW.ORGANIZATION.assocSkills[stat].reduce(
+      (accumulator, currentValue, currentIndex, array) => {
+        return (
+          accumulator +
+          " " +
+          CONFIG.DND5E.skills[currentValue].label +
+          (currentIndex === array.length - 1 ? "" : ",")
+        );
+      },
+      game.i18n.localize("KNW.Organization.skills.Test.AssocSkills")
+    );
+
     if (validActors.length === 0)
       ui.notifications.warn("KNW.Organization.skills.Warning.noActors", {
         localize: true,
@@ -158,17 +170,17 @@ export default class OrganizationSheet extends ActorSheet {
         title: game.i18n.format("KNW.Organization.skills.Test.Title", {
           skill: game.i18n.localize("KNW.Organization.skills." + stat),
         }),
-        content: `<p>${game.i18n.localize(
+        content: `<label class="flexrow"><p class="orgUseProf">${game.i18n.localize(
           "KNW.Organization.skills.Test.UseProf"
         )}</p>
-        <input class="orgTestUseProf" type="checkbox" />
+        <input class="orgTestUseProf" type="checkbox" /></label>
         <p><em>${assocSkillsText}</em></p>`,
         buttons: {
           default: {
             icon: '<i class="fa-solid fa-floppy-disk"></i>',
             label: game.i18n.localize("KNW.Organization.skills.Test.Roll"),
             callback: (html) => {
-              return game.actors.get(html.find(".orgChooseActor")[0].value);
+              return html.find(".orgTestUseProf")[0].checked;
             },
           },
         },
@@ -180,19 +192,7 @@ export default class OrganizationSheet extends ActorSheet {
         memberName: actor.name,
       }));
 
-      const assocSkillsText = CONFIG.KNW.ORGANIZATION.assocSkills[stat].reduce(
-        (accumulator, currentValue, currentIndex, array) => {
-          return (
-            accumulator +
-            " " +
-            CONFIG.DND5E.skills[currentValue].label +
-            (currentIndex === array.length - 1 ? "" : ",")
-          );
-        },
-        game.i18n.localize("KNW.Organization.skills.Test.AssocSkills")
-      );
-
-      const chosenActor = await Dialog.wait({
+      const testInput = await Dialog.wait({
         title: game.i18n.format("KNW.Organization.skills.Test.Title", {
           skill: game.i18n.localize("KNW.Organization.skills." + stat),
         }),
@@ -204,18 +204,33 @@ export default class OrganizationSheet extends ActorSheet {
           hash: { nameAttr: "memberID", labelAttr: "memberName" },
         })}
         </select></label>
+        <label class="flexrow"><p class="orgUseProf">${game.i18n.localize(
+          "KNW.Organization.skills.Test.UseProf"
+        )}</p>
+        <input class="orgTestUseProf" type="checkbox" /></label>
         <p><em>${assocSkillsText}</em></p>`,
         buttons: {
           default: {
             icon: '<i class="fa-solid fa-floppy-disk"></i>',
             label: game.i18n.localize("KNW.Organization.skills.Test.Roll"),
             callback: (html) => {
-              return game.actors.get(html.find(".orgChooseActor")[0].value);
+              return {
+                chosenActor: game.actors.get(
+                  html.find(".orgChooseActor")[0].value
+                ),
+                useProf: html.find(".orgTestUseProf")[0].checked,
+              };
             },
           },
         },
       });
-      if (chosenActor) thisActor.system.rollSkillTest(stat, chosenActor);
+      console.log(testInput);
+      if (testInput?.chosenActor)
+        thisActor.system.rollSkillTest(
+          stat,
+          testInput.chosenActor,
+          testInput.useProf
+        );
     }
   }
 
