@@ -100,7 +100,8 @@
         "Test": {
           "Title": "{skill} Test",
           "Roll": "Roll Test",
-          "DialogContent": "Choose an actor to roll with:",
+          "ChooseActor": "Choose an actor to roll with:",
+          "UseProf": "Use officer's proficiency bonus? (Only usable once per intrigue!)",
           "AssocSkills": "Associated Character Skills:"
         }
       },

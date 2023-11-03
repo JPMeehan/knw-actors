@@ -235,23 +235,25 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
    * Rolls a given skill using an actor's proficiency bonus
    * @param {string} skill    The abbreviation of the skill being rolled
    * @param {Actor5e} actor   The actor making the skill test
+   * @param {boolean} useProf Whether to use the actor's proficiency
    */
-  async rollSkillTest(skill, actor) {
+  async rollSkillTest(skill, actor, useProf) {
     const isProf = CONFIG.KNW.ORGANIZATION.assocSkills[skill].reduce(
       (accumulator, currentValue) => {
         return actor.system.skills[currentValue].proficient >= 1 || accumulator;
       },
       false
     );
-    const prof = isProf
-      ? foundry.utils.getProperty(actor, "system.attributes.prof")
-      : 0;
+    const prof =
+      isProf && useProf
+        ? foundry.utils.getProperty(actor, "system.attributes.prof")
+        : 0;
     if (prof === undefined)
       ui.notifications.warn("KNW.Organization.skills.Warning.Prof", {
         localize: true,
       });
     const label = game.i18n.localize("KNW.Organization.skills." + skill);
-    const roll = game.dnd5e.dice.d20Roll({
+    return game.dnd5e.dice.d20Roll({
       parts: ["@skill", "@prof"],
       data: { skill: this.skills[skill].bonus, prof },
       title: game.i18n.format("KNW.Organization.skills.Test.Title", {

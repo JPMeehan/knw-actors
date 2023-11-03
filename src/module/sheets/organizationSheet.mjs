@@ -153,9 +153,28 @@ export default class OrganizationSheet extends ActorSheet {
       ui.notifications.warn("KNW.Organization.skills.Warning.noActors", {
         localize: true,
       });
-    else if (validActors.length === 1)
-      thisActor.system.rollSkillTest(stat, validActors[0]);
-    else {
+    else if (validActors.length === 1) {
+      const useProf = await Dialog.wait({
+        title: game.i18n.format("KNW.Organization.skills.Test.Title", {
+          skill: game.i18n.localize("KNW.Organization.skills." + stat),
+        }),
+        content: `<p>${game.i18n.localize(
+          "KNW.Organization.skills.Test.UseProf"
+        )}</p>
+        <input class="orgTestUseProf" type="checkbox" />
+        <p><em>${assocSkillsText}</em></p>`,
+        buttons: {
+          default: {
+            icon: '<i class="fa-solid fa-floppy-disk"></i>',
+            label: game.i18n.localize("KNW.Organization.skills.Test.Roll"),
+            callback: (html) => {
+              return game.actors.get(html.find(".orgChooseActor")[0].value);
+            },
+          },
+        },
+      });
+      thisActor.system.rollSkillTest(stat, validActors[0], useProf);
+    } else {
       const selectOptions = validActors.map((actor) => ({
         memberID: actor.id,
         memberName: actor.name,
@@ -178,7 +197,7 @@ export default class OrganizationSheet extends ActorSheet {
           skill: game.i18n.localize("KNW.Organization.skills." + stat),
         }),
         content: `<label class="orgChooseActorLabel">${game.i18n.localize(
-          "KNW.Organization.skills.Test.DialogContent"
+          "KNW.Organization.skills.Test.ChooseActor"
         )}
         <select class='orgChooseActor'>
         ${Handlebars.helpers.selectOptions(selectOptions, {
