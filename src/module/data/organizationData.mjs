@@ -1,20 +1,44 @@
 /**
+ * Tracks the development points spent during organization progress
+ * @typedef {object} DevelopmentField
+ * @param {number} points - Points spent on the parent trait
+ * @param {number} start  - Starting value
+ * @param {number} spec   - Bonuses from specialization
+ */
+
+/**
+ * An Organization Skill
+ * @typedef {object} Skill
+ * @param {DevelopmentField} development  - The skill's development
+ * @param {number} bonus                  - The derived bonus used during tests
+ */
+
+/**
+ * An Organization Defense
+ * @typedef {object} Defense
+ * @param {DevelopmentField} development - The defense's development
+ * @param {number} level                 - The level, as altered by Intrigue
+ * @param {number} score                 - The derived score used to resist tests
+ */
+
+/**
  * Data Definition for Organization actors
- * @prop {object} org   -       Organization Info
- * @prop {string} org.type   -  Organization Type
- * @prop {string} org.specialization    -   Organization Specialization
- * @prop {number} dip   -       Diplomacy
- * @prop {number} esp   -       Espionage
- * @prop {number} lor   -       Lore
- * @prop {number} opr   -       Operations
- * @prop {number} com   -       Communications
- * @prop {number} rlv   -       Resolve
- * @prop {number} rsc   -       Resources
- * @prop {object} power -       The power pool
- * @prop {number} power.die  -  The size of the organization's power die
- * @prop {number} power.pool -  The number of power dice available to the organization
- * @prop {object} powers     -  A mapping field of the domain powers
- * @prop {object} features   -  A mapping field of the organization's features
+ * @prop {object} org                 - Organization Info
+ * @prop {string} org.type            - Organization Type
+ * @prop {string} org.specialization  - Organization Specialization
+ * @prop {object} skills              - The record of the organization's skills
+ * @prop {Skill} skills.dip           - Diplomacy
+ * @prop {Skill} skills.esp           - Espionage
+ * @prop {Skill} skills.lor           - Lore
+ * @prop {Skill} skills.opr           - Operations
+ * @prop {object} defenses            - The record of the organization's defenses
+ * @prop {Defense} defenses.com       - Communications
+ * @prop {Defense} defenses.rlv       - Resolve
+ * @prop {Defense} defenses.rsc       - Resources
+ * @prop {number} size                - The organization's size
+ * @prop {object} powerPool           - A mapping field that maps actor IDs to their current power die value
+ * @prop {string} powers              - An HTML field for the domain powers
+ * @prop {string} features            - An HTML field for the organization's features
  */
 export default class OrganizationData extends foundry.abstract.TypeDataModel {
   /** @override */
