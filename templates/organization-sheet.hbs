@@ -43,19 +43,7 @@
       </div>
       {{#each skills}}
         <div class="skill flexrow">
-          {{!-- <div class="value">{{numberFormat this.value sign=true}}</div> --}}
-          {{!-- {{numberInput
-            this.bonus
-            class="value"
-            name=(concat "system.skills." this.key ".bonus")
-          }} --}}
-          <input
-            type="text"
-            value="{{numberFormat this.bonus sign=true}}"
-            class="value"
-            name="{{concat 'system.skills.' this.key '.bonus'}}"
-            data-dtype="Number"
-          />
+          <div class="value">{{numberFormat this.bonus sign=true}}</div>
           {{#if @root.editable}}
             <div class="label rollable" data-target="{{this.key}}">
               <a>{{this.label}}</a>
@@ -120,12 +108,7 @@
           <div class="label">
             {{this.label}}
           </div>
-          {{numberInput
-            this.score
-            class="value"
-            name=(concat "system.defenses." this.key ".score")
-          }}
-          {{!-- <div class="value">{{this.score}}</div> --}}
+          <div class="value">{{this.score}}</div>
           <select
             class="level"
             name={{concat "system.defenses." this.key ".level"}}

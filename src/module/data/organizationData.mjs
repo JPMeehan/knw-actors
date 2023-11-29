@@ -1,20 +1,44 @@
 /**
+ * Tracks the development points spent during organization progress
+ * @typedef {object} DevelopmentField
+ * @param {number} points - Points spent on the parent trait
+ * @param {number} start  - Starting value
+ * @param {number} spec   - Bonuses from specialization
+ */
+
+/**
+ * An Organization Skill
+ * @typedef {object} Skill
+ * @param {DevelopmentField} development  - The skill's development
+ * @param {number} bonus                  - The derived bonus used during tests
+ */
+
+/**
+ * An Organization Defense
+ * @typedef {object} Defense
+ * @param {DevelopmentField} development - The defense's development
+ * @param {number} level                 - The level, as altered by Intrigue
+ * @param {number} score                 - The derived score used to resist tests
+ */
+
+/**
  * Data Definition for Organization actors
- * @prop {object} org   -       Organization Info
- * @prop {string} org.type   -  Organization Type
- * @prop {string} org.specialization    -   Organization Specialization
- * @prop {number} dip   -       Diplomacy
- * @prop {number} esp   -       Espionage
- * @prop {number} lor   -       Lore
- * @prop {number} opr   -       Operations
- * @prop {number} com   -       Communications
- * @prop {number} rlv   -       Resolve
- * @prop {number} rsc   -       Resources
- * @prop {object} power -       The power pool
- * @prop {number} power.die  -  The size of the organization's power die
- * @prop {number} power.pool -  The number of power dice available to the organization
- * @prop {object} powers     -  A mapping field of the domain powers
- * @prop {object} features   -  A mapping field of the organization's features
+ * @prop {object} org                 - Organization Info
+ * @prop {string} org.type            - Organization Type
+ * @prop {string} org.specialization  - Organization Specialization
+ * @prop {object} skills              - The record of the organization's skills
+ * @prop {Skill} skills.dip           - Diplomacy
+ * @prop {Skill} skills.esp           - Espionage
+ * @prop {Skill} skills.lor           - Lore
+ * @prop {Skill} skills.opr           - Operations
+ * @prop {object} defenses            - The record of the organization's defenses
+ * @prop {Defense} defenses.com       - Communications
+ * @prop {Defense} defenses.rlv       - Resolve
+ * @prop {Defense} defenses.rsc       - Resources
+ * @prop {number} size                - The organization's size
+ * @prop {object} powerPool           - A mapping field that maps actor IDs to their current power die value
+ * @prop {string} powers              - An HTML field for the domain powers
+ * @prop {string} features            - An HTML field for the organization's features
  */
 export default class OrganizationData extends foundry.abstract.TypeDataModel {
   /** @override */
@@ -28,45 +52,21 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
       }),
       skills: new fields.SchemaField({
         dip: new fields.SchemaField({
-          bonus: new fields.NumberField({
-            required: true,
-            initial: -1,
-            nullable: false,
-            integer: true,
-          }),
           development: this.#developmentField(
             CONFIG.KNW.ORGANIZATION.tracks.skills
           ),
         }),
         esp: new fields.SchemaField({
-          bonus: new fields.NumberField({
-            required: true,
-            initial: -1,
-            nullable: false,
-            integer: true,
-          }),
           development: this.#developmentField(
             CONFIG.KNW.ORGANIZATION.tracks.skills
           ),
         }),
         lor: new fields.SchemaField({
-          bonus: new fields.NumberField({
-            required: true,
-            initial: -1,
-            nullable: false,
-            integer: true,
-          }),
           development: this.#developmentField(
             CONFIG.KNW.ORGANIZATION.tracks.skills
           ),
         }),
         opr: new fields.SchemaField({
-          bonus: new fields.NumberField({
-            required: true,
-            initial: -1,
-            nullable: false,
-            integer: true,
-          }),
           development: this.#developmentField(
             CONFIG.KNW.ORGANIZATION.tracks.skills
           ),
@@ -74,12 +74,6 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
       }),
       defenses: new fields.SchemaField({
         com: new fields.SchemaField({
-          score: new fields.NumberField({
-            required: true,
-            initial: 10,
-            nullable: false,
-            integer: true,
-          }),
           level: new fields.NumberField({
             required: true,
             initial: 0,
@@ -90,12 +84,6 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
           ),
         }),
         rlv: new fields.SchemaField({
-          score: new fields.NumberField({
-            required: true,
-            initial: 10,
-            nullable: false,
-            integer: true,
-          }),
           level: new fields.NumberField({
             required: true,
             initial: 0,
@@ -106,12 +94,6 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
           ),
         }),
         rsc: new fields.SchemaField({
-          score: new fields.NumberField({
-            required: true,
-            initial: 10,
-            nullable: false,
-            integer: true,
-          }),
           level: new fields.NumberField({
             required: true,
             initial: 0,
@@ -168,37 +150,35 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
     });
   }
 
-  // /**
-  //  * Prepare data related to this DataModel itself, before any derived data is computed.
-  //  * @override
-  //  */
-  // prepareBaseData() {
-  //   for (const skill of this.skills) {
-  //     skill.bonus = 0;
-  //     console.log(skill);
-  //   }
-  //   for (const def of this.defenses) {
-  //     def.score = 0;
-  //     console.log(def);
-  //   }
-  // }
+  /**
+   * Prepare data related to this DataModel itself, before any derived data is computed.
+   * @override
+   */
+  prepareBaseData() {
+    for (const [abbr, skill] of Object.entries(this.skills)) {
+      skill.bonus = 0;
+    }
+    for (const [abbr, def] of Object.entries(this.defenses)) {
+      def.score = 0;
+    }
+  }
 
-  // /**
-  //  * Apply transformations of derivations to the values of the source data object.
-  //  * Compute data fields whose values are not stored to the database.
-  //  * @override
-  //  */
-  // prepareDerivedData() {
-  //   for (const skill of this.skills) {
-  //     skill.bonus +=
-  //       CONFIG.KNW.ORGANIZATION.tracks.skill[skill.development.points];
-  //   }
-  //   for (const def of this.defenses) {
-  //     def.score +=
-  //       CONFIG.KNW.ORGANIZATION.tracks.defense[def.development.points] +
-  //       def.level;
-  //   }
-  // }
+  /**
+   * Apply transformations of derivations to the values of the source data object.
+   * Compute data fields whose values are not stored to the database.
+   * @override
+   */
+  prepareDerivedData() {
+    for (const [abbr, skill] of Object.entries(this.skills)) {
+      skill.bonus +=
+        CONFIG.KNW.ORGANIZATION.tracks.skills[skill.development.points];
+    }
+    for (const [abbr, def] of Object.entries(this.defenses)) {
+      def.score +=
+        CONFIG.KNW.ORGANIZATION.tracks.defenses[def.development.points] +
+        def.level;
+    }
+  }
 
   /**
    * @returns {number} The number of sides on the power die
