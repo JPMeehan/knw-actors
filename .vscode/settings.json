@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["KNWCONFIG", "MCDM's", "rollable"]
+  "cSpell.words": ["KNWCONFIG", "MCDM's", "rollable"],
+  "i18n-ally.localesPaths": "./lang/en.json"
 }
