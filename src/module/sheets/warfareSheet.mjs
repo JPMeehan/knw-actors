@@ -74,8 +74,9 @@ export default class WarfareSheet extends ActorSheet {
     else return CONFIG.KNW.CHOICES.TYPE[system.type].img;
   }
 
+  /** @override */
   async _onDropActor(event, data) {
-    // Returns false if user does not have owners permissions of the organization
+    // Returns false if user does not have owners permissions of the unit
     if (!super._onDropActor(event, data)) return false;
 
     const dropActor = await fromUuid(data.uuid);
@@ -95,6 +96,7 @@ export default class WarfareSheet extends ActorSheet {
     this.actor.update({ 'system.commander': dropActor.id });
   }
 
+  /** @override */
   activateListeners(html) {
     super.activateListeners(html);
     html.on(
@@ -123,6 +125,10 @@ export default class WarfareSheet extends ActorSheet {
     event.data.actor.system.rollStat(stat);
   }
 
+  /**
+   * Edit the traits of the unit
+   * @param {MouseEvent} event Click event
+   */
   async _configureTraits(event) {
     const content = `<p>${game.i18n.localize(
       'KNW.Warfare.Traits.Instructions'
