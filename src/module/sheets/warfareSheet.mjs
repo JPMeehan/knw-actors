@@ -10,6 +10,13 @@ export default class WarfareSheet extends ActorSheet {
       classes: ['dnd5e', 'sheet', 'actor', 'warfare'],
       width: 600,
       height: 360,
+      tabs: [
+        {
+          navSelector: '.tabs',
+          contentSelector: '.tabs-body',
+          initial: 'traits',
+        },
+      ],
     });
   }
 
@@ -74,7 +81,10 @@ export default class WarfareSheet extends ActorSheet {
     else return CONFIG.KNW.CHOICES.TYPE[system.type].img;
   }
 
-  /** @override */
+  /**
+   * @returns {Promise<Actor | false>} This sheet's actor
+   * @override
+   */
   async _onDropActor(event, data) {
     // Returns false if user does not have owners permissions of the unit
     if (!super._onDropActor(event, data)) return false;
@@ -93,7 +103,7 @@ export default class WarfareSheet extends ActorSheet {
       });
       return false;
     }
-    this.actor.update({ 'system.commander': dropActor.id });
+    return this.actor.update({ 'system.commander': dropActor.id });
   }
 
   /** @override */
@@ -109,7 +119,7 @@ export default class WarfareSheet extends ActorSheet {
     );
     html.on(
       'click',
-      '.traits',
+      '.traitList',
       {
         sheetID: this.id,
         actor: this.actor,

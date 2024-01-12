@@ -81,7 +81,7 @@
       "CasualtyDie": "Casualty Die",
       "Traits": {
         "DialogTitle": "Traits",
-        "SheetLabel": "TRAITS",
+        "SheetLabel": "Traits",
         "Instructions": "Enter a semicolon (;) separated list"
       },
       "Tier": "Tier"

@@ -1,56 +1,56 @@
-<form class="{{cssClass}} flexcol">
-  <div class="header flexrow">
-    <div class="type">
-      <img class="typeImage" src="{{typeImage}}" />
+<form class='{{cssClass}} flexcol'>
+  <div class='header flexrow'>
+    <div class='type'>
+      <img class='typeImage' src='{{typeImage}}' />
     </div>
-    <div class="description flexcol">
-      <div class="id flexrow">
+    <div class='description flexcol'>
+      <div class='id flexrow'>
         <img
-          class="profile"
-          src="{{actor.img}}"
-          data-tooltip="{{actor.name}}"
-          data-edit="img"
+          class='profile'
+          src='{{actor.img}}'
+          data-tooltip='{{actor.name}}'
+          data-edit='img'
         />
         <input
-          type="text"
-          name="name"
-          value="{{actor.name}}"
-          placeholder="{{localize 'DND5E.Name'}}"
+          type='text'
+          name='name'
+          value='{{actor.name}}'
+          placeholder='{{localize "DND5E.Name"}}'
         />
       </div>
-      <div class="tags flexcol">
-        <div class="commander">
-          <label class="flexrow">
-            <span class="label">{{localize
-                "KNW.Warfare.Commander.Label"
+      <div class='tags flexcol'>
+        <div class='commander'>
+          <label class='flexrow'>
+            <span class='label'>{{localize
+                'KNW.Warfare.Commander.Label'
               }}</span>
-            <span class="name" data-id="{{system.commander}}">
+            <span class='name' data-id='{{system.commander}}'>
               {{system.commanderName}}
             </span>
           </label>
         </div>
-        <div class="modifiers flexrow">
-          <select class="experience" name="system.experience">
+        <div class='modifiers flexrow'>
+          <select class='experience' name='system.experience'>
             {{selectOptions
               choices.EXPERIENCE
               selected=system.experience
               localize=true
             }}
           </select>
-          <select class="gear" name="system.gear">
+          <select class='gear' name='system.gear'>
             {{selectOptions choices.GEAR selected=system.gear localize=true}}
           </select>
           <input
-            class="ancestry"
-            type="text"
-            name="system.ancestry"
-            value="{{system.ancestry}}"
-            placeholder="{{localize 'KNW.Warfare.Ancestry'}}"
+            class='ancestry'
+            type='text'
+            name='system.ancestry'
+            value='{{system.ancestry}}'
+            placeholder='{{localize "KNW.Warfare.Ancestry"}}'
           />
-          <select class="type" name="system.type">
+          <select class='type' name='system.type'>
             {{selectOptions
               choices.TYPE
-              labelAttr="label"
+              labelAttr='label'
               selected=system.type
               localize=true
             }}
@@ -58,63 +58,77 @@
         </div>
       </div>
     </div>
-    <div class="size flexcol">
-      <div class="flexcol">
-        {{numberInput system.size.value name="system.size.value" min=0}}
-        <div class="divider"></div>
-        {{numberInput system.size.max name="system.size.max" min=0}}
+    <div class='size flexcol'>
+      <div class='flexcol'>
+        {{numberInput system.size.value name='system.size.value' min=0}}
+        <div class='divider'></div>
+        {{numberInput system.size.max name='system.size.max' min=0}}
       </div>
-      <span class="label">{{localize "KNW.Warfare.Size"}}</span>
+      <span class='label'>{{localize 'KNW.Warfare.Size'}}</span>
     </div>
   </div>
-  <div class="statistics flexrow">
+  <div class='statistics flexrow'>
     <div
-      class="attacks"
-      data-tooltip="{{localize 'KNW.Warfare.Statistics.attacks.long'}}"
+      class='attacks'
+      data-tooltip='{{localize "KNW.Warfare.Statistics.attacks.long"}}'
     >
-      {{numberInput system.attacks name="system.attacks" min=0}}
+      {{numberInput system.attacks name='system.attacks' min=0}}
     </div>
     {{#each coreStats}}
-      <div class="coreStat flexcol">
-        <div class="label {{this.rollable}}" data-target="{{@key}}">
+      <div class='coreStat flexcol'>
+        <div class='label {{this.rollable}}' data-target='{{@key}}'>
           {{#if this.rollable}}<a>{{this.label}}</a>
           {{else}}{{this.label}}
           {{/if}}
         </div>
-        <div class="value">
+        <div class='value'>
           <input
-            type="text"
-            name="system.{{@key}}"
+            type='text'
+            name='system.{{@key}}'
             value={{this.value}}
-            data-dtype="Number"
+            data-dtype='Number'
           />
         </div>
       </div>
     {{/each}}
   </div>
-  <div class="footer flexrow">
-    <div class="damage">
+  <div class='footer flexrow'>
+    <div class='damage'>
       <label>
-        {{numberInput system.dmg name="system.dmg" min=0}}
-        <p class="label">
-          {{localize "KNW.Warfare.Statistics.dmg.abbr"}}
+        {{numberInput system.dmg name='system.dmg' min=0}}
+        <p class='label'>
+          {{localize 'KNW.Warfare.Statistics.dmg.abbr'}}
         </p>
       </label>
     </div>
-    <div class="traits">
-      <span class="label">{{localize "KNW.Warfare.Traits.SheetLabel"}}</span>
-      <ul class="traitList">
-        {{#each traits}}
-          <li>{{this}}</li>
-        {{/each}}
-      </ul>
+    <div class='traits'>
+      <nav class='sheet-navigation tabs' data-group='primary'>
+        <a class='label' data-tab='traits'>{{localize
+            'KNW.Warfare.Traits.SheetLabel'
+          }}</a>
+        <a class='label' data-tab='items'>{{localize 'DOCUMENT.Items'}}</a>
+        <a class='label' data-tab='effects'>{{localize
+            'DOCUMENT.ActiveEffects'
+          }}</a>
+      </nav>
+      <section class='tabs-body'>
+        <div class='tab' data-group='primary' data-tab='traits'>
+          <ul class='traitList'>
+            {{#each traits}}
+              <li>{{this}}</li>
+            {{/each}}
+          </ul>
+        </div>
+        <div class='tab' data-group='primary' data-tab='items'></div>
+        <div class='tab' data-group='primary' data-tab='effects'></div>
+      </section>
     </div>
-    <div class="tier">
+    <div class='tier'>
       <label>
-        <select name="system.tier">
+        <select name='system.tier'>
           {{selectOptions choices.TIER selected=system.tier}}
         </select>
-        <p class="label">{{localize "KNW.Warfare.Tier"}}</p>
+        <p class='label'>{{localize 'KNW.Warfare.Tier'}}</p>
       </label>
     </div>
   </div>
