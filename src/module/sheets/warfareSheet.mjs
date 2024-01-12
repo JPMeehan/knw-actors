@@ -56,11 +56,17 @@ export default class WarfareSheet extends ActorSheet {
     return context;
   }
 
+  /**
+   * @returns {string[] | null} An array of traits to display
+   */
   get traits() {
     const traits = this.actor.system.traitList.split(';').map((e) => e.trim());
     return traits.length === 1 && !traits[0] ? null : traits;
   }
 
+  /**
+   * @returns {string} The image path
+   */
   get typeImage() {
     const system = this.actor.system;
     if (system.type === 'infantry' && system.experience === 'levy')
