@@ -127,6 +127,22 @@
                   <img class='item-image' src='{{item.img}}' />
                   <h4>{{item.name}}</h4>
                 </div>
+                <div class='item-controls flexrow'>
+                  <a
+                    class='item-control'
+                    data-action='edit'
+                    data-tooltip='DND5E.ItemEdit'
+                  >
+                    <i class='fas fa-edit'></i>
+                  </a>
+                  <a
+                    class='item-control'
+                    data-action='delete'
+                    data-tooltip='DND5E.ItemDelete'
+                  >
+                    <i class='fas fa-trash'></i>
+                  </a>
+                </div>
               </li>
             {{/each}}
           </ul>
@@ -139,6 +155,29 @@
                   <!-- TODO: v12 update to effect.img -->
                   <img class='effect-image' src='{{effect.icon}}' />
                   <h4>{{effect.name}}</h4>
+                </div>
+                <div class='effect-controls flexrow'>
+                  <a
+                    class='effect-control'
+                    data-action='toggle'
+                    data-tooltip='DND5E.EffectToggle'
+                  >
+                    <i class='fas fa-times'></i>
+                  </a>
+                  <a
+                    class='effect-control'
+                    data-action='edit'
+                    data-tooltip='DND5E.EffectEdit'
+                  >
+                    <i class='fas fa-edit'></i>
+                  </a>
+                  <a
+                    class='effect-control'
+                    data-action='delete'
+                    data-tooltip='DND5E.EffectDelete'
+                  >
+                    <i class='fas fa-trash'></i>
+                  </a>
                 </div>
               </li>
             {{/each}}

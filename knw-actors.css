@@ -281,6 +281,11 @@
             line-height: 24px;
             white-space: nowrap;
             overflow-x: hidden; }
+          .actor.warfare .footer .addOns .tabs-body .itemList .item-controls,
+          .actor.warfare .footer .addOns .tabs-body .itemList .effect-controls,
+          .actor.warfare .footer .addOns .tabs-body .effectList .item-controls,
+          .actor.warfare .footer .addOns .tabs-body .effectList .effect-controls {
+            flex: 0 0 60px; }
     .actor.warfare .footer .tier {
       flex: 0 0 100px;
       border-left: var(--groove5e); }

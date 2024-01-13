@@ -177,6 +177,10 @@
             white-space: nowrap;
             overflow-x: hidden;
           }
+          .item-controls,
+          .effect-controls {
+            flex: 0 0 60px;
+          }
         }
       }
     }
