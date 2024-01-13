@@ -141,11 +141,11 @@
 
 .actor.warfare {
   --groove5e: 2px groove #eeede0;
-  --labelFont: "Modesto Condensed", "Palatino Linotype", serif; }
+  --labelFont: 'Modesto Condensed', 'Palatino Linotype', serif; }
   .actor.warfare .label {
     font-family: var(--labelFont);
     font-weight: 700; }
-  .actor.warfare input[type="number"] {
+  .actor.warfare input[type='number'] {
     font-family: var(--labelFont); }
   .actor.warfare .header {
     flex: 0 0 100px; }
@@ -248,12 +248,22 @@
           font-size: 18px;
           text-align: center;
           margin: 0; }
-    .actor.warfare .footer .traits {
+    .actor.warfare .footer .addOns {
+      display: flex;
+      flex-direction: column;
       flex: 1;
-      cursor: pointer;
       padding: 0 5px; }
-      .actor.warfare .footer .traits .traitList {
-        column-width: 130px; }
+      .actor.warfare .footer .addOns .tabs-body {
+        height: calc(100% - 15px); }
+        .actor.warfare .footer .addOns .tabs-body ul {
+          height: calc(100% - 15px); }
+        .actor.warfare .footer .addOns .tabs-body .traitList {
+          column-width: 130px;
+          cursor: pointer; }
+        .actor.warfare .footer .addOns .tabs-body .itemList,
+        .actor.warfare .footer .addOns .tabs-body .effectList {
+          list-style: none;
+          padding: 0; }
     .actor.warfare .footer .tier {
       flex: 0 0 100px;
       border-left: var(--groove5e); }

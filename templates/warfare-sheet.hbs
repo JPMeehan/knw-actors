@@ -101,7 +101,7 @@
         </p>
       </label>
     </div>
-    <div class='traits'>
+    <div class='addOns'>
       <nav class='sheet-navigation tabs' data-group='primary'>
         <a class='label' data-tab='traits'>{{localize
             'KNW.Warfare.Traits.SheetLabel'
@@ -114,13 +114,29 @@
       <section class='tabs-body'>
         <div class='tab' data-group='primary' data-tab='traits'>
           <ul class='traitList'>
-            {{#each traits}}
-              <li>{{this}}</li>
+            {{#each traits as |trait|}}
+              <li>{{trait}}</li>
             {{/each}}
           </ul>
         </div>
-        <div class='tab' data-group='primary' data-tab='items'></div>
-        <div class='tab' data-group='primary' data-tab='effects'></div>
+        <div class='tab' data-group='primary' data-tab='items'>
+          <ul class='itemList'>
+            {{#each items as |item|}}
+              <li class='item flexrow' data-id='{{item._id}}'>
+                <div>{{item.name}}</div>
+              </li>
+            {{/each}}
+          </ul>
+        </div>
+        <div class='tab' data-group='primary' data-tab='effects'>
+          <ul class='effectList'>
+            {{#each effects as |effect|}}
+              <li class='effect flexrow' data-id='{{effect._id}}'>
+                <div>{{effect.name}}</div>
+              </li>
+            {{/each}}
+          </ul>
+        </div>
       </section>
     </div>
     <div class='tier'>

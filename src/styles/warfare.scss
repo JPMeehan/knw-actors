@@ -1,11 +1,11 @@
 .actor.warfare {
   --groove5e: 2px groove #eeede0;
-  --labelFont: "Modesto Condensed", "Palatino Linotype", serif;
+  --labelFont: 'Modesto Condensed', 'Palatino Linotype', serif;
   .label {
     font-family: var(--labelFont);
     font-weight: 700;
   }
-  input[type="number"] {
+  input[type='number'] {
     font-family: var(--labelFont);
   }
   .header {
@@ -143,12 +143,25 @@
         }
       }
     }
-    .traits {
+    .addOns {
+      display: flex;
+      flex-direction: column;
       flex: 1;
-      cursor: pointer;
       padding: 0 5px;
-      .traitList {
-        column-width: 130px;
+      .tabs-body {
+        height: calc(100% - 15px);
+        ul {
+          height: calc(100% - 15px);
+        }
+        .traitList {
+          column-width: 130px;
+          cursor: pointer;
+        }
+        .itemList,
+        .effectList {
+          list-style: none;
+          padding: 0;
+        }
       }
     }
     .tier {
