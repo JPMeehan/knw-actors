@@ -161,6 +161,22 @@
         .effectList {
           list-style: none;
           padding: 0;
+          margin: 0;
+          .item-image,
+          .effect-image {
+            flex: 0 0 30px;
+            height: 24px;
+            background-size: cover;
+            background-position: 50% 0;
+            border: none;
+            margin-right: 5px;
+          }
+          h4 {
+            margin: 0;
+            line-height: 24px;
+            white-space: nowrap;
+            overflow-x: hidden;
+          }
         }
       }
     }

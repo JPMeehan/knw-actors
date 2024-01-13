@@ -263,7 +263,24 @@
         .actor.warfare .footer .addOns .tabs-body .itemList,
         .actor.warfare .footer .addOns .tabs-body .effectList {
           list-style: none;
-          padding: 0; }
+          padding: 0;
+          margin: 0; }
+          .actor.warfare .footer .addOns .tabs-body .itemList .item-image,
+          .actor.warfare .footer .addOns .tabs-body .itemList .effect-image,
+          .actor.warfare .footer .addOns .tabs-body .effectList .item-image,
+          .actor.warfare .footer .addOns .tabs-body .effectList .effect-image {
+            flex: 0 0 30px;
+            height: 24px;
+            background-size: cover;
+            background-position: 50% 0;
+            border: none;
+            margin-right: 5px; }
+          .actor.warfare .footer .addOns .tabs-body .itemList h4,
+          .actor.warfare .footer .addOns .tabs-body .effectList h4 {
+            margin: 0;
+            line-height: 24px;
+            white-space: nowrap;
+            overflow-x: hidden; }
     .actor.warfare .footer .tier {
       flex: 0 0 100px;
       border-left: var(--groove5e); }

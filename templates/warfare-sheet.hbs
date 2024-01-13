@@ -123,7 +123,10 @@
           <ul class='itemList'>
             {{#each items as |item|}}
               <li class='item flexrow' data-id='{{item._id}}'>
-                <div>{{item.name}}</div>
+                <div class='item-name flexrow'>
+                  <img class='item-image' src='{{item.img}}' />
+                  <h4>{{item.name}}</h4>
+                </div>
               </li>
             {{/each}}
           </ul>
@@ -132,7 +135,11 @@
           <ul class='effectList'>
             {{#each effects as |effect|}}
               <li class='effect flexrow' data-id='{{effect._id}}'>
-                <div>{{effect.name}}</div>
+                <div class='effect-name flexrow'>
+                  <!-- TODO: v12 update to effect.img -->
+                  <img class='effect-image' src='{{effect.icon}}' />
+                  <h4>{{effect.name}}</h4>
+                </div>
               </li>
             {{/each}}
           </ul>
