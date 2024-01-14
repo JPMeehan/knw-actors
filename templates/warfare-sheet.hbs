@@ -154,7 +154,15 @@
                 <div class='effect-name flexrow'>
                   <!-- TODO: v12 update to effect.img -->
                   <img class='effect-image' src='{{effect.icon}}' />
-                  <h4>{{effect.name}}</h4>
+                  <h4>
+                    {{#unless effect.disabled}}
+                      <strong>
+                        {{effect.name}}
+                      </strong>
+                    {{else}}
+                      {{effect.name}}
+                    {{/unless}}
+                  </h4>
                 </div>
                 <div class='effect-controls flexrow'>
                   <a
@@ -162,7 +170,11 @@
                     data-action='toggle'
                     data-tooltip='DND5E.EffectToggle'
                   >
-                    <i class='fas fa-times'></i>
+                    {{#if effect.disabled}}
+                      <i class='fas fa-check'></i>
+                    {{else}}
+                      <i class='fas fa-times'></i>
+                    {{/if}}
                   </a>
                   <a
                     class='effect-control'
