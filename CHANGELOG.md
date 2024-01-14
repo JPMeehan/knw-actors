@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0 Derived Stats
+
+- Organization skill bonuses and defense scores are now derived from their allocated development points
+- Warfare units now have an Items and Active Effects tab.
+  - KNOWN ISSUE: Item sheets CANNOT be rendered from a warfare unit due to upstream issue in dnd5e (https://github.com/foundryvtt/dnd5e/issues/2698)
+
 ## 1.0.0 Full Release
 
 - Updated SVG files to have defined height and width for firefox users
