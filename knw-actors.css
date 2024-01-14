@@ -303,7 +303,7 @@
             .actor.warfare .footer .addOns .tabs-body .effectList .create .item-create,
             .actor.warfare .footer .addOns .tabs-body .effectList .create .effect-create {
               color: var(--control-color);
-              flex: 0 0 60px; }
+              flex: 0 0 40px; }
     .actor.warfare .footer .tier {
       flex: 0 0 100px;
       border-left: var(--groove5e); }
