@@ -21,7 +21,9 @@ export default class OrgDevEditor extends FormApplication {
     value = value ?? '';
     if (Number.isNaN(value)) value = '';
     const html = `<input type="range" name="${name}" value="${value}" min="${min}" max="${max}" step="${step}"/>
-     <span class="range-value">${displayValue ?? value}</span>`;
+     <span class="range-value ${displayValue < 0 ? 'invalid' : ''}">${
+      displayValue ?? value
+    }</span>`;
     return new Handlebars.SafeString(html);
   }
 

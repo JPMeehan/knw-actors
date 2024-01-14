@@ -1,6 +1,6 @@
 .actor.organization {
   --groove5e: 2px groove #eeede0;
-  --labelFont: "Modesto Condensed", "Palatino Linotype", serif;
+  --labelFont: 'Modesto Condensed', 'Palatino Linotype', serif;
   .label,
   h2 {
     font-family: var(--labelFont);
@@ -10,7 +10,7 @@
     padding-bottom: 2px;
     border-bottom: var(--groove5e);
     margin-bottom: 2px;
-    input[type="text"] {
+    input[type='text'] {
       font-family: var(--labelFont);
     }
     img.profile {
@@ -156,7 +156,7 @@
 }
 
 .organization.orgDev {
-  --labelFont: "Modesto Condensed", "Palatino Linotype", serif;
+  --labelFont: 'Modesto Condensed', 'Palatino Linotype', serif;
   h3 {
     font-family: var(--labelFont);
     font-size: 2.25em;
@@ -166,7 +166,7 @@
       font-family: var(--labelFont);
       font-size: 1.75em;
     }
-    input[type="number"] {
+    input[type='number'] {
       max-width: 30px;
       text-align: right;
     }
@@ -184,6 +184,9 @@
       padding-left: 5px;
       .range-value {
         flex: 0 0 30px;
+        &.invalid {
+          background-color: indianred;
+        }
       }
     }
   }

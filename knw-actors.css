@@ -1,6 +1,6 @@
 .actor.organization {
   --groove5e: 2px groove #eeede0;
-  --labelFont: "Modesto Condensed", "Palatino Linotype", serif; }
+  --labelFont: 'Modesto Condensed', 'Palatino Linotype', serif; }
   .actor.organization .label,
   .actor.organization h2 {
     font-family: var(--labelFont); }
@@ -9,7 +9,7 @@
     padding-bottom: 2px;
     border-bottom: var(--groove5e);
     margin-bottom: 2px; }
-    .actor.organization .header input[type="text"] {
+    .actor.organization .header input[type='text'] {
       font-family: var(--labelFont); }
     .actor.organization .header img.profile {
       flex: 0 0 100px;
@@ -118,14 +118,14 @@
       border-left: var(--groove5e); }
 
 .organization.orgDev {
-  --labelFont: "Modesto Condensed", "Palatino Linotype", serif; }
+  --labelFont: 'Modesto Condensed', 'Palatino Linotype', serif; }
   .organization.orgDev h3 {
     font-family: var(--labelFont);
     font-size: 2.25em; }
   .organization.orgDev .stat h4 {
     font-family: var(--labelFont);
     font-size: 1.75em; }
-  .organization.orgDev .stat input[type="number"] {
+  .organization.orgDev .stat input[type='number'] {
     max-width: 30px;
     text-align: right; }
   .organization.orgDev .stat .statHeader .statSpec {
@@ -138,6 +138,8 @@
     padding-left: 5px; }
     .organization.orgDev .stat .statRange .range-value {
       flex: 0 0 30px; }
+      .organization.orgDev .stat .statRange .range-value.invalid {
+        background-color: indianred; }
 
 .actor.warfare {
   --groove5e: 2px groove #eeede0;
