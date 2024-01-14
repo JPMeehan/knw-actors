@@ -199,7 +199,7 @@ export default class WarfareSheet extends ActorSheet {
         doc.sheet.render(true);
         break;
       case 'delete':
-        doc.delete();
+        doc.deleteDialog();
         break;
       case 'toggle':
         doc.update({ disabled: !doc.disabled });
@@ -213,7 +213,10 @@ export default class WarfareSheet extends ActorSheet {
    */
   async #handleEmbeddedDocumentCreate(event) {
     const documentClass = CONFIG[event.data.className].documentClass;
-    documentClass.createDialog(undefined, { parent: this.actor });
+    documentClass.createDialog(
+      { img: 'icons/svg/aura.svg' },
+      { parent: this.actor }
+    );
   }
 
   get commanderMenu() {
