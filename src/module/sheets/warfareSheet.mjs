@@ -130,13 +130,19 @@ export default class WarfareSheet extends ActorSheet {
       'click',
       '.item-control',
       { collectionName: 'items' },
-      this._handleEmbeddedDocumentControl.bind(this)
+      this.#handleEmbeddedDocumentControl.bind(this)
     );
     html.on(
       'click',
       '.effect-control',
       { collectionName: 'effects' },
-      this._handleEmbeddedDocumentControl.bind(this)
+      this.#handleEmbeddedDocumentControl.bind(this)
+    );
+    html.on(
+      'click',
+      '.effect-create',
+      { className: 'ActiveEffect' },
+      this.#handleEmbeddedDocumentCreate.bind(this)
     );
 
     ContextMenu.create(this, html, '.commander .name', this.commanderMenu);
@@ -183,7 +189,7 @@ export default class WarfareSheet extends ActorSheet {
    * Handles item and effect controls
    * @param {MouseEvent} event Click Event
    */
-  async _handleEmbeddedDocumentControl(event) {
+  async #handleEmbeddedDocumentControl(event) {
     const action = event.currentTarget.dataset.action;
     const documentId = event.currentTarget.closest('li').dataset.id;
     const doc =
@@ -199,6 +205,15 @@ export default class WarfareSheet extends ActorSheet {
         doc.update({ disabled: !doc.disabled });
         break;
     }
+  }
+
+  /**
+   * Handles item and effect creation
+   * @param {MouseEvent} event Click Event
+   */
+  async #handleEmbeddedDocumentCreate(event) {
+    const documentClass = CONFIG[event.data.className].documentClass;
+    documentClass.createDialog(undefined, { parent: this.actor });
   }
 
   get commanderMenu() {

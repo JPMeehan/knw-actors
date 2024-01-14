@@ -189,9 +189,14 @@
             flex: 0 0 60px;
             color: var(--control-color);
           }
-          li.create {
+          .create {
             text-align: right;
-            color: var(--control-color);
+            flex-direction: row-reverse;
+            .item-create,
+            .effect-create {
+              color: var(--control-color);
+              flex: 0 0 40px;
+            }
           }
         }
       }
