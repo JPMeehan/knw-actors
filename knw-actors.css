@@ -255,6 +255,10 @@
       flex-direction: column;
       flex: 1;
       padding: 0 5px; }
+      .actor.warfare .footer .addOns .sheet-navigation a.label {
+        border-bottom: 3px solid #b5b3a4; }
+        .actor.warfare .footer .addOns .sheet-navigation a.label.active {
+          border-bottom-color: #44191a; }
       .actor.warfare .footer .addOns .tabs-body {
         height: calc(100% - 15px); }
         .actor.warfare .footer .addOns .tabs-body ul {
@@ -266,7 +270,8 @@
         .actor.warfare .footer .addOns .tabs-body .effectList {
           list-style: none;
           padding: 0;
-          margin: 0; }
+          margin: 0;
+          --control-color: #7a7971; }
           .actor.warfare .footer .addOns .tabs-body .itemList .item-image,
           .actor.warfare .footer .addOns .tabs-body .itemList .effect-image,
           .actor.warfare .footer .addOns .tabs-body .effectList .item-image,
@@ -287,7 +292,12 @@
           .actor.warfare .footer .addOns .tabs-body .itemList .effect-controls,
           .actor.warfare .footer .addOns .tabs-body .effectList .item-controls,
           .actor.warfare .footer .addOns .tabs-body .effectList .effect-controls {
-            flex: 0 0 60px; }
+            flex: 0 0 60px;
+            color: var(--control-color); }
+          .actor.warfare .footer .addOns .tabs-body .itemList li.create,
+          .actor.warfare .footer .addOns .tabs-body .effectList li.create {
+            text-align: right;
+            color: var(--control-color); }
     .actor.warfare .footer .tier {
       flex: 0 0 100px;
       border-left: var(--groove5e); }

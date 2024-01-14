@@ -148,6 +148,12 @@
       flex-direction: column;
       flex: 1;
       padding: 0 5px;
+      .sheet-navigation a.label {
+        border-bottom: 3px solid #b5b3a4;
+        &.active {
+          border-bottom-color: #44191a;
+        }
+      }
       .tabs-body {
         height: calc(100% - 15px);
         ul {
@@ -162,6 +168,7 @@
           list-style: none;
           padding: 0;
           margin: 0;
+          --control-color: #7a7971;
           .item-image,
           .effect-image {
             flex: 0 0 30px;
@@ -180,6 +187,11 @@
           .item-controls,
           .effect-controls {
             flex: 0 0 60px;
+            color: var(--control-color);
+          }
+          li.create {
+            text-align: right;
+            color: var(--control-color);
           }
         }
       }

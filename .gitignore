@@ -2,6 +2,8 @@
 commons.js
 foundry.js
 lang-foundry
+lang-dnd5e
+lang/dnd5e
 *.lock
 
 # Logs

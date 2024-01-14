@@ -21,9 +21,9 @@
       <div class='tags flexcol'>
         <div class='commander'>
           <label class='flexrow'>
-            <span class='label'>{{localize
-                'KNW.Warfare.Commander.Label'
-              }}</span>
+            <span class='label'>
+              {{localize 'KNW.Warfare.Commander.Label'}}
+            </span>
             <span class='name' data-id='{{system.commander}}'>
               {{system.commanderName}}
             </span>
@@ -103,13 +103,15 @@
     </div>
     <div class='addOns'>
       <nav class='sheet-navigation tabs' data-group='primary'>
-        <a class='label' data-tab='traits'>{{localize
-            'KNW.Warfare.Traits.SheetLabel'
-          }}</a>
-        <a class='label' data-tab='items'>{{localize 'DOCUMENT.Items'}}</a>
-        <a class='label' data-tab='effects'>{{localize
-            'DOCUMENT.ActiveEffects'
-          }}</a>
+        <a class='label' data-tab='traits'>
+          {{localize 'KNW.Warfare.Traits.SheetLabel'}}
+        </a>
+        <a class='label' data-tab='items'>
+          {{localize 'DOCUMENT.Items'}}
+        </a>
+        <a class='label' data-tab='effects'>
+          {{localize 'DOCUMENT.ActiveEffects'}}
+        </a>
       </nav>
       <section class='tabs-body'>
         <div class='tab' data-group='primary' data-tab='traits'>
@@ -194,6 +196,9 @@
                 </div>
               </li>
             {{/each}}
+            <li class='create effect'>
+              <i class='fas fa-plus'></i>{{localize 'DND5E.Add'}}
+            </li>
           </ul>
         </div>
       </section>

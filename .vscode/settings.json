@@ -1,5 +1,5 @@
 {
   "cSpell.words": ["KNWCONFIG", "MCDM's", "rollable"],
-  "i18n-ally.localesPaths": ["lang", "lang-foundry"],
+  "i18n-ally.localesPaths": ["lang", "lang-foundry", "lang-dnd5e"],
   "i18n-ally.keystyle": "nested"
 }
