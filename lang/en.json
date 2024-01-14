@@ -171,7 +171,8 @@
       "Development": {
         "Configure": "Configure Development Points",
         "Start": "Starting Value",
-        "Spec": "Specialization Bonus"
+        "Spec": "Specialization Bonus",
+        "TotalDevPoints": "Total development points spent on {statGroup}: {number}"
       }
     },
     "Sheets": {
