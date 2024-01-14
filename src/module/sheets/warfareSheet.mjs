@@ -213,8 +213,9 @@ export default class WarfareSheet extends ActorSheet {
    */
   async #handleEmbeddedDocumentCreate(event) {
     const documentClass = CONFIG[event.data.className].documentClass;
+    const imageProp = event.data.className === 'ActiveEffect' ? 'icon' : 'img';
     documentClass.createDialog(
-      { img: 'icons/svg/aura.svg' },
+      { [imageProp]: 'icons/svg/aura.svg' },
       { parent: this.actor }
     );
   }
