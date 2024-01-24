@@ -129,13 +129,13 @@ export default class WarfareSheet extends ActorSheet {
     html.on(
       'click',
       '.item-control',
-      { collectionName: 'items' },
+      { collectionName: 'items', idPath: 'itemId' },
       this.#handleEmbeddedDocumentControl.bind(this)
     );
     html.on(
       'click',
       '.effect-control',
-      { collectionName: 'effects' },
+      { collectionName: 'effects', idPath: 'effectId' },
       this.#handleEmbeddedDocumentControl.bind(this)
     );
     html.on(
@@ -191,7 +191,7 @@ export default class WarfareSheet extends ActorSheet {
    */
   async #handleEmbeddedDocumentControl(event) {
     const action = event.currentTarget.dataset.action;
-    const documentId = event.currentTarget.closest('li').dataset.id;
+    const documentId = event.currentTarget.closest('li').dataset[event.data.idPath];
     const doc =
       this.actor.collections[event.data.collectionName].get(documentId);
     switch (action) {
