@@ -124,20 +124,19 @@
         <div class='tab' data-group='primary' data-tab='items'>
           <ul class='itemList'>
             {{#each items as |item|}}
-              <li class='item flexrow' data-item-id="{{item._id}}">
+              <li class='item flexrow' data-item-id='{{item._id}}'>
                 <div class='item-name flexrow'>
                   <img class='item-image' src='{{item.img}}' />
                   <h4>{{item.name}}</h4>
                 </div>
                 <div class='item-controls flexrow'>
-                  {{! TODO: Re-enable after D&D 2.5 }}
-                  {{! <a
+                  <a
                     class='item-control'
                     data-action='edit'
                     data-tooltip='DND5E.ItemEdit'
                   >
                     <i class='fas fa-edit'></i>
-                  </a> }}
+                  </a>
                   <a
                     class='item-control'
                     data-action='delete'
@@ -153,7 +152,7 @@
         <div class='tab' data-group='primary' data-tab='effects'>
           <ul class='effectList'>
             {{#each effects as |effect|}}
-              <li class='effect flexrow' data-effect-id="{{effect._id}}">
+              <li class='effect flexrow' data-effect-id='{{effect._id}}'>
                 <div class='effect-name flexrow'>
                   <!-- TODO: v12 update to effect.img -->
                   <img class='effect-image' src='{{effect.icon}}' />
