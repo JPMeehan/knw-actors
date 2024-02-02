@@ -3,7 +3,8 @@
 ## 1.2.0
 
 - Updated minimum `dnd5e` system version to 3.0
-- Added edit button to items now that they can render properly
+- Added edit button to items on warfare sheets now that they can render properly
+  - Note: Items don't DO anything besides minimally display
 - Warfare units now roll as themselves
 - Warfare and Organization sheet rolls now accept standard 5e key modifiers to speed up rolls
   - Shift to roll normally
