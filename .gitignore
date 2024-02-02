@@ -133,3 +133,5 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+knw-actors.css.map
+knw-actors-compiled.mjs

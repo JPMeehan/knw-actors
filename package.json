@@ -4,7 +4,7 @@
   "description": "Warfare Units and Organizations from MCDM's Kingdoms &amp; Warfare as actor types for the dnd5e system using v11 Module subtypes",
   "main": "knw-actors.mjs",
   "scripts": {
-    "build:css": "sass ./styles/prime-psionics.scss prime-psionics.css",
+    "build:css": "sass ./src/styles/knw-actors.scss knw-actors.css",
     "build:js": "rollup -c",
     "build": "npm run build:css && npm run build:js"
   },

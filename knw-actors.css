@@ -1,327 +1,425 @@
 .actor.organization {
   --groove5e: 2px groove #eeede0;
-  --labelFont: 'Modesto Condensed', 'Palatino Linotype', serif; }
-  .actor.organization .label,
-  .actor.organization h2 {
-    font-family: var(--labelFont); }
-  .actor.organization .header {
-    flex: 0 0 104px;
-    padding-bottom: 2px;
-    border-bottom: var(--groove5e);
-    margin-bottom: 2px; }
-    .actor.organization .header input[type='text'] {
-      font-family: var(--labelFont); }
-    .actor.organization .header img.profile {
-      flex: 0 0 100px;
-      max-width: 100px;
-      height: 100px;
-      border: none; }
-    .actor.organization .header .name {
-      flex: 3;
-      font-size: 32px; }
-    .actor.organization .header .orgDetails {
-      flex: 1;
-      font-size: 24px; }
-  .actor.organization .body {
-    flex: 0 0 250px;
-    padding-top: 2px;
-    --body-row-height: 50px; }
-    .actor.organization .body h2 {
-      border: none;
-      text-align: center;
-      font-size: 36px; }
-    .actor.organization .body .editScore {
-      flex: 0 0 25px;
-      font-size: 20px; }
-    .actor.organization .body .value {
-      text-align: center;
-      font-size: 24px;
-      line-height: 50px;
-      font-family: var(--labelFont); }
-    .actor.organization .body .label {
-      text-align: center;
-      font-size: 28px;
-      line-height: var(--body-row-height); }
-    .actor.organization .body .skills {
-      flex: 0 0 210px;
-      border-right: var(--groove5e); }
-      .actor.organization .body .skills div.skill:nth-child(even) {
-        background-color: rgba(0, 0, 0, 0.05); }
-      .actor.organization .body .skills .value {
-        flex: 0 0 60px; }
-      .actor.organization .body .skills .label {
-        border-left: var(--groove5e); }
-        .actor.organization .body .skills .label.rollable {
-          cursor: pointer; }
-    .actor.organization .body .powerPool {
-      flex: 1; }
-      .actor.organization .body .powerPool .powerPoolList {
-        height: calc(100% - 40px - 0.5rem - 0.5em);
-        padding: 0; }
-        .actor.organization .body .powerPool .powerPoolList li {
-          padding: 0 3px;
-          font-size: 16px;
-          line-height: 25px; }
-          .actor.organization .body .powerPool .powerPoolList li:nth-child(odd) {
-            background-color: rgba(0, 0, 0, 0.05); }
-        .actor.organization .body .powerPool .powerPoolList .name {
-          flex: 1;
-          overflow-wrap: anywhere; }
-        .actor.organization .body .powerPool .powerPoolList .powerDie {
-          flex: 0 0 27px;
-          text-align: right;
-          padding: 0 4px 0 2px;
-          border-left: var(--groove5e); }
-          .actor.organization .body .powerPool .powerPoolList .powerDie.rollable {
-            cursor: pointer; }
-        .actor.organization .body .powerPool .powerPoolList .edit {
-          flex: 0 0 20px; }
-          .actor.organization .body .powerPool .powerPoolList .edit a {
-            padding-left: 4px; }
-    .actor.organization .body .defenses {
-      border-left: var(--groove5e);
-      flex: 0 0 320px; }
-      .actor.organization .body .defenses div.defense:nth-child(even) {
-        background-color: rgba(0, 0, 0, 0.05); }
-      .actor.organization .body .defenses .label {
-        border-right: var(--groove5e); }
-      .actor.organization .body .defenses .value {
-        flex: 0 0 60px; }
-      .actor.organization .body .defenses .powerDie,
-      .actor.organization .body .defenses .level {
-        flex: 0 0 110px;
-        height: 100%;
-        border: none; }
-      .actor.organization .body .defenses .powerDie {
-        max-height: var(--body-row-height);
-        padding-right: 16px; }
-      .actor.organization .body .defenses .level {
-        font-size: 20px;
-        font-family: var(--labelFont);
-        text-align: center; }
-  .actor.organization .footer {
-    flex: 1;
-    height: calc(100% - 354px);
-    border-top: var(--groove5e); }
-    .actor.organization .footer .powers,
-    .actor.organization .footer .features {
-      height: 100%;
-      padding: 2px 5px; }
-      .actor.organization .footer .powers .footerHeader h3,
-      .actor.organization .footer .features .footerHeader h3 {
-        font-family: var(--labelFont);
-        font-size: 32px; }
-      .actor.organization .footer .powers .footerBody,
-      .actor.organization .footer .features .footerBody {
-        height: calc(100% - 35px); }
-    .actor.organization .footer .features {
-      border-left: var(--groove5e); }
+  --labelFont: "Modesto Condensed", "Palatino Linotype", serif;
+}
+.actor.organization .label,
+.actor.organization h2 {
+  font-family: var(--labelFont);
+}
+.actor.organization .header {
+  flex: 0 0 104px;
+  padding-bottom: 2px;
+  border-bottom: var(--groove5e);
+  margin-bottom: 2px;
+}
+.actor.organization .header input[type=text] {
+  font-family: var(--labelFont);
+}
+.actor.organization .header img.profile {
+  flex: 0 0 100px;
+  max-width: 100px;
+  height: 100px;
+  border: none;
+}
+.actor.organization .header .name {
+  flex: 3;
+  font-size: 32px;
+}
+.actor.organization .header .orgDetails {
+  flex: 1;
+  font-size: 24px;
+}
+.actor.organization .body {
+  flex: 0 0 250px;
+  padding-top: 2px;
+  --body-row-height: 50px;
+}
+.actor.organization .body h2 {
+  border: none;
+  text-align: center;
+  font-size: 36px;
+}
+.actor.organization .body .editScore {
+  flex: 0 0 25px;
+  font-size: 20px;
+}
+.actor.organization .body .value {
+  text-align: center;
+  font-size: 24px;
+  line-height: 50px;
+  font-family: var(--labelFont);
+}
+.actor.organization .body .label {
+  text-align: center;
+  font-size: 28px;
+  line-height: var(--body-row-height);
+}
+.actor.organization .body .skills {
+  flex: 0 0 210px;
+  border-right: var(--groove5e);
+}
+.actor.organization .body .skills div.skill:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.actor.organization .body .skills .value {
+  flex: 0 0 60px;
+}
+.actor.organization .body .skills .label {
+  border-left: var(--groove5e);
+}
+.actor.organization .body .skills .label.rollable {
+  cursor: pointer;
+}
+.actor.organization .body .powerPool {
+  flex: 1;
+}
+.actor.organization .body .powerPool .powerPoolList {
+  height: calc(100% - 40px - 0.5rem - 0.5em);
+  padding: 0;
+}
+.actor.organization .body .powerPool .powerPoolList li {
+  padding: 0 3px;
+  font-size: 16px;
+  line-height: 25px;
+}
+.actor.organization .body .powerPool .powerPoolList li:nth-child(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.actor.organization .body .powerPool .powerPoolList .name {
+  flex: 1;
+  overflow-wrap: anywhere;
+}
+.actor.organization .body .powerPool .powerPoolList .powerDie {
+  flex: 0 0 27px;
+  text-align: right;
+  padding: 0 4px 0 2px;
+  border-left: var(--groove5e);
+}
+.actor.organization .body .powerPool .powerPoolList .powerDie.rollable {
+  cursor: pointer;
+}
+.actor.organization .body .powerPool .powerPoolList .edit {
+  flex: 0 0 20px;
+}
+.actor.organization .body .powerPool .powerPoolList .edit a {
+  padding-left: 4px;
+}
+.actor.organization .body .defenses {
+  border-left: var(--groove5e);
+  flex: 0 0 320px;
+}
+.actor.organization .body .defenses div.defense:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.actor.organization .body .defenses .label {
+  border-right: var(--groove5e);
+}
+.actor.organization .body .defenses .value {
+  flex: 0 0 60px;
+}
+.actor.organization .body .defenses .powerDie,
+.actor.organization .body .defenses .level {
+  flex: 0 0 110px;
+  height: 100%;
+  border: none;
+}
+.actor.organization .body .defenses .powerDie {
+  max-height: var(--body-row-height);
+  padding-right: 16px;
+}
+.actor.organization .body .defenses .level {
+  font-size: 20px;
+  font-family: var(--labelFont);
+  text-align: center;
+}
+.actor.organization .footer {
+  flex: 1;
+  height: calc(100% - 354px);
+  border-top: var(--groove5e);
+}
+.actor.organization .footer .powers,
+.actor.organization .footer .features {
+  height: 100%;
+  padding: 2px 5px;
+}
+.actor.organization .footer .powers .footerHeader h3,
+.actor.organization .footer .features .footerHeader h3 {
+  font-family: var(--labelFont);
+  font-size: 32px;
+}
+.actor.organization .footer .powers .footerBody,
+.actor.organization .footer .features .footerBody {
+  height: calc(100% - 35px);
+}
+.actor.organization .footer .features {
+  border-left: var(--groove5e);
+}
 
 .organization.orgDev {
-  --labelFont: 'Modesto Condensed', 'Palatino Linotype', serif; }
-  .organization.orgDev h3 {
-    font-family: var(--labelFont);
-    font-size: 2.25em; }
-  .organization.orgDev .stat h4 {
-    font-family: var(--labelFont);
-    font-size: 1.75em; }
-  .organization.orgDev .stat input[type='number'] {
-    max-width: 30px;
-    text-align: right; }
-  .organization.orgDev .stat .statHeader .statSpec {
-    text-align: right; }
-  .organization.orgDev .stat .dividers {
-    padding-right: 34px;
-    margin-top: 3px;
-    text-align: center; }
-  .organization.orgDev .stat .statRange {
-    padding-left: 5px; }
-    .organization.orgDev .stat .statRange .range-value {
-      flex: 0 0 30px; }
-      .organization.orgDev .stat .statRange .range-value.invalid {
-        background-color: indianred; }
+  --labelFont: "Modesto Condensed", "Palatino Linotype", serif;
+}
+.organization.orgDev h3 {
+  font-family: var(--labelFont);
+  font-size: 2.25em;
+}
+.organization.orgDev .stat h4 {
+  font-family: var(--labelFont);
+  font-size: 1.75em;
+}
+.organization.orgDev .stat input[type=number] {
+  max-width: 30px;
+  text-align: right;
+}
+.organization.orgDev .stat .statHeader .statSpec {
+  text-align: right;
+}
+.organization.orgDev .stat .dividers {
+  padding-right: 34px;
+  margin-top: 3px;
+  text-align: center;
+}
+.organization.orgDev .stat .statRange {
+  padding-left: 5px;
+}
+.organization.orgDev .stat .statRange .range-value {
+  flex: 0 0 30px;
+}
+.organization.orgDev .stat .statRange .range-value.invalid {
+  background-color: indianred;
+}
 
 .actor.warfare {
   --groove5e: 2px groove #eeede0;
-  --labelFont: 'Modesto Condensed', 'Palatino Linotype', serif; }
-  .actor.warfare .label {
-    font-family: var(--labelFont);
-    font-weight: 700; }
-  .actor.warfare input[type='number'] {
-    font-family: var(--labelFont); }
-  .actor.warfare .header {
-    flex: 0 0 100px; }
-    .actor.warfare .header .type {
-      flex: 0 0 30px;
-      margin: 0 5px; }
-      .actor.warfare .header .type .typeImage {
-        border: none;
-        margin: 40px 0; }
-    .actor.warfare .header .description {
-      flex: 1;
-      padding: 0 3px;
-      border-left: var(--groove5e);
-      border-right: var(--groove5e); }
-      .actor.warfare .header .description .id {
-        border-bottom: var(--groove5e);
-        margin-bottom: 2px;
-        padding-bottom: 2px; }
-        .actor.warfare .header .description .id img.profile {
-          max-width: 60px;
-          height: 60px;
-          border: none; }
-        .actor.warfare .header .description .id input {
-          font-size: 32px;
-          font-family: var(--labelFont); }
-      .actor.warfare .header .description .tags .commander .label {
-        flex: 0 0;
-        line-height: 20px;
-        padding: 0 3px;
-        font-size: 18px; }
-      .actor.warfare .header .description .tags .commander .name {
-        border-bottom: 1px solid black;
-        line-height: 20px;
-        padding-left: 5px; }
-      .actor.warfare .header .description .tags .modifiers select {
-        border: none;
-        flex: 0 0 80px; }
-      .actor.warfare .header .description .tags .modifiers input {
-        flex: 1; }
-    .actor.warfare .header .size {
-      flex: 0 0 60px;
-      padding: 2px; }
-      .actor.warfare .header .size input {
-        font-size: 36px;
-        flex: 1; }
-        .actor.warfare .header .size input:first-of-type {
-          text-align: left; }
-        .actor.warfare .header .size input:last-of-type {
-          text-align: right; }
-      .actor.warfare .header .size .divider {
-        position: fixed;
-        width: 46px;
-        height: 65px;
-        margin: 12.5px 0 0 4px;
-        background-color: #7a7971;
-        clip-path: polygon(90% 0, 100% 0%, 10% 100%, 0% 100%); }
-      .actor.warfare .header .size .label {
-        text-align: center;
-        flex: 0 0 20px;
-        line-height: 20px;
-        font-size: 18px; }
-  .actor.warfare .statistics {
-    flex: 0 0 80px;
-    margin: 2px 0;
-    padding: 2px 0;
-    border-top: var(--groove5e);
-    border-bottom: var(--groove5e); }
-    .actor.warfare .statistics .attacks {
-      flex: 0 0 30px;
-      font-size: 36px; }
-    .actor.warfare .statistics .coreStat {
-      padding: 2px; }
-      .actor.warfare .statistics .coreStat .value,
-      .actor.warfare .statistics .coreStat .label {
-        font-size: 24px;
-        text-align: center; }
-      .actor.warfare .statistics .coreStat .label {
-        line-height: 40px;
-        border-bottom: var(--groove5e); }
-      .actor.warfare .statistics .coreStat:not(:last-of-type) {
-        border-right: var(--groove5e); }
-      .actor.warfare .statistics .coreStat .value {
-        font-family: var(--labelFont); }
-  .actor.warfare .footer {
-    flex: 1; }
-    .actor.warfare .footer .damage {
-      flex: 0 0 100px;
-      border-right: var(--groove5e); }
-      .actor.warfare .footer .damage label {
-        height: 100%; }
-        .actor.warfare .footer .damage label input {
-          height: 90px;
-          width: 94px;
-          font-size: 36px;
-          text-align: center;
-          margin: 2px; }
-        .actor.warfare .footer .damage label .label {
-          flex: 0 0 24px;
-          line-height: 24px;
-          font-size: 18px;
-          text-align: center;
-          margin: 0; }
-    .actor.warfare .footer .addOns {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      padding: 0 5px; }
-      .actor.warfare .footer .addOns .sheet-navigation a.label {
-        border-bottom: 3px solid #b5b3a4; }
-        .actor.warfare .footer .addOns .sheet-navigation a.label.active {
-          border-bottom-color: #44191a; }
-      .actor.warfare .footer .addOns .tabs-body {
-        height: calc(100% - 15px); }
-        .actor.warfare .footer .addOns .tabs-body ul {
-          height: calc(100% - 15px); }
-        .actor.warfare .footer .addOns .tabs-body .traitList {
-          column-width: 130px;
-          cursor: pointer; }
-        .actor.warfare .footer .addOns .tabs-body .itemList,
-        .actor.warfare .footer .addOns .tabs-body .effectList {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-          --control-color: #7a7971; }
-          .actor.warfare .footer .addOns .tabs-body .itemList .item-image,
-          .actor.warfare .footer .addOns .tabs-body .itemList .effect-image,
-          .actor.warfare .footer .addOns .tabs-body .effectList .item-image,
-          .actor.warfare .footer .addOns .tabs-body .effectList .effect-image {
-            flex: 0 0 30px;
-            height: 24px;
-            background-size: cover;
-            background-position: 50% 0;
-            border: none;
-            margin-right: 5px; }
-          .actor.warfare .footer .addOns .tabs-body .itemList h4,
-          .actor.warfare .footer .addOns .tabs-body .effectList h4 {
-            margin: 0;
-            line-height: 24px;
-            white-space: nowrap;
-            overflow-x: hidden; }
-          .actor.warfare .footer .addOns .tabs-body .itemList .item-controls,
-          .actor.warfare .footer .addOns .tabs-body .itemList .effect-controls,
-          .actor.warfare .footer .addOns .tabs-body .effectList .item-controls,
-          .actor.warfare .footer .addOns .tabs-body .effectList .effect-controls {
-            flex: 0 0 60px;
-            color: var(--control-color); }
-          .actor.warfare .footer .addOns .tabs-body .itemList .create,
-          .actor.warfare .footer .addOns .tabs-body .effectList .create {
-            text-align: right;
-            flex-direction: row-reverse; }
-            .actor.warfare .footer .addOns .tabs-body .itemList .create .item-create,
-            .actor.warfare .footer .addOns .tabs-body .itemList .create .effect-create,
-            .actor.warfare .footer .addOns .tabs-body .effectList .create .item-create,
-            .actor.warfare .footer .addOns .tabs-body .effectList .create .effect-create {
-              color: var(--control-color);
-              flex: 0 0 40px; }
-    .actor.warfare .footer .tier {
-      flex: 0 0 100px;
-      border-left: var(--groove5e); }
-      .actor.warfare .footer .tier label {
-        height: 100%; }
-        .actor.warfare .footer .tier label select {
-          height: 92px;
-          width: 94px;
-          margin: 2px;
-          border: none;
-          font-size: 36px;
-          text-align: center; }
-        .actor.warfare .footer .tier label .label {
-          flex: 0 0 24px;
-          line-height: 24px;
-          font-size: 18px;
-          text-align: center;
-          margin: 0 16px 0 0; }
+  --labelFont: "Modesto Condensed", "Palatino Linotype", serif;
+}
+.actor.warfare .label {
+  font-family: var(--labelFont);
+  font-weight: 700;
+}
+.actor.warfare input[type=number] {
+  font-family: var(--labelFont);
+}
+.actor.warfare .header {
+  flex: 0 0 100px;
+}
+.actor.warfare .header .type {
+  flex: 0 0 30px;
+  margin: 0 5px;
+}
+.actor.warfare .header .type .typeImage {
+  border: none;
+  margin: 40px 0;
+}
+.actor.warfare .header .description {
+  flex: 1;
+  padding: 0 3px;
+  border-left: var(--groove5e);
+  border-right: var(--groove5e);
+}
+.actor.warfare .header .description .id {
+  border-bottom: var(--groove5e);
+  margin-bottom: 2px;
+  padding-bottom: 2px;
+}
+.actor.warfare .header .description .id img.profile {
+  max-width: 60px;
+  height: 60px;
+  border: none;
+}
+.actor.warfare .header .description .id input {
+  font-size: 32px;
+  font-family: var(--labelFont);
+}
+.actor.warfare .header .description .tags .commander .label {
+  flex: 0 0;
+  line-height: 20px;
+  padding: 0 3px;
+  font-size: 18px;
+}
+.actor.warfare .header .description .tags .commander .name {
+  border-bottom: 1px solid black;
+  line-height: 20px;
+  padding-left: 5px;
+}
+.actor.warfare .header .description .tags .modifiers select {
+  border: none;
+  flex: 0 0 80px;
+}
+.actor.warfare .header .description .tags .modifiers input {
+  flex: 1;
+}
+.actor.warfare .header .size {
+  flex: 0 0 60px;
+  padding: 2px;
+}
+.actor.warfare .header .size input {
+  font-size: 36px;
+  flex: 1;
+}
+.actor.warfare .header .size input:first-of-type {
+  text-align: left;
+}
+.actor.warfare .header .size input:last-of-type {
+  text-align: right;
+}
+.actor.warfare .header .size .divider {
+  position: fixed;
+  width: 46px;
+  height: 65px;
+  margin: 12.5px 0 0 4px;
+  background-color: #7a7971;
+  clip-path: polygon(90% 0, 100% 0%, 10% 100%, 0% 100%);
+}
+.actor.warfare .header .size .label {
+  text-align: center;
+  flex: 0 0 20px;
+  line-height: 20px;
+  font-size: 18px;
+}
+.actor.warfare .statistics {
+  flex: 0 0 80px;
+  margin: 2px 0;
+  padding: 2px 0;
+  border-top: var(--groove5e);
+  border-bottom: var(--groove5e);
+}
+.actor.warfare .statistics .attacks {
+  flex: 0 0 30px;
+  font-size: 36px;
+}
+.actor.warfare .statistics .coreStat {
+  padding: 2px;
+}
+.actor.warfare .statistics .coreStat .value,
+.actor.warfare .statistics .coreStat .label {
+  font-size: 24px;
+  text-align: center;
+}
+.actor.warfare .statistics .coreStat .label {
+  line-height: 40px;
+  border-bottom: var(--groove5e);
+}
+.actor.warfare .statistics .coreStat:not(:last-of-type) {
+  border-right: var(--groove5e);
+}
+.actor.warfare .statistics .coreStat .value {
+  font-family: var(--labelFont);
+}
+.actor.warfare .footer {
+  flex: 1;
+}
+.actor.warfare .footer .damage {
+  flex: 0 0 100px;
+  border-right: var(--groove5e);
+}
+.actor.warfare .footer .damage label {
+  height: 100%;
+}
+.actor.warfare .footer .damage label input {
+  height: 90px;
+  width: 94px;
+  font-size: 36px;
+  text-align: center;
+  margin: 2px;
+}
+.actor.warfare .footer .damage label .label {
+  flex: 0 0 24px;
+  line-height: 24px;
+  font-size: 18px;
+  text-align: center;
+  margin: 0;
+}
+.actor.warfare .footer .addOns {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 0 5px;
+}
+.actor.warfare .footer .addOns .sheet-navigation a.label {
+  border-bottom: 3px solid #b5b3a4;
+}
+.actor.warfare .footer .addOns .sheet-navigation a.label.active {
+  border-bottom-color: #44191a;
+}
+.actor.warfare .footer .addOns .tabs-body {
+  height: calc(100% - 15px);
+}
+.actor.warfare .footer .addOns .tabs-body ul {
+  height: calc(100% - 15px);
+}
+.actor.warfare .footer .addOns .tabs-body .traitList {
+  column-width: 130px;
+  cursor: pointer;
+}
+.actor.warfare .footer .addOns .tabs-body .itemList,
+.actor.warfare .footer .addOns .tabs-body .effectList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  --control-color: #7a7971;
+}
+.actor.warfare .footer .addOns .tabs-body .itemList .item-image,
+.actor.warfare .footer .addOns .tabs-body .itemList .effect-image,
+.actor.warfare .footer .addOns .tabs-body .effectList .item-image,
+.actor.warfare .footer .addOns .tabs-body .effectList .effect-image {
+  flex: 0 0 30px;
+  height: 24px;
+  background-size: cover;
+  background-position: 50% 0;
+  border: none;
+  margin-right: 5px;
+}
+.actor.warfare .footer .addOns .tabs-body .itemList h4,
+.actor.warfare .footer .addOns .tabs-body .effectList h4 {
+  margin: 0;
+  line-height: 24px;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+.actor.warfare .footer .addOns .tabs-body .itemList .item-controls,
+.actor.warfare .footer .addOns .tabs-body .itemList .effect-controls,
+.actor.warfare .footer .addOns .tabs-body .effectList .item-controls,
+.actor.warfare .footer .addOns .tabs-body .effectList .effect-controls {
+  flex: 0 0 60px;
+  color: var(--control-color);
+}
+.actor.warfare .footer .addOns .tabs-body .itemList .create,
+.actor.warfare .footer .addOns .tabs-body .effectList .create {
+  text-align: right;
+  flex-direction: row-reverse;
+}
+.actor.warfare .footer .addOns .tabs-body .itemList .create .item-create,
+.actor.warfare .footer .addOns .tabs-body .itemList .create .effect-create,
+.actor.warfare .footer .addOns .tabs-body .effectList .create .item-create,
+.actor.warfare .footer .addOns .tabs-body .effectList .create .effect-create {
+  color: var(--control-color);
+  flex: 0 0 40px;
+}
+.actor.warfare .footer .tier {
+  flex: 0 0 100px;
+  border-left: var(--groove5e);
+}
+.actor.warfare .footer .tier label {
+  height: 100%;
+}
+.actor.warfare .footer .tier label select {
+  height: 92px;
+  width: 94px;
+  margin: 2px;
+  border: none;
+  font-size: 36px;
+  text-align: center;
+}
+.actor.warfare .footer .tier label .label {
+  flex: 0 0 24px;
+  line-height: 24px;
+  font-size: 18px;
+  text-align: center;
+  margin: 0 16px 0 0;
+}
 
 .dialog .orgTestUseProf {
-  margin-top: 14px; }
+  margin-top: 14px;
+}
+
+/*# sourceMappingURL=knw-actors.css.map */
