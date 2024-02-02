@@ -25,7 +25,7 @@
         "infantry": "Infantry"
       },
       "Statistics": {
-        "Test": "{stat} Test",
+        "Test": "{stat} Test: {actorName}",
         "atk": {
           "long": "Attack",
           "abbr": "ATK"

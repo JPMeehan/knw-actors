@@ -33,17 +33,17 @@ export default class WarfareData extends foundry.abstract.TypeDataModel {
       }),
       experience: new fields.StringField({
         choices: CONFIG.KNW.CHOICES.EXPERIENCE,
-        initial: "regular",
+        initial: 'regular',
         textSearch: true,
       }),
       gear: new fields.StringField({
         choices: CONFIG.KNW.CHOICES.GEAR,
-        initial: "light",
+        initial: 'light',
         textSearch: true,
       }),
       type: new fields.StringField({
         choices: CONFIG.KNW.CHOICES.TYPE,
-        initial: "infantry",
+        initial: 'infantry',
         textSearch: true,
       }),
       atk: new fields.NumberField({
@@ -119,7 +119,7 @@ export default class WarfareData extends foundry.abstract.TypeDataModel {
         }),
       }),
       traitList: new fields.StringField({
-        initial: "",
+        initial: '',
         nullable: false,
         textSearch: true,
       }),
@@ -138,24 +138,32 @@ export default class WarfareData extends foundry.abstract.TypeDataModel {
   get commanderName() {
     const commander = game.actors.get(this.commander);
     if (commander) return commander.name;
-    else return game.i18n.localize("KNW.Warfare.Commander.None");
+    else return game.i18n.localize('KNW.Warfare.Commander.None');
   }
 
-  async rollStat(stat) {
-    const commander = game.actors.get(this.commander);
-
+  /**
+   *
+   * @param {string} stat     Warfare stat to roll
+   * @param {Event} [event]   Optional event
+   */
+  async rollStat(stat, event) {
     const roll = game.dnd5e.dice.d20Roll({
-      parts: ["@stat"],
+      parts: ['@stat'],
       data: {
         stat: this[stat],
       },
-      title: game.i18n.format("KNW.Warfare.Statistics.Test", {
+      title: game.i18n.format('KNW.Warfare.Statistics.Test', {
         stat: game.i18n.localize(`KNW.Warfare.Statistics.${stat}.long`),
+        actorName: this.parent.name,
+      }),
+      flavor: game.i18n.format('KNW.Warfare.Statistics.Test', {
+        stat: game.i18n.localize(`KNW.Warfare.Statistics.${stat}.long`),
+        actorName: game.actors.get(this.commander)?.name ?? '',
       }),
       messageData: {
-        speaker: { actor: commander },
+        speaker: { actor: this.parent },
       },
+      event,
     });
-    // console.log(await roll);
   }
 }

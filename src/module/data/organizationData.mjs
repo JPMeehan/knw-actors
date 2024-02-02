@@ -192,10 +192,10 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
    * @param {string} actorID The ID of the actor rolling their power die
    */
   async rollPowerDie(actorID) {
-    const roll = new Roll("1d@powerDie", { powerDie: this.powerDie });
+    const roll = new Roll('1d@powerDie', { powerDie: this.powerDie });
     await roll.toMessage({
       speaker: { actor: actorID },
-      flavor: game.i18n.localize("KNW.Organization.Powers.RollFlavor"),
+      flavor: game.i18n.localize('KNW.Organization.Powers.RollFlavor'),
     });
     this.parent.update({ [`system.powerPool.${actorID}`]: roll.total });
   }
@@ -207,7 +207,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
   async decrementPowerDie(actorID) {
     const currentValue = this.powerPool[actorID];
     this.parent.update({
-      ["system.powerPool." + actorID]: Math.max(currentValue - 1, 0),
+      ['system.powerPool.' + actorID]: Math.max(currentValue - 1, 0),
     });
   }
 
@@ -216,8 +216,9 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
    * @param {string} skill    The abbreviation of the skill being rolled
    * @param {Actor5e} actor   The actor making the skill test
    * @param {boolean} useProf Whether to use the actor's proficiency
+   * @param {Event} [event]   Click event that triggered the roll
    */
-  async rollSkillTest(skill, actor, useProf) {
+  async rollSkillTest(skill, actor, useProf, event) {
     const isProf = CONFIG.KNW.ORGANIZATION.assocSkills[skill].reduce(
       (accumulator, currentValue) => {
         return actor.system.skills[currentValue].proficient >= 1 || accumulator;
@@ -226,22 +227,23 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
     );
     const prof =
       isProf && useProf
-        ? foundry.utils.getProperty(actor, "system.attributes.prof")
+        ? foundry.utils.getProperty(actor, 'system.attributes.prof')
         : 0;
     if (prof === undefined)
-      ui.notifications.warn("KNW.Organization.skills.Warning.Prof", {
+      ui.notifications.warn('KNW.Organization.skills.Warning.Prof', {
         localize: true,
       });
-    const label = game.i18n.localize("KNW.Organization.skills." + skill);
+    const label = game.i18n.localize('KNW.Organization.skills.' + skill);
     return game.dnd5e.dice.d20Roll({
-      parts: ["@skill", "@prof"],
+      parts: ['@skill', '@prof'],
       data: { skill: this.skills[skill].bonus, prof },
-      title: game.i18n.format("KNW.Organization.skills.Test.Title", {
+      title: game.i18n.format('KNW.Organization.skills.Test.Title', {
         skill: label,
       }),
       messageData: {
         speaker: { actor },
       },
+      event,
     });
   }
 }

@@ -150,7 +150,7 @@ export default class WarfareSheet extends ActorSheet {
 
   async #rollStat(event) {
     const stat = event.currentTarget.dataset.target;
-    event.data.actor.system.rollStat(stat);
+    event.data.actor.system.rollStat(stat, event);
   }
 
   /**
@@ -191,7 +191,8 @@ export default class WarfareSheet extends ActorSheet {
    */
   async #handleEmbeddedDocumentControl(event) {
     const action = event.currentTarget.dataset.action;
-    const documentId = event.currentTarget.closest('li').dataset[event.data.idPath];
+    const documentId =
+      event.currentTarget.closest('li').dataset[event.data.idPath];
     const doc =
       this.actor.collections[event.data.collectionName].get(documentId);
     switch (action) {

@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.2.0
+
+- Updated minimum system version to 3.0
+- Added edit button to items now that they can render properly
+- Warfare units now roll as themselves
+- Warfare and Organization sheet rolls now accept standard 5e key modifiers to speed up rolls
+  - Shift to roll normally
+  - Ctrl to roll with disadvantage
+  - Alt to roll with advantage
+
 ## 1.1.0 Derived Stats
 
 - [BREAKING] Organization skill bonuses and defense scores are now derived from their allocated development points

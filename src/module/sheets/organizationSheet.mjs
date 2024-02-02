@@ -1,15 +1,15 @@
-import OrgDevEditor from "./orgDevEditor.mjs";
+import OrgDevEditor from './orgDevEditor.mjs';
 
 export default class OrganizationSheet extends ActorSheet {
   /** @override */
   get template() {
-    return "modules/knw-actors/templates/organization-sheet.hbs";
+    return 'modules/knw-actors/templates/organization-sheet.hbs';
   }
 
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["dnd5e", "sheet", "actor", "organization"],
+      classes: ['dnd5e', 'sheet', 'actor', 'organization'],
       width: 720,
       height: 680,
     });
@@ -24,7 +24,7 @@ export default class OrganizationSheet extends ActorSheet {
       skills: Object.entries(this.actor.system.skills).map(([key, skill]) => {
         return {
           key,
-          label: game.i18n.localize("KNW.Organization.skills." + key),
+          label: game.i18n.localize('KNW.Organization.skills.' + key),
           bonus: skill.bonus,
         };
       }),
@@ -32,7 +32,7 @@ export default class OrganizationSheet extends ActorSheet {
         return {
           key,
           label: game.i18n.localize(
-            "KNW.Organization.defenses." + key + ".Label"
+            'KNW.Organization.defenses.' + key + '.Label'
           ),
           level: def.level,
           score: def.score,
@@ -53,16 +53,16 @@ export default class OrganizationSheet extends ActorSheet {
     return Object.entries(this.actor.system.powerPool).map(([id, current]) => {
       const actor = game.actors.get(id);
       let value = current;
-      let tooltip = "KNW.Organization.Powers.Take";
+      let tooltip = 'KNW.Organization.Powers.Take';
       let decrement = `<a class="subtract"><i class="fas fa-minus"></i></a>`;
       if (value === null) {
         value = '<i class="fa-solid fa-dice-d20"></i>';
-        tooltip = "KNW.Organization.Powers.Roll";
-        decrement = "";
+        tooltip = 'KNW.Organization.Powers.Roll';
+        decrement = '';
       } else if (value === 0) {
         value = '<i class="fa-solid fa-repeat"></i>';
-        tooltip = "KNW.Organization.Powers.Rest";
-        decrement = "";
+        tooltip = 'KNW.Organization.Powers.Rest';
+        decrement = '';
       }
       return {
         id: id,
@@ -80,19 +80,19 @@ export default class OrganizationSheet extends ActorSheet {
     // owners permissions of the organization
     const dropActor = await fromUuid(data.uuid);
     if (dropActor.pack) {
-      ui.notifications.warn("KNW.Organization.Powers.Warning.NoPackActors", {
+      ui.notifications.warn('KNW.Organization.Powers.Warning.NoPackActors', {
         localize: true,
       });
       return false;
     } else if (
-      !foundry.utils.getProperty(dropActor, "system.attributes.prof")
+      !foundry.utils.getProperty(dropActor, 'system.attributes.prof')
     ) {
-      ui.notifications.warn("KNW.Organization.Powers.Warning.NoProf", {
+      ui.notifications.warn('KNW.Organization.Powers.Warning.NoProf', {
         localize: true,
       });
       return false;
     } else if (this.actor.system.powerPool.hasOwnProperty(dropActor.id)) {
-      ui.notifications.warn("KNW.Organization.Powers.Warning.AlreadyMember", {
+      ui.notifications.warn('KNW.Organization.Powers.Warning.AlreadyMember', {
         localize: true,
       });
       return false;
@@ -104,32 +104,32 @@ export default class OrganizationSheet extends ActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
     html.on(
-      "click",
-      ".body .editScore>a",
+      'click',
+      '.body .editScore>a',
       { actor: this.actor },
       this.#editScore
     );
 
     html.on(
-      "click",
-      ".skills .label.rollable",
+      'click',
+      '.skills .label.rollable',
       { actor: this.actor },
       this.#rollSkill
     );
     html.on(
-      "click",
-      ".powerDie.rollable",
+      'click',
+      '.powerDie.rollable',
       { actor: this.actor },
       this.#cyclePowerDie
     );
     html.on(
-      "click",
-      ".powerPoolList .edit .subtract",
+      'click',
+      '.powerPoolList .edit .subtract',
       { actor: this.actor },
       this.#decrementPowerDie
     );
 
-    ContextMenu.create(this, html, ".powerPoolMember", this.powerPoolItemMenu);
+    ContextMenu.create(this, html, '.powerPoolMember', this.powerPoolItemMenu);
   }
 
   async #editScore(event) {
@@ -153,39 +153,39 @@ export default class OrganizationSheet extends ActorSheet {
       (accumulator, currentValue, currentIndex, array) => {
         return (
           accumulator +
-          " " +
+          ' ' +
           CONFIG.DND5E.skills[currentValue].label +
-          (currentIndex === array.length - 1 ? "" : ",")
+          (currentIndex === array.length - 1 ? '' : ',')
         );
       },
-      game.i18n.localize("KNW.Organization.skills.Test.AssocSkills")
+      game.i18n.localize('KNW.Organization.skills.Test.AssocSkills')
     );
 
     if (validActors.length === 0)
-      ui.notifications.warn("KNW.Organization.skills.Warning.noActors", {
+      ui.notifications.warn('KNW.Organization.skills.Warning.noActors', {
         localize: true,
       });
     else if (validActors.length === 1) {
       const useProf = await Dialog.wait({
-        title: game.i18n.format("KNW.Organization.skills.Test.Title", {
-          skill: game.i18n.localize("KNW.Organization.skills." + stat),
+        title: game.i18n.format('KNW.Organization.skills.Test.Title', {
+          skill: game.i18n.localize('KNW.Organization.skills.' + stat),
         }),
         content: `<label class="flexrow"><p class="orgUseProf">${game.i18n.localize(
-          "KNW.Organization.skills.Test.UseProf"
+          'KNW.Organization.skills.Test.UseProf'
         )}</p>
         <input class="orgTestUseProf" type="checkbox" /></label>
         <p><em>${assocSkillsText}</em></p>`,
         buttons: {
           default: {
             icon: '<i class="fa-solid fa-floppy-disk"></i>',
-            label: game.i18n.localize("KNW.Organization.skills.Test.Roll"),
+            label: game.i18n.localize('KNW.Organization.skills.Test.Roll'),
             callback: (html) => {
-              return html.find(".orgTestUseProf")[0].checked;
+              return html.find('.orgTestUseProf')[0].checked;
             },
           },
         },
       });
-      thisActor.system.rollSkillTest(stat, validActors[0], useProf);
+      thisActor.system.rollSkillTest(stat, validActors[0], useProf, event);
     } else {
       const selectOptions = validActors.map((actor) => ({
         memberID: actor.id,
@@ -193,43 +193,43 @@ export default class OrganizationSheet extends ActorSheet {
       }));
 
       const testInput = await Dialog.wait({
-        title: game.i18n.format("KNW.Organization.skills.Test.Title", {
-          skill: game.i18n.localize("KNW.Organization.skills." + stat),
+        title: game.i18n.format('KNW.Organization.skills.Test.Title', {
+          skill: game.i18n.localize('KNW.Organization.skills.' + stat),
         }),
         content: `<label class="orgChooseActorLabel">${game.i18n.localize(
-          "KNW.Organization.skills.Test.ChooseActor"
+          'KNW.Organization.skills.Test.ChooseActor'
         )}
         <select class='orgChooseActor'>
         ${Handlebars.helpers.selectOptions(selectOptions, {
-          hash: { nameAttr: "memberID", labelAttr: "memberName" },
+          hash: { nameAttr: 'memberID', labelAttr: 'memberName' },
         })}
         </select></label>
         <label class="flexrow"><p class="orgUseProf">${game.i18n.localize(
-          "KNW.Organization.skills.Test.UseProf"
+          'KNW.Organization.skills.Test.UseProf'
         )}</p>
         <input class="orgTestUseProf" type="checkbox" /></label>
         <p><em>${assocSkillsText}</em></p>`,
         buttons: {
           default: {
             icon: '<i class="fa-solid fa-floppy-disk"></i>',
-            label: game.i18n.localize("KNW.Organization.skills.Test.Roll"),
+            label: game.i18n.localize('KNW.Organization.skills.Test.Roll'),
             callback: (html) => {
               return {
                 chosenActor: game.actors.get(
-                  html.find(".orgChooseActor")[0].value
+                  html.find('.orgChooseActor')[0].value
                 ),
-                useProf: html.find(".orgTestUseProf")[0].checked,
+                useProf: html.find('.orgTestUseProf')[0].checked,
               };
             },
           },
         },
       });
-      console.log(testInput);
       if (testInput?.chosenActor)
         thisActor.system.rollSkillTest(
           stat,
           testInput.chosenActor,
-          testInput.useProf
+          testInput.useProf,
+          event
         );
     }
   }
@@ -243,7 +243,7 @@ export default class OrganizationSheet extends ActorSheet {
       case null: // Available
         if (memberActor.isOwner) thisActor.system.rollPowerDie(memberID);
         else
-          ui.notifications.warn("KNW.Organization.Powers.Warning.MustOwnRoll", {
+          ui.notifications.warn('KNW.Organization.Powers.Warning.MustOwnRoll', {
             localize: true,
           });
         break;
@@ -251,14 +251,14 @@ export default class OrganizationSheet extends ActorSheet {
         if (memberActor.isOwner)
           thisActor.update({ [`system.powerPool.${memberID}`]: null });
         else
-          ui.notifications.warn("KNW.Organization.Powers.Warning.MustOwnRest", {
+          ui.notifications.warn('KNW.Organization.Powers.Warning.MustOwnRest', {
             localize: true,
           });
         break;
       default:
         ChatMessage.create({
           user: game.user,
-          content: game.i18n.format("KNW.Organization.Powers.TakeValue", {
+          content: game.i18n.format('KNW.Organization.Powers.TakeValue', {
             currentValue,
             orgName: thisActor.name,
           }),
@@ -277,7 +277,7 @@ export default class OrganizationSheet extends ActorSheet {
     return [
       {
         name: game.i18n.localize(
-          "KNW.Organization.Powers.ContextMenu.SetValue"
+          'KNW.Organization.Powers.ContextMenu.SetValue'
         ),
         icon: "<i class='fas fa-edit'></i>",
         condition: this.isEditable,
@@ -285,7 +285,7 @@ export default class OrganizationSheet extends ActorSheet {
       },
       {
         name: game.i18n.localize(
-          "KNW.Organization.Powers.ContextMenu.ViewMember"
+          'KNW.Organization.Powers.ContextMenu.ViewMember'
         ),
         icon: "<i class='fas fa-eye'></i>",
         condition: true,
@@ -293,7 +293,7 @@ export default class OrganizationSheet extends ActorSheet {
       },
       {
         name: game.i18n.localize(
-          "KNW.Organization.Powers.ContextMenu.RemoveMember"
+          'KNW.Organization.Powers.ContextMenu.RemoveMember'
         ),
         icon: "<i class='fas fa-trash'></i>",
         condition: this.isEditable,
@@ -306,18 +306,18 @@ export default class OrganizationSheet extends ActorSheet {
     const memberID = html[0].dataset.id;
 
     new Dialog({
-      title: game.i18n.localize("KNW.Organization.Powers.SetValue"),
+      title: game.i18n.localize('KNW.Organization.Powers.SetValue'),
       content: Handlebars.helpers.numberInput(
         thisActor.system.powerPool[memberID],
-        { hash: { class: "powerDie", min: 0, max: thisActor.system.powerDie } }
+        { hash: { class: 'powerDie', min: 0, max: thisActor.system.powerDie } }
       ).string,
       buttons: {
         default: {
           icon: '<i class="fa-solid fa-floppy-disk"></i>',
-          label: game.i18n.localize("Save Changes"),
+          label: game.i18n.localize('Save Changes'),
           callback: (dialogHTML) => {
-            const newValue = dialogHTML.find(".powerDie")[0].value
-              ? dialogHTML.find(".powerDie")[0].value
+            const newValue = dialogHTML.find('.powerDie')[0].value
+              ? dialogHTML.find('.powerDie')[0].value
               : null;
             thisActor.update({
               [`system.powerPool.${memberID}`]: newValue,
@@ -338,7 +338,7 @@ export default class OrganizationSheet extends ActorSheet {
     const memberID = html[0].dataset.id;
     const member = game.actors.get(memberID);
     ui.notifications.info(
-      game.i18n.format("KNW.Organization.Powers.Warning.RemoveMember", {
+      game.i18n.format('KNW.Organization.Powers.Warning.RemoveMember', {
         memberName: member.name,
         organization: thisActor.name,
       })
