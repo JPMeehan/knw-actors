@@ -7,9 +7,9 @@
 ## 1.2.0
 
 - Updated minimum `dnd5e` system version to 3.0
-- Added edit button to items on warfare sheets now that they can render properly
+- Added edit button to items on warfare sheets now that they can render properly (#15)
   - Note: Items don't DO anything besides minimally display
-- Warfare units now roll as themselves
+- Warfare units now roll as themselves (#5)
 - Warfare and Organization sheet rolls now accept standard 5e key modifiers to speed up rolls
   - Shift to roll normally
   - Ctrl to roll with disadvantage
@@ -17,8 +17,8 @@
 
 ## 1.1.0 Derived Stats
 
-- [BREAKING] Organization skill bonuses and defense scores are now derived from their allocated development points
-- Warfare units now have an Items and Active Effects tab.
+- [BREAKING] Organization skill bonuses and defense scores are now derived from their allocated development points (#6)
+- Warfare units now have an Items and Active Effects tab. (#7)
   - KNOWN ISSUE: Item sheets CANNOT be rendered from a warfare unit due to upstream issue in dnd5e (https://github.com/foundryvtt/dnd5e/issues/2698)
 
 ## 1.0.0 Full Release
