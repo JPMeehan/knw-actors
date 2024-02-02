@@ -21,13 +21,13 @@ Hooks.once('init', () => {
     [typeWarfare]: WarfareData,
   });
 
-  Actors.registerSheet('organization', OrganizationSheet, {
+  Actors.registerSheet(moduleID, OrganizationSheet, {
     types: [typeOrganization],
     makeDefault: true,
     label: 'KNW.Sheets.Organization',
   });
 
-  Actors.registerSheet('warfare', WarfareSheet, {
+  Actors.registerSheet(moduleID, WarfareSheet, {
     types: [typeWarfare],
     makeDefault: true,
     label: 'KNW.Sheets.Warfare',

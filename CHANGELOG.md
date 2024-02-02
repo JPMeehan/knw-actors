@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.1
+
+- Updated namespace for the actor sheets to use the module ID
+
 ## 1.2.0
 
 - Updated minimum `dnd5e` system version to 3.0
