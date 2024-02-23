@@ -25,7 +25,7 @@ export default class WarfareData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
     const data = {
-      commander: new fields.StringField({
+      commander: new fields.ForeignDocumentField(getDocumentClass('Actor'), {
         textSearch: true,
       }),
       ancestry: new fields.StringField({
@@ -136,7 +136,7 @@ export default class WarfareData extends foundry.abstract.TypeDataModel {
   }
 
   get commanderName() {
-    const commander = game.actors.get(this.commander);
+    const commander = this.commander; // game.actors.get(this.commander);
     if (commander) return commander.name;
     else return game.i18n.localize('KNW.Warfare.Commander.None');
   }
@@ -158,7 +158,7 @@ export default class WarfareData extends foundry.abstract.TypeDataModel {
       }),
       flavor: game.i18n.format('KNW.Warfare.Statistics.Test', {
         stat: game.i18n.localize(`KNW.Warfare.Statistics.${stat}.long`),
-        actorName: game.actors.get(this.commander)?.name ?? '',
+        actorName: commander?.name ?? '',
       }),
       messageData: {
         speaker: { actor: this.parent },

@@ -3,6 +3,9 @@
 ## 1.2.1
 
 - Updated namespace for the actor sheets to use the module ID
+- Changed the `commander` field on Warfare from a StringField to a ForeignDocumentField.
+  - This means that `unit.commander` will return an actor rather than the ID.
+  - Refactored a number of sheet functions to account for this change.
 
 ## 1.2.0
 

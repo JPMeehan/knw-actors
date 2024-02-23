@@ -222,37 +222,31 @@ export default class WarfareSheet extends ActorSheet {
   }
 
   get commanderMenu() {
+    const commander = this.actor.system.commander;
     return [
       {
         name: game.i18n.localize('KNW.Warfare.Commander.View'),
         icon: "<i class='fas fa-eye'></i>",
-        condition: true,
-        callback: this.viewCommander,
+        condition: commander,
+        callback: () => commander.sheet.render(true),
       },
       {
         name: game.i18n.localize('KNW.Warfare.Commander.Clear'),
         icon: "<i class='fas fa-trash'></i>",
-        condition: this.isEditable,
-        callback: (html) => this.clearCommander(html, this.actor),
+        condition: this.isEditable && commander,
+        callback: this.clearCommander.bind(this),
       },
     ];
   }
 
-  async viewCommander(html) {
-    const commanderID = html[0].dataset.id;
-    const commander = game.actors.get(commanderID);
-    commander.sheet.render(true);
-  }
-
-  async clearCommander(html, thisActor) {
-    const commanderID = html[0].dataset.id;
-    const commander = game.actors.get(commanderID);
+  async clearCommander() {
+    const commander = this.actor.system.commander;
     ui.notifications.info(
       game.i18n.format('KNW.Warfare.Commander.Warning.Remove', {
         commanderName: commander.name,
-        warfareUnit: thisActor.name,
+        warfareUnit: this.actor.name,
       })
     );
-    thisActor.update({ 'system.commander': '' });
+    this.actor.update({ 'system.commander': '' });
   }
 }
