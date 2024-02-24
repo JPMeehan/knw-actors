@@ -7,7 +7,7 @@
   - This means that `unit.commander` will return an actor rather than the ID.
   - Refactored a number of sheet functions to account for this change.
 - Added missing Levy icon and fixed d6.svg
--
+- Item and effect descriptions now display as a simple tooltip on hover.
 
 ## 1.2.0
 

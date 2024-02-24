@@ -127,7 +127,9 @@
               <li class='item flexrow' data-item-id='{{item._id}}'>
                 <div class='item-name flexrow'>
                   <img class='item-image' src='{{item.img}}' />
-                  <h4>{{item.name}}</h4>
+                  <h4
+                    data-tooltip='{{{item.system.description.value}}}'
+                  >{{item.name}}</h4>
                 </div>
                 <div class='item-controls flexrow'>
                   <a
@@ -156,7 +158,7 @@
                 <div class='effect-name flexrow'>
                   <!-- TODO: v12 update to effect.img -->
                   <img class='effect-image' src='{{effect.icon}}' />
-                  <h4>
+                  <h4 data-tooltip='{{{effect.description}}}'>
                     {{#unless effect.disabled}}
                       <strong>
                         {{effect.name}}
