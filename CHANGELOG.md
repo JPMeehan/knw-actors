@@ -6,6 +6,8 @@
 - Changed the `commander` field on Warfare from a StringField to a ForeignDocumentField.
   - This means that `unit.commander` will return an actor rather than the ID.
   - Refactored a number of sheet functions to account for this change.
+- Added missing Levy icon and fixed d6.svg
+-
 
 ## 1.2.0
 
