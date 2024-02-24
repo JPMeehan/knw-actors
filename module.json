@@ -14,7 +14,7 @@
         "type": "system",
         "compatibility": {
           "minimum": "3.0",
-          "verified": "3.0.0"
+          "verified": "3.0.3"
         }
       }
     ]
