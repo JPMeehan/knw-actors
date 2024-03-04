@@ -155,10 +155,10 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
    * @override
    */
   prepareBaseData() {
-    for (const [abbr, skill] of Object.entries(this.skills)) {
+    for (const skill of Object.values(this.skills)) {
       skill.bonus = 0;
     }
-    for (const [abbr, def] of Object.entries(this.defenses)) {
+    for (const def of Object.values(this.defenses)) {
       def.score = 0;
     }
   }
@@ -169,11 +169,11 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
    * @override
    */
   prepareDerivedData() {
-    for (const [abbr, skill] of Object.entries(this.skills)) {
+    for (const skill of Object.values(this.skills)) {
       skill.bonus +=
         CONFIG.KNW.ORGANIZATION.tracks.skills[skill.development.points];
     }
-    for (const [abbr, def] of Object.entries(this.defenses)) {
+    for (const def of Object.values(this.defenses)) {
       def.score +=
         CONFIG.KNW.ORGANIZATION.tracks.defenses[def.development.points] +
         def.level;
@@ -219,11 +219,8 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
    * @param {Event} [event]   Click event that triggered the roll
    */
   async rollSkillTest(skill, actor, useProf, event) {
-    const isProf = CONFIG.KNW.ORGANIZATION.assocSkills[skill].reduce(
-      (accumulator, currentValue) => {
-        return actor.system.skills[currentValue].proficient >= 1 || accumulator;
-      },
-      false
+    const isProf = CONFIG.KNW.ORGANIZATION.assocSkills[skill].some(
+      (s) => actor.system.skills[s].proficient >= 1
     );
     const prof =
       isProf && useProf

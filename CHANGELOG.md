@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.2
+
+- Various code cleanups
+- Improved error handling to allow removing deleted actors from organizations
+
 ## 1.2.1
 
 - Updated namespace for the actor sheets to use the module ID

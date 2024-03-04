@@ -78,9 +78,7 @@ export default class OrgDevEditor extends FormApplication {
           label:
             statGroup === 'skills'
               ? game.i18n.localize('KNW.Organization.skills.' + key)
-              : game.i18n.localize(
-                  'KNW.Organization.defenses.' + key + '.Label'
-                ),
+              : game.i18n.localize(`KNW.Organization.defenses.${key}.Label`),
           displayValue,
           ...stat,
         };

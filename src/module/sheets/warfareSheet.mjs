@@ -96,7 +96,7 @@ export default class WarfareSheet extends ActorSheet {
       });
       return false;
     } else if (
-      !foundry.utils.getProperty(dropActor, 'system.attributes.prof')
+      !foundry.utils.hasProperty(dropActor, 'system.attributes.prof')
     ) {
       ui.notifications.warn('KNW.Warfare.Commander.Warning.NoProf', {
         localize: true,
@@ -213,7 +213,7 @@ export default class WarfareSheet extends ActorSheet {
    * @param {MouseEvent} event Click Event
    */
   async #handleEmbeddedDocumentCreate(event) {
-    const documentClass = CONFIG[event.data.className].documentClass;
+    const documentClass = getDocumentClass(event.data.className);
     const imageProp = event.data.className === 'ActiveEffect' ? 'icon' : 'img';
     documentClass.createDialog(
       { [imageProp]: 'icons/svg/aura.svg' },
