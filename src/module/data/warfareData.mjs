@@ -136,7 +136,7 @@ export default class WarfareData extends foundry.abstract.TypeDataModel {
   }
 
   get commanderName() {
-    const commander = this.commander; // game.actors.get(this.commander);
+    const commander = this.commander;
     if (commander) return commander.name;
     else return game.i18n.localize('KNW.Warfare.Commander.None');
   }
@@ -158,7 +158,7 @@ export default class WarfareData extends foundry.abstract.TypeDataModel {
       }),
       flavor: game.i18n.format('KNW.Warfare.Statistics.Test', {
         stat: game.i18n.localize(`KNW.Warfare.Statistics.${stat}.long`),
-        actorName: commander?.name ?? '',
+        actorName: this.commander?.name ?? '',
       }),
       messageData: {
         speaker: { actor: this.parent },
