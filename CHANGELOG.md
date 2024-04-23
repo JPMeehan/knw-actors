@@ -4,6 +4,7 @@
 
 - Various code cleanups
 - Improved error handling to allow removing deleted actors from organizations
+- Fixed bug with rolling Warfare unit stats caused by previous refactor
 
 ## 1.2.1
 
