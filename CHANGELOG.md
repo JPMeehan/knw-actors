@@ -1,10 +1,14 @@
 # Changelog
 
+## 1.2.3
+
+- Fixed erroneous implementation that linked Defense Levels to Defense Score (#23)
+
 ## 1.2.2
 
 - Various code cleanups
 - Improved error handling to allow removing deleted actors from organizations
-- Fixed bug with rolling Warfare unit stats caused by previous refactor
+- Fixed bug with rolling Warfare unit stats caused by previous refactor (#22)
 
 ## 1.2.1
 
@@ -12,8 +16,8 @@
 - Changed the `commander` field on Warfare from a StringField to a ForeignDocumentField.
   - This means that `unit.commander` will return an actor rather than the ID.
   - Refactored a number of sheet functions to account for this change.
-- Added missing Levy icon and fixed d6.svg
-- Item and effect descriptions now display as a simple tooltip on hover on the warfare sheet.
+- Added missing Levy icon and fixed d6.svg (#17)
+- Item and effect descriptions now display as a simple tooltip on hover on the warfare sheet. (#19)
 
 ## 1.2.0
 

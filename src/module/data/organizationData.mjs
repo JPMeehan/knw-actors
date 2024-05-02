@@ -175,8 +175,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
     }
     for (const def of Object.values(this.defenses)) {
       def.score +=
-        CONFIG.KNW.ORGANIZATION.tracks.defenses[def.development.points] +
-        def.level;
+        CONFIG.KNW.ORGANIZATION.tracks.defenses[def.development.points];
     }
   }
 
