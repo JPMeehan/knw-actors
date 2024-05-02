@@ -77,7 +77,6 @@
           "Remove": "Removed {commanderName} as the commander of {warfareUnit}"
         }
       },
-      "Size": "Size",
       "CasualtyDie": "Casualty Die",
       "Traits": {
         "DialogTitle": "Traits",

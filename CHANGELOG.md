@@ -2,6 +2,7 @@
 
 ## 1.2.3
 
+- Warfare token sheets now provide the appropriate options for attribute bars and single values again (#18)
 - Fixed erroneous implementation that linked Defense Levels to Defense Score (#23)
 
 ## 1.2.2

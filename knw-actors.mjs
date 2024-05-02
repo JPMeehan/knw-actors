@@ -4,6 +4,7 @@ import WarfareData from './src/module/data/warfareData.mjs';
 import WarfareSheet from './src/module/sheets/warfareSheet.mjs';
 import KNWCONFIG from './src/module/config.mjs';
 import OrgDevEditor from './src/module/sheets/orgDevEditor.mjs';
+import { warfareTokenBar } from './src/module/hooks.mjs';
 
 const moduleID = 'knw-actors';
 const typeWarfare = 'knw-actors.warfare';
@@ -32,4 +33,12 @@ Hooks.once('init', () => {
     makeDefault: true,
     label: 'KNW.Sheets.Warfare',
   });
+});
+
+Hooks.on('renderTokenConfig5e', (app, html, context) => {
+  switch (app.actor.type) {
+    case typeWarfare:
+      warfareTokenBar(app, html, context);
+      break;
+  }
 });
