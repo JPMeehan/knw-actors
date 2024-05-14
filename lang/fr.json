@@ -1,0 +1,187 @@
+{
+  "KNW": {
+    "Warfare": {
+      "Experience": {
+        "label": "Expérience",
+        "levy": "Levé",
+        "regular": "Régulier",
+        "veteran": "Vétéran",
+        "elite": "Élite",
+        "super-elite": "Super-Élite"
+      },
+      "Gear": {
+        "label": "Équipement",
+        "light": "Léger",
+        "medium": "Moyen",
+        "heavy": "Lourd",
+        "super-heavy": "Super-Lourd"
+      },
+      "Type": {
+        "label": "Type",
+        "aerial": "Aérien",
+        "artillery": "Artillerie",
+        "artillery-siege": "Artillerie (Siège)",
+        "cavalry": "Cavalerie",
+        "infantry": "Infanterie"
+      },
+      "Statistics": {
+        "Test": "{stat} Test: {actorName}",
+        "atk": {
+          "long": "Attaque",
+          "abbr": "ATK"
+        },
+        "def": {
+          "long": "Défense",
+          "abbr": "DEF"
+        },
+        "pow": {
+          "long": "Pouvoir",
+          "abbr": "POW"
+        },
+        "tou": {
+          "long": "Résistance",
+          "abbr": "TOU"
+        },
+        "mor": {
+          "long": "Moral",
+          "abbr": "MOR"
+        },
+        "com": {
+          "long": "Commandement",
+          "abbr": "COM"
+        },
+        "attacks": {
+          "long": "Nombre d'Attaques"
+        },
+        "dmg": {
+          "long": "Dégâts",
+          "abbr": "DMG"
+        },
+        "size": {
+          "long": "Taille"
+        },
+        "mov": {
+          "long": "Mouvement",
+          "abbr": "MOV"
+        }
+      },
+      "Ancestry": "Origine",
+      "Commander": {
+        "Label": "Commandant",
+        "None": "Aucun, déposez un personnage sur cette feuille pour assigner",
+        "View": "Voir le Commandant",
+        "Clear": "Effacer le Commandant",
+        "Warning": {
+          "Pack": "Les commandants d'unités de guerre ne peuvent pas être stockés dans un compendium",
+          "NoProf": "Les commandants d'unités de guerre doivent avoir un bonus de compétence",
+          "Remove": "Retiré {commanderName} en tant que commandant de {warfareUnit}"
+        }
+      },
+      "Size": "Taille",
+      "CasualtyDie": "Dé de Pertes",
+      "Traits": {
+        "DialogTitle": "Caractéristiques",
+        "SheetLabel": "Caractéristiques",
+        "Instructions": "Entrez une liste séparée par des points-virgules (;)"
+      },
+      "Tier": "Tier"
+    },
+    "Organization": {
+      "skills": {
+        "label": "Compétences",
+        "dip": "Diplomacie",
+        "esp": "Espionnage",
+        "lor": "Lore",
+        "opr": "Operations",
+        "Warning": {
+          "Prof": "Aucun bonus de compétence trouvé",
+          "noActors": "Vous n'avez aucun personnage qui fait également partie de cette organisation"
+        },
+        "Test": {
+          "Title": "Jet de compétence d'Organisation : {skill}",
+          "Roll": "Lancer le jet",
+          "ChooseActor": "Choisissez un acteur pour lancer avec:",
+          "UseProf": "Utiliser le bonus de compétence de l'officier?<br><em>(Utilisable une seule fois par intrigue!)</em>",
+          "AssocSkills": "Compétences associées du personnage:"
+        }
+      },
+      "defenses": {
+        "label": "Défenses",
+        "com": {
+          "Label": "Communications",
+          "-3": "Rompue",
+          "-2": "Brouillée",
+          "-1": "Compromise",
+          "0": "Normale",
+          "1": "Securisée",
+          "2": "Codée",
+          "3": "Inviolable"
+        },
+        "rlv": {
+          "Label": "Loyauté",
+          "-3": "Révolté",
+          "-2": "Dissident",
+          "-1": "Mécontent",
+          "0": "Normale",
+          "1": "Loyal",
+          "2": "Fanatique",
+          "3": "Zélé"
+        },
+        "rsc": {
+          "Label": "Ressources",
+          "-3": "Faillite",
+          "-2": "Pauvre",
+          "-1": "Précaire",
+          "0": "Normal",
+          "1": "Surplus",
+          "2": "Abondant",
+          "3": "Florissant"
+        }
+      },
+      "Features": {
+        "Label": "Caractéristiques"
+      },
+      "Powers": {
+        "Label": "Compétences",
+        "Die": "Dé de Pouvoir",
+        "RollFlavor": "Lance son dé de pouvoir",
+        "Roll": "Lancer le dé de pouvoir",
+        "Take": "Prendre un dé de pouvoir",
+        "TakeValue": "Prend un dé de pouvoir avec une valeur de {currentValue} de la réserve de pouvoir de {orgName}",
+        "Rest": "Repos prolongé",
+        "Decrement": "Décrémenter le dé de pouvoir",
+        "Pool": "Réserve de Pouvoir",
+        "ContextMenu": {
+          "SetValue": "Définir la valeur du dé",
+          "ViewMember": "Voir le membre",
+          "RemoveMember": "Retirer le membre"
+        },
+        "Warning": {
+          "RemoveMember": "Retiré {memberName} de {organization}",
+          "NoPackActors": "Les membres des organisations ne peuvent pas être stockés dans un compendium",
+          "NoProf": "Les membres de l'organisation doivent avoir un bonus de compétence",
+          "AlreadyMember": "Cet acteur est déjà membre de l'organisation!",
+          "MustOwnRoll": "Vous devez être propriétaire du membre pour lancer son dé de pouvoir!",
+          "MustOwnRest": "Vous devez être propriétaire du membre pour prendre un repos prolongé!"
+        }
+      },
+      "Size": "Taille",
+      "Type": "Type d'Oganisation",
+      "Specialization": "Spécialisation de l'Organisation",
+      "Development": {
+        "Configure": "Configurer les points de développement",
+        "Start": "Valeur de départ",
+        "Spec": "Bonus de Spécialisation",
+        "TotalDevPoints": "Total des points de développement dépensés pour {statGroup}: {number}"
+      }
+    },
+    "Sheets": {
+      "Warfare": "Default Warfare Sheet",
+      "Organization": "Default Organization Sheet"
+    }
+  },
+  "TYPES.Actor.knw-actors": {
+    "organization": "Organisation",
+    "warfare": "Unité de Guerre"
+  }
+}
