@@ -5,7 +5,7 @@
   "version": "#{VERSION}#",
   "compatibility": {
     "minimum": "11",
-    "verified": "11.315"
+    "verified": "12.324"
   },
   "relationships": {
     "systems": [
@@ -13,8 +13,8 @@
         "id": "dnd5e",
         "type": "system",
         "compatibility": {
-          "minimum": "3.0",
-          "verified": "3.0.3"
+          "minimum": "3.1",
+          "verified": "3.2.0"
         }
       }
     ]
