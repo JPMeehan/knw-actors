@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.0
+
+- Updated minimum version to v12 and resolved related deprecations
+
 ## 1.2.3
 
 - Warfare token sheets now provide the appropriate options for attribute bars and single values again (#18)
