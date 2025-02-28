@@ -266,30 +266,32 @@ export default class OrganizationSheet extends ActorSheet {
     ];
   }
 
-  async setDieValue(html) {
-    const memberID = html[0].dataset.id;
+  /**
+   * Adjusts the die value
+   * @param {HTMLElement[]} JQuery
+   */
+  async setDieValue([html]) {
+    const memberID = html.dataset.id;
 
-    new Dialog({
-      title: game.i18n.localize("KNW.Organization.Powers.SetValue"),
-      content: Handlebars.helpers.numberInput(
-        this.actor.system.powerPool[memberID],
-        {hash: {class: "powerDie", min: 0, max: this.actor.system.powerDie}}
-      ).string,
-      buttons: {
-        default: {
-          icon: "<i class=\"fa-solid fa-floppy-disk\"></i>",
-          label: game.i18n.localize("Save Changes"),
-          callback: (dialogHTML) => {
-            const newValue = dialogHTML.find(".powerDie")[0].value
-              ? dialogHTML.find(".powerDie")[0].value
-              : null;
-            this.actor.update({
-              [`system.powerPool.${memberID}`]: newValue
-            });
-          }
+    foundry.applications.api.DialogV2.prompt({
+      window: {
+        title: "KNW.Organization.Powers.ContextMenu.SetValue"
+      },
+      content: foundry.applications.fields.createNumberInput({
+        name: `system.powerPool.${memberID}`,
+        min: 0,
+        max: this.actor.system.powerDie
+      }).outerHTML,
+      ok: {
+        icon: "fa-solid fa-floppy-disk",
+        label: "Save Changes",
+        callback: (event, button, dialog) => {
+          const fd = new FormDataExtended(button.form);
+          this.actor.update(fd.object);
         }
-      }
-    }).render(true);
+      },
+      rejectClose: false
+    });
   }
 
   async viewMember(html) {
