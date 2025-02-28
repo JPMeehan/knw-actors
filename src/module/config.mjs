@@ -1,7 +1,7 @@
 const KNWCONFIG = {
   DND5E: {
     sourceBooks: {
-      KaW: "Kingdoms & Warfare"
+      "K&W": "Kingdoms & Warfare"
     }
   },
   KNW: {

@@ -84,7 +84,17 @@
         "SheetLabel": "Traits",
         "Instructions": "Enter a semicolon (;) separated list"
       },
-      "Tier": "Tier"
+      "Tier": "Tier",
+      "Conditions": {
+        "Broken": "Broken",
+        "Disbanded": "Disbanded",
+        "Disorganized": "Disorganized",
+        "Disoriented": "Disoriented",
+        "Exposed": "Exposed",
+        "Hidden": "Hidden",
+        "Misled": "Misled",
+        "Weakened": "Weakened"
+      }
     },
     "Organization": {
       "skills": {
