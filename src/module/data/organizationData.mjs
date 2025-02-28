@@ -192,7 +192,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
    * @param {string} actorID The ID of the actor rolling their power die
    */
   async rollPowerDie(actorID) {
-    const roll = new Roll("1d@powerDie", {powerDie: this.powerDie});
+    const roll = Roll.create("1d@powerDie", {powerDie: this.powerDie});
     await roll.toMessage({
       speaker: {actor: actorID},
       flavor: game.i18n.localize("KNW.Organization.Powers.RollFlavor")
@@ -231,16 +231,28 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
         localize: true
       });
     const label = game.i18n.localize("KNW.Organization.skills." + skill);
-    return game.dnd5e.dice.d20Roll({
-      parts: ["@skill", "@prof"],
-      data: {skill: this.skills[skill].bonus, prof},
-      title: game.i18n.format("KNW.Organization.skills.Test.Title", {
-        skill: label
-      }),
-      messageData: {
+    const testLabel = game.i18n.format("KNW.Organization.skills.Test.Title", {
+      skill: label
+    });
+    return CONFIG.Dice.D20Roll.build({
+      rolls: [{
+        parts: ["@skill", "@prof"],
+        data: {skill: this.skills[skill].bonus, prof},
+        options: {}
+      }],
+      event,
+      subject: actor
+    }, {
+      options: {
+        window: {
+          title: testLabel
+        }
+      }
+    }, {
+      data: {
+        flavor: testLabel,
         speaker: {actor}
-      },
-      event
+      }
     });
   }
 }

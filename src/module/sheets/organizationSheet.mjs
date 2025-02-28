@@ -133,91 +133,70 @@ export default class OrganizationSheet extends ActorSheet {
     const stat = event.currentTarget.dataset.target;
     const validActors = Object.keys(this.actor.system.powerPool)
       .map((memberID) => game.actors.get(memberID))
-      .filter((member) => member.isOwner);
+      .filter((member) => member?.isOwner);
 
-    const assocSkillsText = CONFIG.KNW.ORGANIZATION.assocSkills[stat].reduce(
-      (accumulator, currentValue, currentIndex, array) => {
-        return (
-          accumulator +
-          " " +
-          CONFIG.DND5E.skills[currentValue].label +
-          (currentIndex === array.length - 1 ? "" : ",")
-        );
-      },
-      game.i18n.localize("KNW.Organization.skills.Test.AssocSkills")
-    );
+    const formatter = game.i18n.getListFormatter({type: "unit"});
+    const skills = CONFIG.KNW.ORGANIZATION.assocSkills[stat].map(s => CONFIG.DND5E.skills[s].label);
 
-    if (validActors.length === 0)
+    const assocSkillsText = game.i18n.localize("KNW.Organization.skills.Test.AssocSkills") + " " + formatter.format(skills);
+
+    if (validActors.length === 0) {
       ui.notifications.warn("KNW.Organization.skills.Warning.noActors", {
         localize: true
       });
-    else if (validActors.length === 1) {
-      const useProf = await Dialog.wait({
-        title: game.i18n.format("KNW.Organization.skills.Test.Title", {
-          skill: game.i18n.localize("KNW.Organization.skills." + stat)
-        }),
-        content: `<label class="flexrow"><p class="orgUseProf">${game.i18n.localize(
-          "KNW.Organization.skills.Test.UseProf"
-        )}</p>
-        <input class="orgTestUseProf" type="checkbox" /></label>
-        <p><em>${assocSkillsText}</em></p>`,
-        buttons: {
-          default: {
-            icon: "<i class=\"fa-solid fa-floppy-disk\"></i>",
-            label: game.i18n.localize("KNW.Organization.skills.Test.Roll"),
-            callback: (html) => {
-              return html.find(".orgTestUseProf")[0].checked;
-            }
-          }
-        }
-      });
-      this.actor.system.rollSkillTest(stat, validActors[0], useProf, event);
-    } else {
-      const selectOptions = validActors.map((actor) => ({
-        memberID: actor.id,
-        memberName: actor.name
-      }));
-
-      const testInput = await Dialog.wait({
-        title: game.i18n.format("KNW.Organization.skills.Test.Title", {
-          skill: game.i18n.localize("KNW.Organization.skills." + stat)
-        }),
-        content: `<label class="orgChooseActorLabel">${game.i18n.localize(
-          "KNW.Organization.skills.Test.ChooseActor"
-        )}
-        <select class='orgChooseActor'>
-        ${Handlebars.helpers.selectOptions(selectOptions, {
-    hash: {nameAttr: "memberID", labelAttr: "memberName"}
-  })}
-        </select></label>
-        <label class="flexrow"><p class="orgUseProf">${game.i18n.localize(
-    "KNW.Organization.skills.Test.UseProf"
-  )}</p>
-        <input class="orgTestUseProf" type="checkbox" /></label>
-        <p><em>${assocSkillsText}</em></p>`,
-        buttons: {
-          default: {
-            icon: "<i class=\"fa-solid fa-floppy-disk\"></i>",
-            label: game.i18n.localize("KNW.Organization.skills.Test.Roll"),
-            callback: (html) => {
-              return {
-                chosenActor: game.actors.get(
-                  html.find(".orgChooseActor")[0].value
-                ),
-                useProf: html.find(".orgTestUseProf")[0].checked
-              };
-            }
-          }
-        }
-      });
-      if (testInput?.chosenActor)
-        this.actor.system.rollSkillTest(
-          stat,
-          testInput.chosenActor,
-          testInput.useProf,
-          event
-        );
+      return;
     }
+
+    const orgUseProf = foundry.applications.fields.createCheckboxInput({
+      name: "orgUseProf"
+    });
+    const orgUseGroup = foundry.applications.fields.createFormGroup({
+      input: orgUseProf,
+      label: "KNW.Organization.skills.Test.UseProf",
+      hint: "KNW.Organization.skills.Test.UseProfHint",
+      localize: true,
+      classes: ["slim"]
+    });
+
+    let actorChoice = "";
+    if (validActors.length > 1) {
+      const actorSelect = foundry.applications.fields.createSelectInput({
+        name: "orgChooseActor",
+        options: validActors.map(a => ({value: a.id, label: a.name}))
+      });
+
+      const actorGroup = foundry.applications.fields.createFormGroup({
+        input: actorSelect,
+        label: "KNW.Organization.skills.Test.ChooseActor",
+        localize: true,
+        classes: ["slim"]
+      });
+
+      actorChoice = actorGroup.outerHTML;
+    }
+
+    const testInput = await foundry.applications.api.DialogV2.prompt({
+      window: {
+        title: game.i18n.format("KNW.Organization.skills.Test.Title", {
+          skill: game.i18n.localize("KNW.Organization.skills." + stat)
+        })
+      },
+      content: `${actorChoice}${orgUseGroup.outerHTML}<p><em>${assocSkillsText}</em></p>`,
+      ok: {
+        icon: "fa-solid fa-dice-d20",
+        label: "KNW.Organization.skills.Test.Roll",
+        callback: (event, button, dialog) => {
+          const fd = new FormDataExtended(button.form);
+          return {
+            chosenActor: game.actors.get(fd.object["orgChooseActor"]) ?? validActors[0],
+            useProf: fd.object["orgTestUseProf"]
+          };
+        }
+      },
+      rejectClose: false
+    });
+
+    if (testInput) this.actor.system.rollSkillTest(stat, testInput.chosenActor, testInput.useProf, event);
   }
 
   async #cyclePowerDie(event) {

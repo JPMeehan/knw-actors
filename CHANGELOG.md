@@ -2,7 +2,10 @@
 
 ## 1.4.0
 
+- Increased system minimum version to 4.3
 - Removed ability for users with Limited permissions to view an Organization sheet
+- Updated uses of Dialog to DialogV2
+- Adjusted code to account for system deprecations
 - Added Kingdoms & Warfare to registered source books
 - Added labels to data model fields
 

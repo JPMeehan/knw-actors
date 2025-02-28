@@ -101,7 +101,8 @@
           "Title": "Jet de compétence d'Organisation : {skill}",
           "Roll": "Lancer le jet",
           "ChooseActor": "Choisissez un acteur pour lancer avec:",
-          "UseProf": "Utiliser le bonus de compétence de l'officier?<br><em>(Utilisable une seule fois par intrigue!)</em>",
+          "UseProf": "Utiliser le bonus de compétence de l'officier?",
+          "UseProfHint": "Utilisable une seule fois par intrigue!",
           "AssocSkills": "Compétences associées du personnage:"
         }
       },

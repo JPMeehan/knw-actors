@@ -101,7 +101,8 @@
           "Title": "{skill} Test",
           "Roll": "Roll Test",
           "ChooseActor": "Choose an actor to roll with:",
-          "UseProf": "Use officer's proficiency bonus?<br><em>(Only usable once per intrigue!)</em>",
+          "UseProf": "Use officer's proficiency bonus?",
+          "UseProfHint": "Only usable once per intrigue!",
           "AssocSkills": "Associated Character Skills:"
         }
       },
