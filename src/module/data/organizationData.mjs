@@ -47,67 +47,68 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
     const MappingField = game.dnd5e.dataModels.fields.MappingField;
     const data = {
       org: new fields.SchemaField({
-        type: new fields.StringField({ textSearch: true }),
-        specialization: new fields.StringField({ textSearch: true }),
+        type: new fields.StringField({textSearch: true, label: "KNW.Organization.Type"}),
+        specialization: new fields.StringField({textSearch: true, label: "KNW.Organization.Specialization"})
       }),
       skills: new fields.SchemaField({
         dip: new fields.SchemaField({
           development: this.#developmentField(
             CONFIG.KNW.ORGANIZATION.tracks.skills
-          ),
-        }),
+          )
+        }, {label: "KNW.Organization.skills.dip"}),
         esp: new fields.SchemaField({
           development: this.#developmentField(
             CONFIG.KNW.ORGANIZATION.tracks.skills
-          ),
-        }),
+          )
+        }, {label: "KNW.Organization.skills.esp"}),
         lor: new fields.SchemaField({
           development: this.#developmentField(
             CONFIG.KNW.ORGANIZATION.tracks.skills
-          ),
-        }),
+          )
+        }, {label: "KNW.Organization.skills.lor"}),
         opr: new fields.SchemaField({
           development: this.#developmentField(
             CONFIG.KNW.ORGANIZATION.tracks.skills
-          ),
-        }),
-      }),
+          )
+        }, {label: "KNW.Organization.skills.opr"})
+      }, {label: "KNW.Organization.skills.label"}),
       defenses: new fields.SchemaField({
         com: new fields.SchemaField({
           level: new fields.NumberField({
             required: true,
             initial: 0,
-            choices: Array.from(CONFIG.KNW.CHOICES.com, (level) => level.value),
+            choices: Array.from(CONFIG.KNW.CHOICES.com, (level) => level.value)
           }),
           development: this.#developmentField(
             CONFIG.KNW.ORGANIZATION.tracks.defenses
-          ),
-        }),
+          )
+        }, {label: "KNW.Organization.defenses.com.Label"}),
         rlv: new fields.SchemaField({
           level: new fields.NumberField({
             required: true,
             initial: 0,
-            choices: Array.from(CONFIG.KNW.CHOICES.rlv, (level) => level.value),
+            choices: Array.from(CONFIG.KNW.CHOICES.rlv, (level) => level.value)
           }),
           development: this.#developmentField(
             CONFIG.KNW.ORGANIZATION.tracks.defenses
-          ),
-        }),
+          )
+        }, {label: "KNW.Organization.defenses.rlv.Label"}),
         rsc: new fields.SchemaField({
           level: new fields.NumberField({
             required: true,
             initial: 0,
-            choices: Array.from(CONFIG.KNW.CHOICES.rsc, (level) => level.value),
+            choices: Array.from(CONFIG.KNW.CHOICES.rsc, (level) => level.value)
           }),
           development: this.#developmentField(
             CONFIG.KNW.ORGANIZATION.tracks.defenses
-          ),
-        }),
+          )
+        }, {label: "KNW.Organization.defenses.rsc.Label"})
       }),
       size: new fields.NumberField({
         required: true,
         initial: 1,
         choices: CONFIG.KNW.CHOICES.SIZE,
+        label: "KNW.Organization.Size"
       }),
       powerPool: new MappingField(
         new fields.NumberField({
@@ -115,12 +116,12 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
           nullable: true,
           initial: null,
           max: 12,
-          min: 0,
+          min: 0
         }),
-        {}
+        {label: "KNW.Organization.Powers.Pool"}
       ),
-      powers: new fields.HTMLField({ textSearch: true }),
-      features: new fields.HTMLField({ textSearch: true }),
+      powers: new fields.HTMLField({textSearch: true, label: "KNW.Organization.Powers.Label"}),
+      features: new fields.HTMLField({textSearch: true, label: "KNW.Organization"})
     };
 
     return data;
@@ -138,15 +139,15 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
         nullable: false,
         min: 0,
         max: track.length,
-        integer: true,
+        integer: true
       }),
       start: new fields.NumberField({
         initial: track[0],
         nullable: false,
         min: track[0],
-        max: track.slice(-1),
+        max: track.slice(-1)
       }),
-      spec: new fields.NumberField({ initial: 0, integer: true }),
+      spec: new fields.NumberField({initial: 0, integer: true})
     });
   }
 
@@ -191,12 +192,12 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
    * @param {string} actorID The ID of the actor rolling their power die
    */
   async rollPowerDie(actorID) {
-    const roll = new Roll('1d@powerDie', { powerDie: this.powerDie });
+    const roll = new Roll("1d@powerDie", {powerDie: this.powerDie});
     await roll.toMessage({
-      speaker: { actor: actorID },
-      flavor: game.i18n.localize('KNW.Organization.Powers.RollFlavor'),
+      speaker: {actor: actorID},
+      flavor: game.i18n.localize("KNW.Organization.Powers.RollFlavor")
     });
-    this.parent.update({ [`system.powerPool.${actorID}`]: roll.total });
+    this.parent.update({[`system.powerPool.${actorID}`]: roll.total});
   }
 
   /**
@@ -206,7 +207,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
   async decrementPowerDie(actorID) {
     const currentValue = this.powerPool[actorID];
     this.parent.update({
-      ['system.powerPool.' + actorID]: Math.max(currentValue - 1, 0),
+      ["system.powerPool." + actorID]: Math.max(currentValue - 1, 0)
     });
   }
 
@@ -223,23 +224,23 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
     );
     const prof =
       isProf && useProf
-        ? foundry.utils.getProperty(actor, 'system.attributes.prof')
+        ? foundry.utils.getProperty(actor, "system.attributes.prof")
         : 0;
     if (prof === undefined)
-      ui.notifications.warn('KNW.Organization.skills.Warning.Prof', {
-        localize: true,
+      ui.notifications.warn("KNW.Organization.skills.Warning.Prof", {
+        localize: true
       });
-    const label = game.i18n.localize('KNW.Organization.skills.' + skill);
+    const label = game.i18n.localize("KNW.Organization.skills." + skill);
     return game.dnd5e.dice.d20Roll({
-      parts: ['@skill', '@prof'],
-      data: { skill: this.skills[skill].bonus, prof },
-      title: game.i18n.format('KNW.Organization.skills.Test.Title', {
-        skill: label,
+      parts: ["@skill", "@prof"],
+      data: {skill: this.skills[skill].bonus, prof},
+      title: game.i18n.format("KNW.Organization.skills.Test.Title", {
+        skill: label
       }),
       messageData: {
-        speaker: { actor },
+        speaker: {actor}
       },
-      event,
+      event
     });
   }
 }

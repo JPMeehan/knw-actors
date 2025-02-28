@@ -1,7 +1,7 @@
 export default {
-  input: './knw-actors.mjs',
+  input: "./knw-actors.mjs",
   output: {
-    file: './knw-actors-compiled.mjs',
-    format: 'esm',
-  },
+    file: "./knw-actors-compiled.mjs",
+    format: "esm"
+  }
 };

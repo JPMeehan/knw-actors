@@ -16,20 +16,20 @@ export default class OrgDevEditor extends FormApplication {
    * ```
    */
   static rangePicker(options) {
-    let { name, value, displayValue, min, max, step } = options.hash;
-    name = name || 'range';
-    value = value ?? '';
-    if (Number.isNaN(value)) value = '';
+    let {name, value, displayValue, min, max, step} = options.hash;
+    name = name || "range";
+    value = value ?? "";
+    if (Number.isNaN(value)) value = "";
     const html = `<input type="range" name="${name}" value="${value}" min="${min}" max="${max}" step="${step}"/>
-     <span class="range-value ${displayValue < 0 ? 'invalid' : ''}">${
-      displayValue ?? value
-    }</span>`;
+     <span class="range-value ${displayValue < 0 ? "invalid" : ""}">${
+  displayValue ?? value
+}</span>`;
     return new Handlebars.SafeString(html);
   }
 
   /** @inheritdoc */
   get template() {
-    return 'modules/knw-actors/templates/org-development.hbs';
+    return "modules/knw-actors/templates/org-development.hbs";
   }
 
   /** @inheritdoc */
@@ -41,22 +41,22 @@ export default class OrgDevEditor extends FormApplication {
   get id() {
     return `${this.constructor.name}-${this.document.uuid.replace(
       /\./g,
-      '-'
+      "-"
     )}-develop-${this.options.statGroup}`;
   }
 
   /** @inheritdoc */
   get title() {
-    return game.i18n.localize('KNW.Organization.Development.Configure');
+    return game.i18n.localize("KNW.Organization.Development.Configure");
   }
 
   /** @inheritdoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['organization', 'orgDev'],
+      classes: ["organization", "orgDev"],
       closeOnSubmit: false,
       submitOnChange: true,
-      width: 360,
+      width: 360
     });
   }
 
@@ -76,23 +76,23 @@ export default class OrgDevEditor extends FormApplication {
         return {
           name: `system.${statGroup}.${key}.development`,
           label:
-            statGroup === 'skills'
-              ? game.i18n.localize('KNW.Organization.skills.' + key)
+            statGroup === "skills"
+              ? game.i18n.localize("KNW.Organization.skills." + key)
               : game.i18n.localize(`KNW.Organization.defenses.${key}.Label`),
           displayValue,
-          ...stat,
+          ...stat
         };
       }
     );
     const context = {
-      title: game.i18n.localize('KNW.Organization.Development.Configure'),
+      title: game.i18n.localize("KNW.Organization.Development.Configure"),
       ...super.getData(options),
       stats,
       totalDevPoints,
       track,
       length: track.length - 1,
       min: track[0],
-      max: track.slice(-1)[0],
+      max: track.slice(-1)[0]
     };
     return context;
   }

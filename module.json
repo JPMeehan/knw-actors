@@ -5,7 +5,7 @@
   "version": "#{VERSION}#",
   "compatibility": {
     "minimum": "12",
-    "verified": "12.330"
+    "verified": "12.331"
   },
   "relationships": {
     "systems": [
@@ -14,7 +14,7 @@
         "type": "system",
         "compatibility": {
           "minimum": "3.2",
-          "verified": "3.3.1"
+          "verified": "4.3.5"
         }
       }
     ]

@@ -1,22 +1,22 @@
 export default class WarfareSheet extends ActorSheet {
   /** @override */
   get template() {
-    return 'modules/knw-actors/templates/warfare-sheet.hbs';
+    return "modules/knw-actors/templates/warfare-sheet.hbs";
   }
 
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['dnd5e', 'sheet', 'actor', 'warfare'],
+      classes: ["dnd5e", "sheet", "actor", "warfare"],
       width: 600,
       height: 360,
       tabs: [
         {
-          navSelector: '.tabs',
-          contentSelector: '.tabs-body',
-          initial: 'traits',
-        },
-      ],
+          navSelector: ".tabs",
+          contentSelector: ".tabs-body",
+          initial: "traits"
+        }
+      ]
     });
   }
 
@@ -28,37 +28,37 @@ export default class WarfareSheet extends ActorSheet {
       system: this.actor.system,
       coreStats: {
         atk: {
-          label: game.i18n.localize('KNW.Warfare.Statistics.atk.abbr'),
+          label: game.i18n.localize("KNW.Warfare.Statistics.atk.abbr"),
           value: this.actor.system.atk.signedString(),
-          rollable: this.isEditable ? 'rollable' : '',
+          rollable: this.isEditable ? "rollable" : ""
         },
         def: {
-          label: game.i18n.localize('KNW.Warfare.Statistics.def.abbr'),
-          value: this.actor.system.def,
+          label: game.i18n.localize("KNW.Warfare.Statistics.def.abbr"),
+          value: this.actor.system.def
         },
         pow: {
-          label: game.i18n.localize('KNW.Warfare.Statistics.pow.abbr'),
+          label: game.i18n.localize("KNW.Warfare.Statistics.pow.abbr"),
           value: this.actor.system.pow.signedString(),
-          rollable: this.isEditable ? 'rollable' : '',
+          rollable: this.isEditable ? "rollable" : ""
         },
         tou: {
-          label: game.i18n.localize('KNW.Warfare.Statistics.tou.abbr'),
-          value: this.actor.system.tou,
+          label: game.i18n.localize("KNW.Warfare.Statistics.tou.abbr"),
+          value: this.actor.system.tou
         },
         mor: {
-          label: game.i18n.localize('KNW.Warfare.Statistics.mor.abbr'),
+          label: game.i18n.localize("KNW.Warfare.Statistics.mor.abbr"),
           value: this.actor.system.mor.signedString(),
-          rollable: this.isEditable ? 'rollable' : '',
+          rollable: this.isEditable ? "rollable" : ""
         },
         com: {
-          label: game.i18n.localize('KNW.Warfare.Statistics.com.abbr'),
+          label: game.i18n.localize("KNW.Warfare.Statistics.com.abbr"),
           value: this.actor.system.com.signedString(),
-          rollable: this.isEditable ? 'rollable' : '',
-        },
+          rollable: this.isEditable ? "rollable" : ""
+        }
       },
       choices: CONFIG.KNW.CHOICES,
       traits: this.traits,
-      typeImage: this.typeImage,
+      typeImage: this.typeImage
     };
     return context;
   }
@@ -67,8 +67,8 @@ export default class WarfareSheet extends ActorSheet {
    * @returns {string[] | null} An array of traits to display
    */
   get traits() {
-    const traits = this.actor.system.traitList.split(';').map((e) => e.trim());
-    return traits.length === 1 && !traits[0] ? null : traits;
+    const traits = this.actor.system.traitList.split(";").map((e) => e.trim());
+    return (traits.length === 1) && !traits[0] ? null : traits;
   }
 
   /**
@@ -76,8 +76,8 @@ export default class WarfareSheet extends ActorSheet {
    */
   get typeImage() {
     const system = this.actor.system;
-    if (system.type === 'infantry' && system.experience === 'levy')
-      return 'modules/knw-actors/assets/icons/levy.png';
+    if ((system.type === "infantry") && (system.experience === "levy"))
+      return "modules/knw-actors/assets/icons/levy.png";
     else return CONFIG.KNW.CHOICES.TYPE[system.type].img;
   }
 
@@ -91,61 +91,61 @@ export default class WarfareSheet extends ActorSheet {
 
     const dropActor = await fromUuid(data.uuid);
     if (dropActor.pack) {
-      ui.notifications.warn('KNW.Warfare.Commander.Warning.Pack', {
-        localize: true,
+      ui.notifications.warn("KNW.Warfare.Commander.Warning.Pack", {
+        localize: true
       });
       return false;
     } else if (
-      !foundry.utils.hasProperty(dropActor, 'system.attributes.prof')
+      !foundry.utils.hasProperty(dropActor, "system.attributes.prof")
     ) {
-      ui.notifications.warn('KNW.Warfare.Commander.Warning.NoProf', {
-        localize: true,
+      ui.notifications.warn("KNW.Warfare.Commander.Warning.NoProf", {
+        localize: true
       });
       return false;
     }
-    return this.actor.update({ 'system.commander': dropActor.id });
+    return this.actor.update({"system.commander": dropActor.id});
   }
 
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
     html.on(
-      'click',
-      '.coreStat .label.rollable',
+      "click",
+      ".coreStat .label.rollable",
       {
-        actor: this.actor,
+        actor: this.actor
       },
       this.#rollStat
     );
     html.on(
-      'click',
-      '.traitList',
+      "click",
+      ".traitList",
       {
         sheetID: this.id,
-        actor: this.actor,
+        actor: this.actor
       },
       this._configureTraits
     );
     html.on(
-      'click',
-      '.item-control',
-      { collectionName: 'items', idPath: 'itemId' },
+      "click",
+      ".item-control",
+      {collectionName: "items", idPath: "itemId"},
       this.#handleEmbeddedDocumentControl.bind(this)
     );
     html.on(
-      'click',
-      '.effect-control',
-      { collectionName: 'effects', idPath: 'effectId' },
+      "click",
+      ".effect-control",
+      {collectionName: "effects", idPath: "effectId"},
       this.#handleEmbeddedDocumentControl.bind(this)
     );
     html.on(
-      'click',
-      '.effect-create',
-      { className: 'ActiveEffect' },
+      "click",
+      ".effect-create",
+      {className: "ActiveEffect"},
       this.#handleEmbeddedDocumentCreate.bind(this)
     );
 
-    ContextMenu.create(this, html, '.commander .name', this.commanderMenu);
+    ContextMenu.create(this, html, ".commander .name", this.commanderMenu);
   }
 
   async #rollStat(event) {
@@ -159,27 +159,27 @@ export default class WarfareSheet extends ActorSheet {
    */
   async _configureTraits(event) {
     const content = `<p>${game.i18n.localize(
-      'KNW.Warfare.Traits.Instructions'
+      "KNW.Warfare.Traits.Instructions"
     )}</p>
     <input id="${event.data.sheetID}-traits" type="text" value="${
-      event.data.actor.system.traitList
-    }" placeholder="Adaptable; Stalwart">`;
+  event.data.actor.system.traitList
+}" placeholder="Adaptable; Stalwart">`;
 
     const update = await Dialog.wait({
-      title: game.i18n.localize('KNW.Warfare.Traits.DialogTitle'),
+      title: game.i18n.localize("KNW.Warfare.Traits.DialogTitle"),
       content,
       buttons: {
         save: {
-          label: game.i18n.localize('SAVE'),
-          icon: '<i class="fa-solid fa-floppy-disk"></i>',
+          label: game.i18n.localize("SAVE"),
+          icon: "<i class=\"fa-solid fa-floppy-disk\"></i>",
           callback: (html) => {
             const input = html.find(`#${event.data.sheetID}-traits`)[0];
             return {
-              'system.traitList': input.value,
+              "system.traitList": input.value
             };
-          },
-        },
-      },
+          }
+        }
+      }
     });
 
     event.data.actor.update(update);
@@ -192,18 +192,18 @@ export default class WarfareSheet extends ActorSheet {
   async #handleEmbeddedDocumentControl(event) {
     const action = event.currentTarget.dataset.action;
     const documentId =
-      event.currentTarget.closest('li').dataset[event.data.idPath];
+      event.currentTarget.closest("li").dataset[event.data.idPath];
     const doc =
       this.actor.collections[event.data.collectionName].get(documentId);
     switch (action) {
-      case 'edit':
+      case "edit":
         doc.sheet.render(true);
         break;
-      case 'delete':
+      case "delete":
         doc.deleteDialog();
         break;
-      case 'toggle':
-        doc.update({ disabled: !doc.disabled });
+      case "toggle":
+        doc.update({disabled: !doc.disabled});
         break;
     }
   }
@@ -215,8 +215,8 @@ export default class WarfareSheet extends ActorSheet {
   async #handleEmbeddedDocumentCreate(event) {
     const documentClass = getDocumentClass(event.data.className);
     documentClass.createDialog(
-      { img: 'icons/svg/aura.svg' },
-      { parent: this.actor }
+      {img: "icons/svg/aura.svg"},
+      {parent: this.actor}
     );
   }
 
@@ -224,28 +224,28 @@ export default class WarfareSheet extends ActorSheet {
     const commander = this.actor.system.commander;
     return [
       {
-        name: game.i18n.localize('KNW.Warfare.Commander.View'),
+        name: game.i18n.localize("KNW.Warfare.Commander.View"),
         icon: "<i class='fas fa-eye'></i>",
         condition: commander,
-        callback: () => commander.sheet.render(true),
+        callback: () => commander.sheet.render(true)
       },
       {
-        name: game.i18n.localize('KNW.Warfare.Commander.Clear'),
+        name: game.i18n.localize("KNW.Warfare.Commander.Clear"),
         icon: "<i class='fas fa-trash'></i>",
         condition: this.isEditable && commander,
-        callback: this.clearCommander.bind(this),
-      },
+        callback: this.clearCommander.bind(this)
+      }
     ];
   }
 
   async clearCommander() {
     const commander = this.actor.system.commander;
     ui.notifications.info(
-      game.i18n.format('KNW.Warfare.Commander.Warning.Remove', {
+      game.i18n.format("KNW.Warfare.Commander.Warning.Remove", {
         commanderName: commander.name,
-        warfareUnit: this.actor.name,
+        warfareUnit: this.actor.name
       })
     );
-    this.actor.update({ 'system.commander': '' });
+    this.actor.update({"system.commander": ""});
   }
 }

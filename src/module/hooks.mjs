@@ -5,33 +5,33 @@
  * @param {object} context
  */
 export function warfareTokenBar(app, html, context) {
-  const barSelects = html.find('.bar-attribute');
-  barSelects.find('option:gt(0)').remove();
-  for (const grp of barSelects.find('optgroup')) {
+  const barSelects = html.find(".bar-attribute");
+  barSelects.find("option:gt(0)").remove();
+  for (const grp of barSelects.find("optgroup")) {
     switch (grp.label) {
-      case game.i18n.localize('TOKEN.BarAttributes'):
+      case game.i18n.localize("TOKEN.BarAttributes"):
         grp.innerHTML = `<option value="size">${game.i18n.localize(
-          'KNW.Warfare.Statistics.size.long'
+          "KNW.Warfare.Statistics.size.long"
         )}</option>`;
         break;
-      case game.i18n.localize('TOKEN.BarValues'):
-        grp.innerHTML = ['attacks', 'def', 'tou']
+      case game.i18n.localize("TOKEN.BarValues"):
+        grp.innerHTML = ["attacks", "def", "tou"]
           .map(
             (abbr) =>
               `<option value="${abbr}">${game.i18n.localize(
                 `KNW.Warfare.Statistics.${abbr}.long`
               )}</option>`
           )
-          .join('')
+          .join("")
           .concat(
             `<option value="tier">${game.i18n.localize(
-              'KNW.Warfare.Tier'
+              "KNW.Warfare.Tier"
             )}</option>`
           );
         break;
-      case game.i18n.localize('DND5E.MovementSpeeds'):
+      case game.i18n.localize("DND5E.MovementSpeeds"):
         grp.innerHTML = `<option value="mov">${game.i18n.localize(
-          'KNW.Warfare.Statistics.mov.long'
+          "KNW.Warfare.Statistics.mov.long"
         )}</option>`;
         break;
     }

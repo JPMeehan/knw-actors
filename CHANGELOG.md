@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.0
+
+- Removed ability for users with Limited permissions to view an Organization sheet
+- Added Kingdoms & Warfare to registered source books
+- Added labels to data model fields
+
 ## 1.3.0
 
 - Updated minimum version to v12 and resolved related deprecations
