@@ -156,28 +156,38 @@ export default class WarfareData extends foundry.abstract.TypeDataModel {
   }
 
   /**
-   *
+   * Rolls one of the Warfare unit's stats
    * @param {string} stat     Warfare stat to roll
    * @param {Event} [event]   Optional event
    */
   async rollStat(stat, event) {
-    const roll = game.dnd5e.dice.d20Roll({
-      parts: ["@stat"],
-      data: {
-        stat: this[stat]
-      },
-      title: game.i18n.format("KNW.Warfare.Statistics.Test", {
-        stat: game.i18n.localize(`KNW.Warfare.Statistics.${stat}.long`),
-        actorName: this.parent.name
-      }),
-      flavor: game.i18n.format("KNW.Warfare.Statistics.Test", {
-        stat: game.i18n.localize(`KNW.Warfare.Statistics.${stat}.long`),
-        actorName: this.commander?.name ?? ""
-      }),
-      messageData: {
-        speaker: {actor: this.parent}
-      },
+    return CONFIG.Dice.D20Roll.build({
+      rolls: [{
+        parts: ["@stat"],
+        data: {
+          stat: this[stat]
+        },
+        options: {}
+      }],
       event
+    }, {
+      options: {
+        window: {
+          title: game.i18n.format("KNW.Warfare.Statistics.Test", {
+            stat: game.i18n.localize(`KNW.Warfare.Statistics.${stat}.long`),
+            actorName: this.parent.name
+          })
+        }
+      }
+    },
+    {
+      data: {
+        speaker: {actor: this.parent},
+        flavor: game.i18n.format("KNW.Warfare.Statistics.Test", {
+          stat: game.i18n.localize(`KNW.Warfare.Statistics.${stat}.long`),
+          actorName: this.commander?.name ?? ""
+        })
+      }
     });
   }
 }

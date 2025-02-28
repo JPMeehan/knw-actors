@@ -112,19 +112,12 @@ export default class WarfareSheet extends ActorSheet {
     html.on(
       "click",
       ".coreStat .label.rollable",
-      {
-        actor: this.actor
-      },
-      this.#rollStat
+      this.#rollStat.bind(this)
     );
     html.on(
       "click",
       ".traitList",
-      {
-        sheetID: this.id,
-        actor: this.actor
-      },
-      this._configureTraits
+      this._configureTraits.bind(this)
     );
     html.on(
       "click",
@@ -148,9 +141,13 @@ export default class WarfareSheet extends ActorSheet {
     ContextMenu.create(this, html, ".commander .name", this.commanderMenu);
   }
 
+  /**
+   * Roll a Warfare skill
+   * @param {PointerEvent} event
+   */
   async #rollStat(event) {
     const stat = event.currentTarget.dataset.target;
-    event.data.actor.system.rollStat(stat, event);
+    this.actor.system.rollStat(stat, event);
   }
 
   /**
@@ -158,31 +155,39 @@ export default class WarfareSheet extends ActorSheet {
    * @param {MouseEvent} event Click event
    */
   async _configureTraits(event) {
-    const content = `<p>${game.i18n.localize(
-      "KNW.Warfare.Traits.Instructions"
-    )}</p>
-    <input id="${event.data.sheetID}-traits" type="text" value="${
-  event.data.actor.system.traitList
-}" placeholder="Adaptable; Stalwart">`;
 
-    const update = await Dialog.wait({
-      title: game.i18n.localize("KNW.Warfare.Traits.DialogTitle"),
-      content,
-      buttons: {
-        save: {
-          label: game.i18n.localize("SAVE"),
-          icon: "<i class=\"fa-solid fa-floppy-disk\"></i>",
-          callback: (html) => {
-            const input = html.find(`#${event.data.sheetID}-traits`)[0];
-            return {
-              "system.traitList": input.value
-            };
-          }
-        }
-      }
+    const traitInput = foundry.applications.fields.createTextareaInput({
+      name: "system.traitList",
+      value: this.actor.system.traitList,
+      placeholder: "Adaptable; Stalwart",
+      rows: 3
     });
 
-    event.data.actor.update(update);
+    const traitGroup = foundry.applications.fields.createFormGroup({
+      input: traitInput,
+      label: "",
+      hint: "KNW.Warfare.Traits.Instructions",
+      localize: true,
+      classes: ["stacked"]
+    });
+
+    const update = await foundry.applications.api.DialogV2.prompt({
+      window: {
+        title: "KNW.Warfare.Traits.DialogTitle"
+      },
+      content: traitGroup.outerHTML,
+      ok: {
+        label: "SAVE",
+        icon: "fa-solid fa-floppy-disk",
+        callback: (event, button, dialog) => {
+          const fd = new FormDataExtended(button.form);
+          return fd.object;
+        }
+      },
+      rejectClose: false
+    });
+
+    if (update) this.actor.update(update);
   }
 
   /**
