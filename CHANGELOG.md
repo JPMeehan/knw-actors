@@ -2,6 +2,7 @@
 
 ## 1.4.0
 
+- Adjusted status effect handling so Warfare units now *only* show the Warfare conditions (#8)
 - Increased system minimum version to 4.3 & marked v12 maximum
 - Removed ability for users with Limited permissions to view an Organization sheet
 - Updated uses of Dialog to DialogV2
