@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.1
+
+- Fixed "Use Prof" checkbox not working on the Org Sheet Test Roll
+
 ## 1.4.0
 
 - Adjusted status effect handling so Warfare units now *only* show the Warfare conditions (#8)

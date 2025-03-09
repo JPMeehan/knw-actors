@@ -148,7 +148,7 @@ export default class OrganizationSheet extends ActorSheet {
     }
 
     const orgUseProf = foundry.applications.fields.createCheckboxInput({
-      name: "orgUseProf"
+      name: "useProf"
     });
     const orgUseGroup = foundry.applications.fields.createFormGroup({
       input: orgUseProf,
@@ -189,7 +189,7 @@ export default class OrganizationSheet extends ActorSheet {
           const fd = new FormDataExtended(button.form);
           return {
             chosenActor: game.actors.get(fd.object["orgChooseActor"]) ?? validActors[0],
-            useProf: fd.object["orgTestUseProf"]
+            useProf: fd.object["useProf"]
           };
         }
       },
