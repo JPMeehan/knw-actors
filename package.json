@@ -7,7 +7,8 @@
     "build:css": "sass ./src/styles/knw-actors.scss knw-actors.css",
     "build:js": "rollup -c",
     "build": "npm run build:css && npm run build:js",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "createSymlinks": "node ./tools/create-symlinks.mjs"
   },
   "repository": {
     "type": "git",

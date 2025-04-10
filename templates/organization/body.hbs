@@ -1,0 +1,94 @@
+  <div class="flexrow">
+    <div class="skills flexcol">
+      <div class="skillHeader flexrow">
+        <h2>{{localize "KNW.Organization.skills.label"}}</h2>
+        {{#if editable}}
+          <div class="editScore">
+            <a data-target="skills"><i class="fas fa-edit"></i></a>
+          </div>
+        {{/if}}
+      </div>
+      {{#each skills}}
+        <div class="skill flexrow">
+          <div class="value">{{numberFormat this.bonus sign=true}}</div>
+          {{#if @root.editable}}
+            <div class="label rollable" data-target="{{this.key}}">
+              <a>{{this.label}}</a>
+            </div>
+          {{else}}
+            <div class="label" data-target="{{this.key}}">
+              {{this.label}}
+            </div>
+          {{/if}}
+        </div>
+      {{/each}}
+    </div>
+    <div class="powerPool">
+      <h2>{{localize "KNW.Organization.Powers.Pool"}}</h2>
+      <ol class="powerPoolList">
+        {{#each powerPool}}
+          <li class="powerPoolMember flexrow" data-id="{{this.id}}">
+            <div class="name">
+              {{this.name}}
+            </div>
+            {{#if @root.editable}}
+              <div class="powerDie rollable" data-tooltip="{{this.tooltip}}">
+                <a>{{{this.value}}}</a>
+              </div>
+              <div
+                class="edit flexrow"
+                data-tooltip="{{localize 'KNW.Organization.Powers.Decrement'}}"
+              >
+                {{{this.decrement}}}
+              </div>
+            {{else}}
+              <div class="powerDie" data-tooltip="{{this.tooltip}}">
+                {{{this.value}}}
+              </div>
+            {{/if}}
+          </li>
+        {{/each}}
+      </ol>
+    </div>
+    <div class="defenses flexcol">
+      <div class="defHeader flexrow">
+        <h2>{{localize "KNW.Organization.defenses.label"}}</h2>
+        {{#if editable}}
+          <div class="editScore">
+            <a data-target="defenses"><i class="fas fa-edit"></i></a>
+          </div>
+        {{/if}}
+      </div>
+      <div class="defense flexrow">
+        <div class="label">
+          {{localize "KNW.Organization.Size"}}
+        </div>
+        {{numberInput system.size class="value" name="system.size" max=5 min=1}}
+        <img
+          class="powerDie"
+          src="{{powerDieIMG}}"
+          data-tooltip="{{localize 'KNW.Organization.Powers.Die'}}"
+        />
+      </div>
+      {{#each defenses}}
+        <div class="defense flexrow">
+          <div class="label">
+            {{this.label}}
+          </div>
+          <div class="value">{{this.score}}</div>
+          <select
+            class="level"
+            name={{concat "system.defenses." this.key ".level"}}
+          >
+            {{selectOptions
+              this.choices
+              selected=this.level
+              valueAttr="value"
+              labelAttr="label"
+              localize=true
+            }}
+          </select>
+        </div>
+      {{/each}}
+    </div>
+  </div>

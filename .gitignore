@@ -1,9 +1,9 @@
 # Foundry
-commons.js
-foundry.js
+foundry-config.yaml
 foundry
 dnd5e
 *.lock
+
 
 # Logs
 logs

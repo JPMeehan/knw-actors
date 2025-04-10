@@ -1,0 +1,30 @@
+<footer class="flexrow">
+  <div class="powers">
+    <div class="footerHeader">
+      <h3>{{localize "KNW.Organization.Powers.Label"}}</h3>
+    </div>
+    <div class="footerBody">
+      {{editor
+        system.powers
+        button="false"
+        target="system.powers"
+        engine="prosemirror"
+        collaborate=true
+      }}
+    </div>
+  </div>
+  <div class="features">
+    <div class="footerHeader">
+      <h3>{{localize "KNW.Organization.Features.Label"}}</h3>
+    </div>
+    <div class="footerBody">
+      {{editor
+        system.features
+        button="false"
+        target="system.features"
+        engine="prosemirror"
+        collaborate=true
+      }}
+    </div>
+  </div>
+</footer>

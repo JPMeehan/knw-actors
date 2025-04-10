@@ -1,12 +1,11 @@
 {
   "id": "knw-actors",
   "title": "Kingdoms & Warfare Actors",
-  "description": "Warfare Units and Organizations from MCDM's Kingdoms &amp; Warfare as actor types for the dnd5e system using v11 Module subtypes",
+  "description": "Warfare Units and Organizations from MCDM's Kingdoms &amp; Warfare as actor types for the dnd5e system using Module subtypes",
   "version": "#{VERSION}#",
   "compatibility": {
-    "minimum": "12",
-    "verified": "12.331",
-    "maximum": "12"
+    "minimum": "13",
+    "verified": "13"
   },
   "relationships": {
     "systems": [
@@ -14,8 +13,8 @@
         "id": "dnd5e",
         "type": "system",
         "compatibility": {
-          "minimum": "4.3",
-          "verified": "4.3.5"
+          "minimum": "4.3.8",
+          "verified": "4.3.8"
         }
       }
     ]

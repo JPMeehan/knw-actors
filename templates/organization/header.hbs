@@ -1,0 +1,32 @@
+  <header class="flexrow">
+    <img
+      class="profile"
+      src="{{actor.img}}"
+      data-tooltip="{{actor.name}}"
+      data-edit="img"
+    />
+    <div class="flexcol">
+      <input
+        class="name"
+        type="text"
+        name="name"
+        value="{{actor.name}}"
+        placeholder="{{localize 'DND5E.Name'}}"
+      />
+      <div class="orgDetails flexrow">
+        <input
+          type="text"
+          name="system.org.type"
+          value="{{system.org.type}}"
+          placeholder="{{localize 'KNW.Organization.Type'}}"
+        />
+        <input
+          type="text"
+          name="system.org.specialization"
+          value="{{system.org.specialization}}"
+          placeholder="{{localize 'KNW.Organization.Specialization'}}"
+        />
+
+      </div>
+    </div>
+  </header>

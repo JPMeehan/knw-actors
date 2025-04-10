@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.0
+
+- Major rewrite for Foundry v13
+  - Updated sheets to use ActorSheetV2
+
 ## 1.4.1
 
 - Fixed "Use Prof" checkbox not working on the Org Sheet Test Roll
