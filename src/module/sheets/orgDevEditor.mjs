@@ -1,4 +1,6 @@
-export default class OrgDevEditor extends FormApplication {
+const {DocumentSheetV2, HandlebarsApplicationMixin} = foundry.applications.api;
+
+export default class OrgDevEditor extends HandlebarsApplicationMixin(DocumentSheetV2) {
   /**
    * Render a pair of inputs for selecting a value in a range.
    * @param {object} options                Helper options
@@ -21,47 +23,36 @@ export default class OrgDevEditor extends FormApplication {
     value = value ?? "";
     if (Number.isNaN(value)) value = "";
     const html = `<input type="range" name="${name}" value="${value}" min="${min}" max="${max}" step="${step}"/>
-     <span class="range-value ${displayValue < 0 ? "invalid" : ""}">${
-  displayValue ?? value
-}</span>`;
+        <span class="range-value ${displayValue < 0 ? "invalid" : ""}">${displayValue ?? value}</span>`;
     return new Handlebars.SafeString(html);
   }
 
-  /** @inheritdoc */
-  get template() {
-    return "modules/knw-actors/templates/org-development.hbs";
-  }
-
-  /** @inheritdoc */
-  get document() {
-    return this.object;
-  }
-
-  /** @inheritdoc */
-  get id() {
-    return `${this.constructor.name}-${this.document.uuid.replace(
-      /\./g,
-      "-"
-    )}-develop-${this.options.statGroup}`;
-  }
-
-  /** @inheritdoc */
-  get title() {
-    return game.i18n.localize("KNW.Organization.Development.Configure");
-  }
-
-  /** @inheritdoc */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["organization", "orgDev"],
-      closeOnSubmit: false,
-      submitOnChange: true,
+  static DEFAULT_OPTIONS = {
+    window: {
+      title: "KNW.Organization.Development.Configure"
+    },
+    position: {
       width: 360
-    });
-  }
+    },
+    sheetConfig: false,
+    classes: ["organization", "orgDev"],
+    form: {
+      submitOnChange: true
+    },
+    statGroup: null
+  };
+
+  static PARTS = {
+    body: {
+      template: "modules/knw-actors/templates/org-development.hbs",
+      root: true
+    }
+  };
 
   /** @inheritdoc */
-  async getData(options) {
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
+
     let totalDevPoints = 0;
     const statGroup = this.options.statGroup;
     /** @type {number[]} */
@@ -84,29 +75,15 @@ export default class OrgDevEditor extends FormApplication {
         };
       }
     );
-    const context = {
-      title: game.i18n.localize("KNW.Organization.Development.Configure"),
-      ...super.getData(options),
+    Object.assign(context, {
+      statGroup: this.options.statGroup,
       stats,
       totalDevPoints,
       track,
       length: track.length - 1,
       min: track[0],
       max: track.slice(-1)[0]
-    };
+    });
     return context;
-  }
-
-  /** @inheritdoc */
-  render(force = false, options = {}) {
-    // Register the active OrgDevEditor with the referenced Documents
-    this.object.apps[this.appId] = this;
-    return super.render(force, options);
-  }
-
-  /** @inheritdoc */
-  async _updateObject(event, formData) {
-    if (!this.object.id) return;
-    return this.object.update(formData);
   }
 }

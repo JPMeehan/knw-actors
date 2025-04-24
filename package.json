@@ -4,9 +4,8 @@
   "description": "Warfare Units and Organizations from MCDM's Kingdoms &amp; Warfare as actor types for the dnd5e system using v11 Module subtypes",
   "main": "knw-actors.mjs",
   "scripts": {
-    "build:css": "sass ./src/styles/knw-actors.scss knw-actors.css",
     "build:js": "rollup -c",
-    "build": "npm run build:css && npm run build:js",
+    "build": "npm run build:js",
     "lint:fix": "eslint . --fix",
     "createSymlinks": "node ./tools/create-symlinks.mjs"
   },
@@ -25,7 +24,6 @@
   "homepage": "https://github.com/JPMeehan/knw-actors#readme",
   "devDependencies": {
     "eslint": "^9.21.0",
-    "rollup": "^3.29.4",
-    "sass": "^1.70.0"
+    "rollup": "^3.29.4"
   }
 }

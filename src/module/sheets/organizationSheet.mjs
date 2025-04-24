@@ -121,12 +121,11 @@ export default class OrganizationSheet extends ActorSheet {
   }
 
   async #editScore(event) {
-    const statGroup = event.currentTarget.dataset.target;
-    const context = {
-      statGroup
-    };
-    const orgDevEditor = new OrgDevEditor(this.actor, context);
-    orgDevEditor.render(true);
+    const orgDevEditor = new OrgDevEditor({
+      document: this.actor,
+      statGroup: event.currentTarget.dataset.target
+    });
+    orgDevEditor.render({force: true});
   }
 
   async #rollSkill(event) {
