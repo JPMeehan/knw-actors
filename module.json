@@ -52,6 +52,12 @@
       "flags": {}
     }
   ],
+  "flags": {
+    "hotReload": {
+      "extensions": ["css", "html", "hbs", "json"],
+      "paths": ["knw-actors.css", "lang", "templates"]
+    }
+  },
   "url": "https://github.com/JPMeehan/knw-actors",
   "readme": "https://github.com/JPMeehan/knw-actors/blob/main/README.md",
   "bugs": "https://github.com/JPMeehan/knw-actors/issues",
