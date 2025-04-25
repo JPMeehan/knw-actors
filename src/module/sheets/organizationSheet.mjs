@@ -1,25 +1,40 @@
 import OrgDevEditor from "./orgDevEditor.mjs";
 
-export default class OrganizationSheet extends ActorSheet {
-  /** @override */
-  get template() {
-    return "modules/knw-actors/templates/organization-sheet.hbs";
-  }
+const {api, sheets} = foundry.applications;
 
-  /** @override */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["dnd5e", "sheet", "actor", "organization"],
+export default class OrganizationSheet extends api.HandlebarsApplicationMixin(sheets.ActorSheetV2) {
+  static DEFAULT_OPTIONS = {
+    classes: ["dnd5e", "sheet", "actor", "organization"],
+    position: {
       width: 720,
-      height: 680,
-      viewPermission: CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER
-    });
-  }
+      height: 680
+    },
+    viewPermission: CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER,
+    actions: {
+      editScore: this.#editScore,
+      rollSkill: this.#rollSkill,
+      cyclePowerDie: this.#cyclePowerDie,
+      decrementPowerDie: this.#decrementPowerDie
+    }
+  };
+
+  static PARTS = {
+    header: {
+      template: "modules/knw-actors/templates/organization/header.hbs"
+    },
+    body: {
+      template: "modules/knw-actors/templates/organization/body.hbs"
+    },
+    footer: {
+      template: "modules/knw-actors/templates/organization/footer.hbs"
+    }
+  };
 
   /** @override */
-  async getData(options) {
-    const context = {
-      ...super.getData(options),
+  async _prepareContext(options) {
+    const context = super._prepareContext(options);
+
+    Object.assign (context, {
       actor: this.actor,
       system: this.actor.system,
       skills: Object.entries(this.actor.system.skills).map(([key, skill]) => {
@@ -42,7 +57,7 @@ export default class OrganizationSheet extends ActorSheet {
       }),
       powerDieIMG: this.powerDieIMG,
       powerPool: this.getMemberPowerPool()
-    };
+    });
     return context;
   }
 
@@ -75,61 +90,118 @@ export default class OrganizationSheet extends ActorSheet {
     });
   }
 
-  async _onDropActor(event, data) {
-    /**
-     * Checks if user does not have
-     * owner permission of the organization
-     */
-    if (super._onDropActor(event, data) === false) return false;
-
-    const dropActor = await fromUuid(data.uuid);
-    if (dropActor.pack) {
+  async _onDropActor(event, actor) {
+    if (actor.pack) {
       ui.notifications.warn("KNW.Organization.Powers.Warning.NoPackActors", {
         localize: true
       });
       return false;
     } else if (
-      !foundry.utils.getProperty(dropActor, "system.attributes.prof")
+      !foundry.utils.getProperty(actor, "system.attributes.prof")
     ) {
       ui.notifications.warn("KNW.Organization.Powers.Warning.NoProf", {
         localize: true
       });
       return false;
-    } else if (dropActor.id in this.actor.system.powerPool) {
+    } else if (actor.id in this.actor.system.powerPool) {
       ui.notifications.warn("KNW.Organization.Powers.Warning.AlreadyMember", {
         localize: true
       });
       return false;
     }
-    this.actor.update({[`system.powerPool.${dropActor.id}`]: null});
+    this.actor.update({[`system.powerPool.${actor.id}`]: null});
   }
 
   /** @override */
-  activateListeners(html) {
-    super.activateListeners(html);
-    html.on("click", ".body .editScore>a", this.#editScore.bind(this));
+  async _onFirstRender(context, options) {
+    await super._onFirstRender(context, options);
 
-    html.on("click", ".skills .label.rollable", this.#rollSkill.bind(this));
-    html.on("click", ".powerDie.rollable", this.#cyclePowerDie.bind(this));
-    html.on(
-      "click",
-      ".powerPoolList .edit .subtract",
-      this.#decrementPowerDie.bind(this)
-    );
-
-    ContextMenu.create(this, html, ".powerPoolMember", this.powerPoolItemMenu);
+    this._createContextMenu(this.powerPoolItemMenu, ".powerPoolMember", {
+      hookName: "getPowerPoolContextOptions",
+      parentClassHooks: false
+    });
   }
 
-  async #editScore(event) {
+  powerPoolItemMenu() {
+    const getMember = (/** @type {HTMLElement} */ li) => game.actors.get(li.dataset.id);
+
+    return [
+      {
+        name: "KNW.Organization.Powers.ContextMenu.SetValue",
+        icon: "<i class='fas fa-edit'></i>",
+        condition: () => this.isEditable,
+        callback: li => {
+          const memberID = li.dataset.id;
+
+          const updateData = foundry.applications.api.DialogV2.input({
+            window: {
+              title: "KNW.Organization.Powers.ContextMenu.SetValue"
+            },
+            content: foundry.applications.fields.createNumberInput({
+              name: `system.powerPool.${memberID}`,
+              min: 0,
+              max: this.actor.system.powerDie
+            }).outerHTML,
+            ok: {
+              icon: "fa-solid fa-floppy-disk",
+              label: "Save Changes"
+            },
+            rejectClose: false
+          });
+
+          if (updateData) this.actor.update(updateData);
+        }
+      },
+      {
+        name: "KNW.Organization.Powers.ContextMenu.ViewMember",
+        icon: "<i class='fas fa-eye'></i>",
+        condition: li => getMember(li).sheet.isVisible,
+        callback: li => getMember(li).sheet.render(true)
+      },
+      {
+        name: "KNW.Organization.Powers.ContextMenu.RemoveMember",
+        icon: "<i class='fas fa-trash'></i>",
+        condition: () => this.isEditable,
+        callback: li => {
+          const member = getMember(li);
+          ui.notifications.info("KNW.Organization.Powers.Warning.RemoveMember", {
+            format: {
+              memberName: member?.name,
+              organization: this.actor.name
+            }
+          });
+          this.actor.update({[`system.powerPool.-=${memberID}`]: null});
+        }
+      }
+    ];
+  }
+
+  /* -------------------------------------------- */
+  /*  Action Event Handlers                       */
+  /* -------------------------------------------- */
+
+  /**
+   * Open a helper application to edit the organization's scores
+   * @this {OrganizationSheet}
+   * @param {PointerEvent} event                  The originating click event
+   * @param {HTMLElement} target                  The capturing HTML element which defines the [data-action]
+   */
+  static async #editScore(event, target) {
     const orgDevEditor = new OrgDevEditor({
       document: this.actor,
-      statGroup: event.currentTarget.dataset.target
+      statGroup: target.dataset.target
     });
     orgDevEditor.render({force: true});
   }
 
-  async #rollSkill(event) {
-    const stat = event.currentTarget.dataset.target;
+  /**
+   * Roll a skill for the organization
+   * @this {OrganizationSheet}
+   * @param {PointerEvent} event                  The originating click event
+   * @param {HTMLElement} target                  The capturing HTML element which defines the [data-action]
+   */
+  static async #rollSkill(event, target) {
+    const stat = target.dataset.target;
     const validActors = Object.keys(this.actor.system.powerPool)
       .map((memberID) => game.actors.get(memberID))
       .filter((member) => member?.isOwner);
@@ -198,8 +270,14 @@ export default class OrganizationSheet extends ActorSheet {
     if (testInput) this.actor.system.rollSkillTest(stat, testInput.chosenActor, testInput.useProf, event);
   }
 
-  async #cyclePowerDie(event) {
-    const memberID = event.currentTarget.closest("li").dataset.id;
+  /**
+   * Cycle the power die
+   * @this {OrganizationSheet}
+   * @param {PointerEvent} event                  The originating click event
+   * @param {HTMLElement} target                  The capturing HTML element which defines the [data-action]
+   */
+  static async #cyclePowerDie(event, target) {
+    const memberID = target.closest("li").dataset.id;
     const currentValue = this.actor.system.powerPool[memberID];
     const memberActor = game.actors.get(memberID);
     switch (currentValue) {
@@ -219,7 +297,7 @@ export default class OrganizationSheet extends ActorSheet {
           });
         break;
       default:
-        ChatMessage.create({
+        foundry.documents.ChatMessage.implementation.create({
           user: game.user,
           content: game.i18n.format("KNW.Organization.Powers.TakeValue", {
             currentValue,
@@ -230,84 +308,15 @@ export default class OrganizationSheet extends ActorSheet {
     }
   }
 
-  async #decrementPowerDie(event) {
-    this.actor.system.decrementPowerDie(
-      event.currentTarget.closest("li").dataset.id
-    );
-  }
-
-  get powerPoolItemMenu() {
-    return [
-      {
-        name: game.i18n.localize(
-          "KNW.Organization.Powers.ContextMenu.SetValue"
-        ),
-        icon: "<i class='fas fa-edit'></i>",
-        condition: this.isEditable,
-        callback: this.setDieValue.bind(this)
-      },
-      {
-        name: game.i18n.localize(
-          "KNW.Organization.Powers.ContextMenu.ViewMember"
-        ),
-        icon: "<i class='fas fa-eye'></i>",
-        condition: true,
-        callback: this.viewMember.bind(this)
-      },
-      {
-        name: game.i18n.localize(
-          "KNW.Organization.Powers.ContextMenu.RemoveMember"
-        ),
-        icon: "<i class='fas fa-trash'></i>",
-        condition: this.isEditable,
-        callback: this.deleteMember.bind(this)
-      }
-    ];
-  }
-
   /**
-   * Adjusts the die value
-   * @param {HTMLElement[]} JQuery
+   * Decrease the power die for a member
+   * @this {OrganizationSheet}
+   * @param {PointerEvent} event                  The originating click event
+   * @param {HTMLElement} target                  The capturing HTML element which defines the [data-action]
    */
-  async setDieValue([html]) {
-    const memberID = html.dataset.id;
-
-    foundry.applications.api.DialogV2.prompt({
-      window: {
-        title: "KNW.Organization.Powers.ContextMenu.SetValue"
-      },
-      content: foundry.applications.fields.createNumberInput({
-        name: `system.powerPool.${memberID}`,
-        min: 0,
-        max: this.actor.system.powerDie
-      }).outerHTML,
-      ok: {
-        icon: "fa-solid fa-floppy-disk",
-        label: "Save Changes",
-        callback: (event, button, dialog) => {
-          const fd = new FormDataExtended(button.form);
-          this.actor.update(fd.object);
-        }
-      },
-      rejectClose: false
-    });
-  }
-
-  async viewMember(html) {
-    const memberID = html[0].dataset.id;
-    const member = game.actors.get(memberID);
-    member.sheet.render(true);
-  }
-
-  async deleteMember(html) {
-    const memberID = html[0].dataset.id;
-    const member = game.actors.get(memberID);
-    ui.notifications.info(
-      game.i18n.format("KNW.Organization.Powers.Warning.RemoveMember", {
-        memberName: member?.name,
-        organization: this.actor.name
-      })
+  static async #decrementPowerDie(event, target) {
+    this.actor.system.decrementPowerDie(
+      target.closest("li").dataset.id
     );
-    this.actor.update({[`system.powerPool.-=${memberID}`]: null});
   }
 }

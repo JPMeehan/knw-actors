@@ -5,7 +5,7 @@
   h2 {
     font-family: var(--labelFont);
   }
-  .header {
+  header.header {
     flex: 0 0 104px;
     padding-bottom: 2px;
     border-bottom: var(--groove5e);
@@ -28,7 +28,7 @@
       font-size: 24px;
     }
   }
-  .body {
+  section.body {
     flex: 0 0 250px;
     padding-top: 2px;
     --body-row-height: 50px;
@@ -131,7 +131,7 @@
       }
     }
   }
-  .footer {
+  footer {
     flex: 1;
     height: calc(100% - 354px);
     border-top: var(--groove5e);
