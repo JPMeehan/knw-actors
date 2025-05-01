@@ -83,6 +83,7 @@
       }
     }
     .powerPool {
+      height: 100%;
       flex: 1;
       .powerPoolList {
         height: calc(100% - 40px - 0.5rem - 0.5em);
@@ -193,7 +194,7 @@
       font-size: 1.75em;
     }
     input[type='number'] {
-      max-width: 30px;
+      max-width: 35px;
       text-align: right;
     }
     .statHeader {
