@@ -1,6 +1,10 @@
 .actor.organization {
-  --groove5e: 2px groove #eeede0;
+  --knw-border: 2px solid var(--color-border);
   --labelFont: 'Modesto Condensed', 'Palatino Linotype', serif;
+  --alternate-alpha: 0.1;
+  .theme-dark & {
+    --alternate-alpha: 0.2;
+  }
   .label,
   h2 {
     font-family: var(--labelFont);
@@ -8,10 +12,14 @@
   header.header {
     flex: 0 0 104px;
     padding-bottom: 2px;
-    border-bottom: var(--groove5e);
+    border-bottom: var(--knw-border);
     margin-bottom: 2px;
     input[type='text'] {
+      &:not(:hover) {
+        background-color: initial;
+      }
       font-family: var(--labelFont);
+      border: none;
     }
     img.profile {
       flex: 0 0 100px;
@@ -19,13 +27,19 @@
       height: 100px;
       border: none;
     }
-    .name {
-      flex: 3;
-      font-size: 32px;
-    }
-    .orgDetails {
-      flex: 1;
-      font-size: 24px;
+    .metadata {
+      padding: 0.5rem 1rem 0.5rem 0;
+      height: 100%;
+      gap: 1px;
+      .name {
+        flex: 3;
+        font-size: 32px;
+      }
+      .orgDetails {
+        flex: 1;
+        font-size: 24px;
+        gap: 2px;
+      }
     }
   }
   section.body {
@@ -54,15 +68,15 @@
     }
     .skills {
       flex: 0 0 210px;
-      border-right: var(--groove5e);
+      border-right: var(--knw-border);
       div.skill:nth-child(even) {
-        background-color: rgba(0, 0, 0, 0.05);
+        background-color: rgba(0, 0, 0, var(--alternate-alpha));
       }
       .value {
         flex: 0 0 60px;
       }
       .label {
-        border-left: var(--groove5e);
+        border-left: var(--knw-border);
         &.rollable {
           cursor: pointer;
         }
@@ -78,18 +92,18 @@
           font-size: 16px;
           line-height: 25px;
           &:nth-child(odd) {
-            background-color: rgba(0, 0, 0, 0.05);
+            background-color: rgba(0, 0, 0, var(--alternate-alpha));
           }
         }
         .name {
           flex: 1;
           overflow-wrap: anywhere;
+          border-right: var(--knw-border);
         }
         .powerDie {
           flex: 0 0 27px;
           text-align: right;
           padding: 0 4px 0 2px;
-          border-left: var(--groove5e);
           &.rollable {
             cursor: pointer;
           }
@@ -103,16 +117,23 @@
       }
     }
     .defenses {
-      border-left: var(--groove5e);
+      border-left: var(--knw-border);
       flex: 0 0 320px;
       div.defense:nth-child(even) {
-        background-color: rgba(0, 0, 0, 0.05);
+        background-color: rgba(0, 0, 0, var(--alternate-alpha));
       }
       .label {
-        border-right: var(--groove5e);
+        border-right: var(--knw-border);
       }
       .value {
         flex: 0 0 60px;
+      }
+      input, select {
+        border: none;
+        margin: 0 5px;
+        &:not(:hover) {
+          background-color: initial;
+        }
       }
       .powerDie,
       .level {
@@ -134,7 +155,7 @@
   footer {
     flex: 1;
     height: calc(100% - 354px);
-    border-top: var(--groove5e);
+    border-top: var(--knw-border);
     .powers,
     .features {
       height: 100%;
@@ -142,7 +163,12 @@
       .footerHeader {
         h3 {
           font-family: var(--labelFont);
-          font-size: 32px;
+          font-size: var(--font-size-32);
+          border-color: var(--color-border);
+          a[data-action] {
+            font-size: var(--font-size-24);
+            float: right;
+          }
         }
       }
       .footerBody {
@@ -150,7 +176,7 @@
       }
     }
     .features {
-      border-left: var(--groove5e);
+      border-left: var(--knw-border);
     }
   }
 }
@@ -198,7 +224,7 @@
 }
 
 .actor.warfare {
-  --groove5e: 2px groove #eeede0;
+  --knw-border: 2px groove var(--color-border);
   --labelFont: 'Modesto Condensed', 'Palatino Linotype', serif;
   .label {
     font-family: var(--labelFont);
@@ -220,10 +246,10 @@
     .description {
       flex: 1;
       padding: 0 3px;
-      border-left: var(--groove5e);
-      border-right: var(--groove5e);
+      border-left: var(--knw-border);
+      border-right: var(--knw-border);
       .id {
-        border-bottom: var(--groove5e);
+        border-bottom: var(--knw-border);
         margin-bottom: 2px;
         padding-bottom: 2px;
         img.profile {
@@ -294,8 +320,8 @@
     flex: 0 0 80px;
     margin: 2px 0;
     padding: 2px 0;
-    border-top: var(--groove5e);
-    border-bottom: var(--groove5e);
+    border-top: var(--knw-border);
+    border-bottom: var(--knw-border);
     .attacks {
       flex: 0 0 30px;
       font-size: 36px;
@@ -309,10 +335,10 @@
       }
       .label {
         line-height: 40px;
-        border-bottom: var(--groove5e);
+        border-bottom: var(--knw-border);
       }
       &:not(:last-of-type) {
-        border-right: var(--groove5e);
+        border-right: var(--knw-border);
       }
       .value {
         font-family: var(--labelFont);
@@ -323,7 +349,7 @@
     flex: 1;
     .damage {
       flex: 0 0 100px;
-      border-right: var(--groove5e);
+      border-right: var(--knw-border);
       label {
         height: 100%;
         input {
@@ -403,7 +429,7 @@
     }
     .tier {
       flex: 0 0 100px;
-      border-left: var(--groove5e);
+      border-left: var(--knw-border);
       label {
         height: 100%;
         select {

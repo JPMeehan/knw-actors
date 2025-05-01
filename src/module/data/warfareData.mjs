@@ -21,7 +21,7 @@
  * @prop {string} traitList
  */
 export default class WarfareData extends foundry.abstract.TypeDataModel {
-  /** @override */
+  /** @inheritdoc */
   static defineSchema() {
     const fields = foundry.data.fields;
     const data = {

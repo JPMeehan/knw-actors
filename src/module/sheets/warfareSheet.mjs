@@ -1,10 +1,10 @@
 export default class WarfareSheet extends ActorSheet {
-  /** @override */
+  /** @inheritdoc */
   get template() {
     return "modules/knw-actors/templates/warfare-sheet.hbs";
   }
 
-  /** @override */
+  /** @inheritdoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["dnd5e", "sheet", "actor", "warfare"],
@@ -20,7 +20,7 @@ export default class WarfareSheet extends ActorSheet {
     });
   }
 
-  /** @override */
+  /** @inheritdoc */
   async getData(options) {
     const context = {
       ...super.getData(options),
@@ -83,7 +83,7 @@ export default class WarfareSheet extends ActorSheet {
 
   /**
    * @returns {Promise<Actor | false>} This sheet's actor
-   * @override
+   * @inheritdoc
    */
   async _onDropActor(event, data) {
     // Returns false if user does not have owners permissions of the unit
@@ -106,7 +106,7 @@ export default class WarfareSheet extends ActorSheet {
     return this.actor.update({"system.commander": dropActor.id});
   }
 
-  /** @override */
+  /** @inheritdoc */
   activateListeners(html) {
     super.activateListeners(html);
     html.on(

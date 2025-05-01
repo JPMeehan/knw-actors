@@ -22,6 +22,8 @@ Hooks.once("init", () => {
     [typeWarfare]: WarfareData
   });
 
+  const Actors = foundry.documents.collections.Actors;
+
   Actors.registerSheet(moduleID, OrganizationSheet, {
     types: [typeOrganization],
     makeDefault: true,

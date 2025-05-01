@@ -2,9 +2,13 @@ import OrgDevEditor from "./orgDevEditor.mjs";
 
 const {api, sheets} = foundry.applications;
 
-export default class OrganizationSheet extends api.HandlebarsApplicationMixin(sheets.ActorSheetV2) {
+/**
+ * Sheet for Organization type actors
+ */
+export default class OrganizationSheet extends api.HandlebarsApplicationMixin(sheets.ActorSheet) {
+  /** @inheritdoc */
   static DEFAULT_OPTIONS = {
-    classes: ["dnd5e", "sheet", "actor", "organization"],
+    classes: ["dnd5e2", "sheet", "actor", "organization"],
     position: {
       width: 720,
       height: 680
@@ -14,10 +18,12 @@ export default class OrganizationSheet extends api.HandlebarsApplicationMixin(sh
       editScore: this.#editScore,
       rollSkill: this.#rollSkill,
       cyclePowerDie: this.#cyclePowerDie,
-      decrementPowerDie: this.#decrementPowerDie
+      decrementPowerDie: this.#decrementPowerDie,
+      editText: this.#editText
     }
   };
 
+  /** @inheritdoc */
   static PARTS = {
     header: {
       template: "modules/knw-actors/templates/organization/header.hbs"
@@ -30,35 +36,71 @@ export default class OrganizationSheet extends api.HandlebarsApplicationMixin(sh
     }
   };
 
-  /** @override */
+  /** @inheritdoc */
   async _prepareContext(options) {
-    const context = super._prepareContext(options);
+    const context = await super._prepareContext(options);
 
     Object.assign (context, {
       actor: this.actor,
-      system: this.actor.system,
-      skills: Object.entries(this.actor.system.skills).map(([key, skill]) => {
-        return {
-          key,
-          label: game.i18n.localize("KNW.Organization.skills." + key),
-          bonus: skill.bonus
-        };
-      }),
-      defenses: Object.entries(this.actor.system.defenses).map(([key, def]) => {
-        return {
-          key,
-          label: game.i18n.localize(
-            "KNW.Organization.defenses." + key + ".Label"
-          ),
-          level: def.level,
-          score: def.score,
-          choices: CONFIG.KNW.CHOICES[key]
-        };
-      }),
-      powerDieIMG: this.powerDieIMG,
-      powerPool: this.getMemberPowerPool()
+      system: this.actor.system
     });
     return context;
+  }
+
+  /** @inheritdoc */
+  async _preparePartContext(partId, context, options) {
+
+    switch (partId) {
+      case "header": break;
+      case "body":
+        Object.assign(context, {
+          skills: Object.entries(this.actor.system.skills).map(([key, skill]) => {
+            return {
+              key,
+              label: game.i18n.localize("KNW.Organization.skills." + key),
+              bonus: skill.bonus
+            };
+          }),
+          defenses: Object.entries(this.actor.system.defenses).map(([key, def]) => {
+            return {
+              key,
+              label: game.i18n.localize(
+                "KNW.Organization.defenses." + key + ".Label"
+              ),
+              level: def.level,
+              score: def.score,
+              choices: CONFIG.KNW.CHOICES[key]
+            };
+          }),
+          powerDieIMG: this.powerDieIMG,
+          powerPool: this.getMemberPowerPool()
+        });
+        break;
+      case "footer":
+        await this.footerContext(context);
+        break;
+    }
+
+    return context;
+  }
+
+  /**
+   * Adds in footer-specific context
+   * @param {object} context
+   */
+  async footerContext(context) {
+    const TextEditor = foundry.applications.ux.TextEditor;
+
+    const enrichmentOptions = {
+      secrets: this.actor.isOwner,
+      rollData: this.actor.getRollData(),
+      relativeTo: this.actor
+    };
+
+    Object.assign(context, {
+      enrichedPowers: await TextEditor.implementation.enrichHTML(this.actor.system.powers, enrichmentOptions),
+      enrichedFeatures: await TextEditor.implementation.enrichHTML(this.actor.system.features, enrichmentOptions)
+    });
   }
 
   get powerDieIMG() {
@@ -112,7 +154,7 @@ export default class OrganizationSheet extends api.HandlebarsApplicationMixin(sh
     this.actor.update({[`system.powerPool.${actor.id}`]: null});
   }
 
-  /** @override */
+  /** @inheritdoc */
   async _onFirstRender(context, options) {
     await super._onFirstRender(context, options);
 
@@ -183,8 +225,8 @@ export default class OrganizationSheet extends api.HandlebarsApplicationMixin(sh
   /**
    * Open a helper application to edit the organization's scores
    * @this {OrganizationSheet}
-   * @param {PointerEvent} event                  The originating click event
-   * @param {HTMLElement} target                  The capturing HTML element which defines the [data-action]
+   * @param {PointerEvent} event  The originating click event
+   * @param {HTMLElement} target  The capturing HTML element which defines the [data-action]
    */
   static async #editScore(event, target) {
     const orgDevEditor = new OrgDevEditor({
@@ -197,8 +239,8 @@ export default class OrganizationSheet extends api.HandlebarsApplicationMixin(sh
   /**
    * Roll a skill for the organization
    * @this {OrganizationSheet}
-   * @param {PointerEvent} event                  The originating click event
-   * @param {HTMLElement} target                  The capturing HTML element which defines the [data-action]
+   * @param {PointerEvent} event  The originating click event
+   * @param {HTMLElement} target  The capturing HTML element which defines the [data-action]
    */
   static async #rollSkill(event, target) {
     const stat = target.dataset.target;
@@ -273,8 +315,8 @@ export default class OrganizationSheet extends api.HandlebarsApplicationMixin(sh
   /**
    * Cycle the power die
    * @this {OrganizationSheet}
-   * @param {PointerEvent} event                  The originating click event
-   * @param {HTMLElement} target                  The capturing HTML element which defines the [data-action]
+   * @param {PointerEvent} event  The originating click event
+   * @param {HTMLElement} target  The capturing HTML element which defines the [data-action]
    */
   static async #cyclePowerDie(event, target) {
     const memberID = target.closest("li").dataset.id;
@@ -311,12 +353,31 @@ export default class OrganizationSheet extends api.HandlebarsApplicationMixin(sh
   /**
    * Decrease the power die for a member
    * @this {OrganizationSheet}
-   * @param {PointerEvent} event                  The originating click event
-   * @param {HTMLElement} target                  The capturing HTML element which defines the [data-action]
+   * @param {PointerEvent} event  The originating click event
+   * @param {HTMLElement} target  The capturing HTML element which defines the [data-action]
    */
   static async #decrementPowerDie(event, target) {
     this.actor.system.decrementPowerDie(
       target.closest("li").dataset.id
     );
+  }
+
+  /**
+   * Open a dialog to edit the powers or features sections
+   * @this {OrganizationSheet}
+   * @param {PointerEvent} event  The originating click event
+   * @param {HTMLElement} target  The capturing HTML element which defines the [data-action]
+   */
+  static async #editText(event, target) {
+    const {fieldName} = target.dataset;
+    const field = this.actor.system.schema.getField(fieldName);
+    const update = await foundry.applications.api.Dialog.input({
+      window: {
+        title: `${this.actor.name} ${game.i18n.localize(field.label)}`
+      },
+      content: field.toInput({value: this.actor.system[fieldName], height: 300}).outerHTML
+    });
+
+    if (update) this.actor.update(update);
   }
 }

@@ -41,7 +41,7 @@
  * @prop {string} features            - An HTML field for the organization's features
  */
 export default class OrganizationData extends foundry.abstract.TypeDataModel {
-  /** @override */
+  /** @inheritdoc */
   static defineSchema() {
     const fields = foundry.data.fields;
     const MappingField = game.dnd5e.dataModels.fields.MappingField;
@@ -121,7 +121,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
         {label: "KNW.Organization.Powers.Pool"}
       ),
       powers: new fields.HTMLField({textSearch: true, label: "KNW.Organization.Powers.Label"}),
-      features: new fields.HTMLField({textSearch: true, label: "KNW.Organization"})
+      features: new fields.HTMLField({textSearch: true, label: "KNW.Organization.Features.Label"})
     };
 
     return data;
@@ -153,7 +153,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
 
   /**
    * Prepare data related to this DataModel itself, before any derived data is computed.
-   * @override
+   * @inheritdoc
    */
   prepareBaseData() {
     for (const skill of Object.values(this.skills)) {
@@ -167,7 +167,7 @@ export default class OrganizationData extends foundry.abstract.TypeDataModel {
   /**
    * Apply transformations of derivations to the values of the source data object.
    * Compute data fields whose values are not stored to the database.
-   * @override
+   * @inheritdoc
    */
   prepareDerivedData() {
     for (const skill of Object.values(this.skills)) {

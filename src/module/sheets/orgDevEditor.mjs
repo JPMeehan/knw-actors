@@ -1,6 +1,6 @@
-const {DocumentSheetV2, HandlebarsApplicationMixin} = foundry.applications.api;
+const {DocumentSheet, HandlebarsApplicationMixin} = foundry.applications.api;
 
-export default class OrgDevEditor extends HandlebarsApplicationMixin(DocumentSheetV2) {
+export default class OrgDevEditor extends HandlebarsApplicationMixin(DocumentSheet) {
   /**
    * Render a pair of inputs for selecting a value in a range.
    * @param {object} options                Helper options
