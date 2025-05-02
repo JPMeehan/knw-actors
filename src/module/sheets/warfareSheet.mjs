@@ -1,65 +1,112 @@
-export default class WarfareSheet extends ActorSheet {
-  /** @inheritdoc */
-  get template() {
-    return "modules/knw-actors/templates/warfare-sheet.hbs";
-  }
+const {api, sheets} = foundry.applications;
 
+/**
+ * Sheet for Warfare type actors
+ */
+export default class WarfareSheet extends api.HandlebarsApplicationMixin(sheets.ActorSheet) {
   /** @inheritdoc */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["dnd5e", "sheet", "actor", "warfare"],
+  static DEFAULT_OPTIONS = {
+    classes: ["dnd5e2", "sheet", "actor", "warfare"],
+    position: {
       width: 600,
-      height: 360,
+      height: 380
+    },
+    actions: {
+      rollStat: this.#rollStat,
+      configureTraits: this.#configureTraits,
+      controlEmbedded: this.#handleEmbeddedDocumentControl,
+      createEmbedded: this.#createActiveEffect
+    }
+  };
+
+  static PARTS = {
+    header: {
+      template: "modules/knw-actors/templates/warfare/header.hbs"
+    },
+    body: {
+      template: "modules/knw-actors/templates/warfare/body.hbs"
+    },
+    footer: {
+      template: "modules/knw-actors/templates/warfare/footer.hbs"
+    }
+  };
+
+  static TABS = {
+    primary: {
       tabs: [
         {
-          navSelector: ".tabs",
-          contentSelector: ".tabs-body",
-          initial: "traits"
+          id: "traits",
+          label: "KNW.Warfare.Traits.SheetLabel"
+        },
+        {
+          id: "items",
+          label: "DOCUMENT.Items"
+        },
+        {
+          id: "effects",
+          label: "DOCUMENT.ActiveEffects"
         }
-      ]
+      ],
+      initial: "traits"
+    }
+  };
+
+  /** @inheritdoc */
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
+
+    Object.assign (context, {
+      actor: this.actor,
+      system: this.actor.system,
+      choices: CONFIG.KNW.CHOICES
     });
+    return context;
   }
 
   /** @inheritdoc */
-  async getData(options) {
-    const context = {
-      ...super.getData(options),
-      actor: this.actor,
-      system: this.actor.system,
-      coreStats: {
-        atk: {
-          label: game.i18n.localize("KNW.Warfare.Statistics.atk.abbr"),
-          value: this.actor.system.atk.signedString(),
-          rollable: this.isEditable ? "rollable" : ""
-        },
-        def: {
-          label: game.i18n.localize("KNW.Warfare.Statistics.def.abbr"),
-          value: this.actor.system.def
-        },
-        pow: {
-          label: game.i18n.localize("KNW.Warfare.Statistics.pow.abbr"),
-          value: this.actor.system.pow.signedString(),
-          rollable: this.isEditable ? "rollable" : ""
-        },
-        tou: {
-          label: game.i18n.localize("KNW.Warfare.Statistics.tou.abbr"),
-          value: this.actor.system.tou
-        },
-        mor: {
-          label: game.i18n.localize("KNW.Warfare.Statistics.mor.abbr"),
-          value: this.actor.system.mor.signedString(),
-          rollable: this.isEditable ? "rollable" : ""
-        },
-        com: {
-          label: game.i18n.localize("KNW.Warfare.Statistics.com.abbr"),
-          value: this.actor.system.com.signedString(),
-          rollable: this.isEditable ? "rollable" : ""
-        }
-      },
-      choices: CONFIG.KNW.CHOICES,
-      traits: this.traits,
-      typeImage: this.typeImage
-    };
+  _preparePartContext(partId, context, options) {
+    switch (partId) {
+      case "header":
+        context.typeImage = this.typeImage;
+        break;
+      case "body":
+        context.coreStats = {
+          atk: {
+            label: game.i18n.localize("KNW.Warfare.Statistics.atk.abbr"),
+            value: this.actor.system.atk.signedString(),
+            rollable: this.isEditable
+          },
+          def: {
+            label: game.i18n.localize("KNW.Warfare.Statistics.def.abbr"),
+            value: this.actor.system.def
+          },
+          pow: {
+            label: game.i18n.localize("KNW.Warfare.Statistics.pow.abbr"),
+            value: this.actor.system.pow.signedString(),
+            rollable: this.isEditable
+          },
+          tou: {
+            label: game.i18n.localize("KNW.Warfare.Statistics.tou.abbr"),
+            value: this.actor.system.tou
+          },
+          mor: {
+            label: game.i18n.localize("KNW.Warfare.Statistics.mor.abbr"),
+            value: this.actor.system.mor.signedString(),
+            rollable: this.isEditable
+          },
+          com: {
+            label: game.i18n.localize("KNW.Warfare.Statistics.com.abbr"),
+            value: this.actor.system.com.signedString(),
+            rollable: this.isEditable
+          }
+        };
+        break;
+      case "footer":
+        context.traits = this.traits;
+        context.items = this.actor.items.contents.sort((a, b) => a.sort - b.sort);
+        context.effects = this.actor.effects.contents.sort((a, b) => a.sort - b.sort);
+        break;
+    }
     return context;
   }
 
@@ -81,81 +128,57 @@ export default class WarfareSheet extends ActorSheet {
     else return CONFIG.KNW.CHOICES.TYPE[system.type].img;
   }
 
-  /**
-   * @returns {Promise<Actor | false>} This sheet's actor
-   * @inheritdoc
-   */
-  async _onDropActor(event, data) {
-    // Returns false if user does not have owners permissions of the unit
-    if (!super._onDropActor(event, data)) return false;
-
-    const dropActor = await fromUuid(data.uuid);
-    if (dropActor.pack) {
+  /** @inheritdoc */
+  async _onDropActor(event, actor) {
+    if (actor.pack) {
       ui.notifications.warn("KNW.Warfare.Commander.Warning.Pack", {
         localize: true
       });
       return false;
     } else if (
-      !foundry.utils.hasProperty(dropActor, "system.attributes.prof")
+      !foundry.utils.hasProperty(actor, "system.attributes.prof")
     ) {
       ui.notifications.warn("KNW.Warfare.Commander.Warning.NoProf", {
         localize: true
       });
       return false;
     }
-    return this.actor.update({"system.commander": dropActor.id});
+    return this.actor.update({"system.commander": actor.id});
   }
 
   /** @inheritdoc */
-  activateListeners(html) {
-    super.activateListeners(html);
-    html.on(
-      "click",
-      ".coreStat .label.rollable",
-      this.#rollStat.bind(this)
-    );
-    html.on(
-      "click",
-      ".traitList",
-      this._configureTraits.bind(this)
-    );
-    html.on(
-      "click",
-      ".item-control",
-      {collectionName: "items", idPath: "itemId"},
-      this.#handleEmbeddedDocumentControl.bind(this)
-    );
-    html.on(
-      "click",
-      ".effect-control",
-      {collectionName: "effects", idPath: "effectId"},
-      this.#handleEmbeddedDocumentControl.bind(this)
-    );
-    html.on(
-      "click",
-      ".effect-create",
-      {className: "ActiveEffect"},
-      this.#handleEmbeddedDocumentCreate.bind(this)
-    );
+  async _onFirstRender(context, options) {
+    await super._onFirstRender(context, options);
 
-    ContextMenu.create(this, html, ".commander .name", this.commanderMenu);
+    this._createContextMenu(this.commanderMenu, ".commander .name", {
+      hookName: "getCommanderContextOptions",
+      parentClassHooks: false,
+      fixed: true
+    });
   }
+
+  /* -------------------------------------------- */
+  /*  Action Event Handlers                       */
+  /* -------------------------------------------- */
 
   /**
    * Roll a Warfare skill
-   * @param {PointerEvent} event
+   * @this WarfareSheet
+   * @param {PointerEvent} event  The originating click event
+   * @param {HTMLElement} target  The capturing HTML element which defines the [data-action]
    */
-  async #rollStat(event) {
-    const stat = event.currentTarget.dataset.target;
+  static async #rollStat(event, target) {
+    const {stat} = target.dataset;
     this.actor.system.rollStat(stat, event);
   }
 
   /**
    * Edit the traits of the unit
-   * @param {MouseEvent} event Click event
+   * @this WarfareSheet
+   * @param {PointerEvent} event  The originating click event
+   * @param {HTMLElement} target  The capturing HTML element which defines the [data-action]
    */
-  async _configureTraits(event) {
-
+  static async #configureTraits(event, target) {
     const traitInput = foundry.applications.fields.createTextareaInput({
       name: "system.traitList",
       value: this.actor.system.traitList,
@@ -171,18 +194,14 @@ export default class WarfareSheet extends ActorSheet {
       classes: ["stacked"]
     });
 
-    const update = await foundry.applications.api.DialogV2.prompt({
+    const update = await foundry.applications.api.Dialog.input({
       window: {
         title: "KNW.Warfare.Traits.DialogTitle"
       },
       content: traitGroup.outerHTML,
       ok: {
         label: "SAVE",
-        icon: "fa-solid fa-floppy-disk",
-        callback: (event, button, dialog) => {
-          const fd = new FormDataExtended(button.form);
-          return fd.object;
-        }
+        icon: "fa-solid fa-floppy-disk"
       },
       rejectClose: false
     });
@@ -192,15 +211,15 @@ export default class WarfareSheet extends ActorSheet {
 
   /**
    * Handles item and effect controls
-   * @param {MouseEvent} event Click Event
+   * @this WarfareSheet
+   * @param {PointerEvent} event  The originating click event
+   * @param {HTMLElement} target  The capturing HTML element which defines the [data-action]
    */
-  async #handleEmbeddedDocumentControl(event) {
-    const action = event.currentTarget.dataset.action;
-    const documentId =
-      event.currentTarget.closest("li").dataset[event.data.idPath];
-    const doc =
-      this.actor.collections[event.data.collectionName].get(documentId);
-    switch (action) {
+  static async #handleEmbeddedDocumentControl(event, target) {
+    const li = target.closest("li");
+    const {embeddedName, itemId, effectId} = li.dataset;
+    const doc = this.actor.getEmbeddedDocument(embeddedName, itemId || effectId);
+    switch (target.dataset.control) {
       case "edit":
         doc.sheet.render(true);
         break;
@@ -215,30 +234,34 @@ export default class WarfareSheet extends ActorSheet {
 
   /**
    * Handles item and effect creation
-   * @param {MouseEvent} event Click Event
+   * @this WarfareSheet
+   * @param {PointerEvent} event  The originating click event
+   * @param {HTMLElement} target  The capturing HTML element which defines the [data-action]
    */
-  async #handleEmbeddedDocumentCreate(event) {
-    const documentClass = getDocumentClass(event.data.className);
-    documentClass.createDialog(
-      {img: "icons/svg/aura.svg"},
-      {parent: this.actor}
-    );
+  static async #createActiveEffect(event, target) {
+    this.actor.createEmbeddedDocuments(target.dataset.embeddedName, [{
+      name: getDocumentClass("ActiveEffect").defaultName({parent: this.actor}),
+      img: "icons/svg/aura.svg"
+    }]);
   }
 
-  get commanderMenu() {
-    const commander = this.actor.system.commander;
+  /**
+   * Constructs context menu options for the commander
+   * @returns {import("@client/applications/ux/context-menu.mjs").ContextMenuEntry[]}
+   */
+  commanderMenu() {
     return [
       {
         name: game.i18n.localize("KNW.Warfare.Commander.View"),
         icon: "<i class='fas fa-eye'></i>",
-        condition: commander,
-        callback: () => commander.sheet.render(true)
+        condition: () => this.actor.system.commander,
+        callback: () => this.actor.system.commander.sheet.render(true)
       },
       {
         name: game.i18n.localize("KNW.Warfare.Commander.Clear"),
         icon: "<i class='fas fa-trash'></i>",
-        condition: this.isEditable && commander,
-        callback: this.clearCommander.bind(this)
+        condition: this.isEditable && this.actor.system.commander,
+        callback: () => this.clearCommander()
       }
     ];
   }

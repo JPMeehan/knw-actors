@@ -107,6 +107,10 @@ export default class OrganizationSheet extends api.HandlebarsApplicationMixin(sh
     return CONFIG.KNW.CHOICES.SIZE[this.actor.system.size].diePath;
   }
 
+  /**
+   * Prepares the power pool info for the associated actors
+   * @returns {Array}
+   */
   getMemberPowerPool() {
     return Object.entries(this.actor.system.powerPool).map(([id, current]) => {
       const actor = game.actors.get(id);
@@ -132,6 +136,7 @@ export default class OrganizationSheet extends api.HandlebarsApplicationMixin(sh
     });
   }
 
+  /** @inheritdoc */
   async _onDropActor(event, actor) {
     if (actor.pack) {
       ui.notifications.warn("KNW.Organization.Powers.Warning.NoPackActors", {
@@ -160,10 +165,15 @@ export default class OrganizationSheet extends api.HandlebarsApplicationMixin(sh
 
     this._createContextMenu(this.powerPoolItemMenu, ".powerPoolMember", {
       hookName: "getPowerPoolContextOptions",
-      parentClassHooks: false
+      parentClassHooks: false,
+      fixed: true
     });
   }
 
+  /**
+   * Constructs context menu options for the power pool
+   * @returns {import("@client/applications/ux/context-menu.mjs").ContextMenuEntry[]}
+   */
   powerPoolItemMenu() {
     const getMember = (/** @type {HTMLElement} */ li) => game.actors.get(li.dataset.id);
 

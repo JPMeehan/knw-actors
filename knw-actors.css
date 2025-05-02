@@ -225,16 +225,27 @@
 }
 
 .actor.warfare {
+  .window-content {
+    padding: 0;
+    overflow-y: hidden;
+    gap: 0;
+  }
   --knw-border: 2px groove var(--color-border);
   --labelFont: 'Modesto Condensed', 'Palatino Linotype', serif;
   .label {
     font-family: var(--labelFont);
     font-weight: 700;
   }
+  input, select {
+    &:not(:hover) {
+      background-color: initial;
+    }
+    border: none;
+  }
   input[type='number'] {
     font-family: var(--labelFont);
   }
-  .header {
+  [data-application-part="header"] {
     flex: 0 0 100px;
     .type {
       flex: 0 0 30px;
@@ -317,7 +328,7 @@
       }
     }
   }
-  .statistics {
+  [data-application-part="body"] {
     flex: 0 0 80px;
     margin: 2px 0;
     padding: 2px 0;
@@ -329,7 +340,7 @@
     }
     .coreStat {
       padding: 2px;
-      .value,
+      .value input,
       .label {
         font-size: 24px;
         text-align: center;
@@ -346,7 +357,7 @@
       }
     }
   }
-  .footer {
+  [data-application-part="footer"] {
     flex: 1;
     .damage {
       flex: 0 0 100px;
@@ -370,18 +381,25 @@
       }
     }
     .addOns {
+      height: 100%;
       display: flex;
       flex-direction: column;
       flex: 1;
       padding: 0 5px;
-      .sheet-navigation a.label {
-        border-bottom: 3px solid #b5b3a4;
-        &.active {
-          border-bottom-color: #44191a;
+      .sheet-navigation {
+        line-height: 1.5;
+        a.label {
+          border-bottom: 3px solid #b5b3a4;
+          &.active {
+            border-bottom-color: #44191a;
+          }
         }
       }
       .tabs-body {
-        height: calc(100% - 15px);
+        height: calc(100% - 25px);
+        .tab {
+          height: 100%;
+        }
         ul {
           height: calc(100% - 15px);
         }

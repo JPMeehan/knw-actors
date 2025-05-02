@@ -1,0 +1,53 @@
+<header class='flexrow'>
+  <div class='type'>
+    <img class='typeImage' src='{{typeImage}}' />
+  </div>
+  <div class='description flexcol'>
+    <div class='id flexrow'>
+      <img class='profile' src='{{actor.img}}' data-tooltip='{{actor.name}}' data-edit='img' />
+      <input type='text' name='name' value='{{actor.name}}' placeholder='{{localize "DND5E.Name"}}' />
+    </div>
+    <div class='tags flexcol'>
+      <div class='commander'>
+        <label class='flexrow'>
+          <span class='label'>
+            {{localize 'KNW.Warfare.Commander.Label'}}
+          </span>
+          <span class='name' data-id='{{system.commander.id}}'>
+            {{system.commanderName}}
+          </span>
+        </label>
+      </div>
+      <div class='modifiers flexrow'>
+        <select class='experience' name='system.experience'>
+          {{selectOptions
+          choices.EXPERIENCE
+          selected=system.experience
+          localize=true
+          }}
+        </select>
+        <select class='gear' name='system.gear'>
+          {{selectOptions choices.GEAR selected=system.gear localize=true}}
+        </select>
+        <input class='ancestry' type='text' name='system.ancestry' value='{{system.ancestry}}'
+          placeholder='{{localize "KNW.Warfare.Ancestry"}}' />
+        <select class='type' name='system.type'>
+          {{selectOptions
+          choices.TYPE
+          labelAttr='label'
+          selected=system.type
+          localize=true
+          }}
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class='size flexcol'>
+    <div class='flexcol'>
+      {{numberInput system.size.value name='system.size.value' min=0}}
+      <div class='divider'></div>
+      {{numberInput system.size.max name='system.size.max' min=0}}
+    </div>
+    <span class='label'>{{localize 'KNW.Warfare.Statistics.size.long'}}</span>
+  </div>
+</header>

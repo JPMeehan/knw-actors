@@ -1,0 +1,17 @@
+<section class='flexrow'>
+  <div class='attacks' data-tooltip='{{localize "KNW.Warfare.Statistics.attacks.long"}}'>
+    {{numberInput system.attacks name='system.attacks' min=0}}
+  </div>
+  {{#each coreStats}}
+  <div class='coreStat flexcol'>
+    <div class='label'>
+      {{#if this.rollable}}<a data-action="rollStat" data-target="{{@key}}">{{this.label}}</a>
+      {{else}}{{this.label}}
+      {{/if}}
+    </div>
+    <div class='value'>
+      <input type='text' name='system.{{@key}}' value={{this.value}} data-dtype='Number' />
+    </div>
+  </div>
+  {{/each}}
+</section>
