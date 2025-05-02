@@ -103,10 +103,10 @@ Hooks.on("ready", () => {
   }
 });
 
-Hooks.on("renderTokenConfig5e", (app, html, context) => {
+Hooks.on("renderTokenConfig5e", (app, html, context, options) => {
   switch (app.actor.type) {
     case typeWarfare:
-      warfareTokenBar(app, html, context);
+      warfareTokenBar(app, html, context, options);
       break;
   }
 });

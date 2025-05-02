@@ -1,9 +1,4 @@
 const KNWCONFIG = {
-  DND5E: {
-    sourceBooks: {
-      "K&W": "Kingdoms & Warfare"
-    }
-  },
   KNW: {
     CHOICES: {
       EXPERIENCE: {
