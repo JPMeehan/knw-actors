@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.1
+
+- Fixed overly-strict uniqueness on org dev editors per org
+- Added window icon to the org dev editor
+
 ## 2.0.0
 
 - Major rewrite for Foundry v13

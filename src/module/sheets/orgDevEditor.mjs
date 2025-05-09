@@ -50,6 +50,21 @@ export default class OrgDevEditor extends HandlebarsApplicationMixin(DocumentShe
   };
 
   /** @inheritdoc */
+  _initializeApplicationOptions(options) {
+    options = super._initializeApplicationOptions(options);
+    options.uniqueId += options.statGroup;
+    switch (options.statGroup) {
+      case "defenses":
+        options.window.icon = "fa-solid fa-shield";
+        break;
+      case "skills":
+        options.window.icon = "fa-solid fa-hammer-war";
+        break;
+    }
+    return options;
+  }
+
+  /** @inheritdoc */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
 
