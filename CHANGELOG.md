@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.2
+
+- Fixed an issue with sheets saving changes
+
 ## 2.0.1
 
 - Fixed overly-strict uniqueness on org dev editors per org

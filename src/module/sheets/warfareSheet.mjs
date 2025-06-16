@@ -16,6 +16,10 @@ export default class WarfareSheet extends api.HandlebarsApplicationMixin(sheets.
       configureTraits: this.#configureTraits,
       controlEmbedded: this.#handleEmbeddedDocumentControl,
       createEmbedded: this.#createActiveEffect
+    },
+    form: {
+      submitOnChange: true,
+      closeOnSubmit: false
     }
   };
 

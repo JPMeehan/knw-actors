@@ -20,6 +20,10 @@ export default class OrganizationSheet extends api.HandlebarsApplicationMixin(sh
       cyclePowerDie: this.#cyclePowerDie,
       decrementPowerDie: this.#decrementPowerDie,
       editText: this.#editText
+    },
+    form: {
+      submitOnChange: true,
+      closeOnSubmit: false
     }
   };
 
