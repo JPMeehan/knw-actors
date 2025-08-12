@@ -67,7 +67,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       # Modify "module.json" with values specific to the release.
       # Since the values for the "version" and "url" keys aren't known ahead of
