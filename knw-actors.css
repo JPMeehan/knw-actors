@@ -22,6 +22,7 @@
       border: none;
     }
     img.profile {
+      cursor: pointer;
       flex: 0 0 100px;
       max-width: 100px;
       height: 100px;
@@ -265,6 +266,7 @@
         margin-bottom: 2px;
         padding-bottom: 2px;
         img.profile {
+          cursor: pointer;
           max-width: 60px;
           height: 60px;
           border: none;

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.3
+
+- Fixed not being able to edit Warfare and Organization actor images.
+
 ## 2.0.2
 
 - Fixed an issue with sheets saving changes
