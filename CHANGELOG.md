@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.4
+
+- Fixed data validation errors when editing a Warfare unit with negative stats.
+
 ## 2.0.3
 
 - Fixed not being able to edit Warfare and Organization actor images.

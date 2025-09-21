@@ -69,6 +69,10 @@ export default class WarfareSheet extends api.HandlebarsApplicationMixin(sheets.
 
   /** @inheritdoc */
   _preparePartContext(partId, context, options) {
+    function signedNumber(value) {
+      return value >= 0 ? `+${value}` : value;
+    }
+
     switch (partId) {
       case "header":
         context.typeImage = this.typeImage;
@@ -77,7 +81,7 @@ export default class WarfareSheet extends api.HandlebarsApplicationMixin(sheets.
         context.coreStats = {
           atk: {
             label: game.i18n.localize("KNW.Warfare.Statistics.atk.abbr"),
-            value: this.actor.system.atk.signedString(),
+            value: signedNumber(this.actor.system.atk),
             rollable: this.isEditable
           },
           def: {
@@ -86,7 +90,7 @@ export default class WarfareSheet extends api.HandlebarsApplicationMixin(sheets.
           },
           pow: {
             label: game.i18n.localize("KNW.Warfare.Statistics.pow.abbr"),
-            value: this.actor.system.pow.signedString(),
+            value: signedNumber(this.actor.system.pow),
             rollable: this.isEditable
           },
           tou: {
@@ -95,12 +99,12 @@ export default class WarfareSheet extends api.HandlebarsApplicationMixin(sheets.
           },
           mor: {
             label: game.i18n.localize("KNW.Warfare.Statistics.mor.abbr"),
-            value: this.actor.system.mor.signedString(),
+            value: signedNumber(this.actor.system.mor),
             rollable: this.isEditable
           },
           com: {
             label: game.i18n.localize("KNW.Warfare.Statistics.com.abbr"),
-            value: this.actor.system.com.signedString(),
+            value: signedNumber(this.actor.system.com),
             rollable: this.isEditable
           }
         };
