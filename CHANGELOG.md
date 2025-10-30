@@ -2,6 +2,7 @@
 
 ## 2.0.5
 
+- Fixed error in item deletion. (#29)
 - Fixed warfare units not correctly rolling their stats. (#30)
 - Switched warfare commander context menu from right click to left.
 
