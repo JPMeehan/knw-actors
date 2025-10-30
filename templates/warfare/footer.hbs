@@ -26,7 +26,7 @@
       <div class='tab {{tabs.items.cssClass}}' data-group='primary' data-tab='items'>
         <ul class='itemList'>
           {{#each items as |item|}}
-          <li class='item flexrow' data-embedded-name="ActiveEffect" data-item-id='{{item._id}}'>
+          <li class='item flexrow' data-embedded-name="Item" data-item-id='{{item._id}}'>
             <div class='item-name flexrow'>
               <img class='item-image' src='{{item.img}}' />
               <h4 data-tooltip='{{{item.system.description.value}}}'>{{item.name}}</h4>
