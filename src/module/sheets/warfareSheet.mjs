@@ -161,6 +161,7 @@ export default class WarfareSheet extends api.HandlebarsApplicationMixin(sheets.
     this._createContextMenu(this.commanderMenu, ".commander .name", {
       hookName: "getCommanderContextOptions",
       parentClassHooks: false,
+      eventName: "click",
       fixed: true
     });
   }

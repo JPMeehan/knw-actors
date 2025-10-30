@@ -5,7 +5,7 @@
   {{#each coreStats}}
   <div class='coreStat flexcol'>
     <div class='label'>
-      {{#if this.rollable}}<a data-action="rollStat" data-target="{{@key}}">{{this.label}}</a>
+      {{#if this.rollable}}<a data-action="rollStat" data-stat="{{@key}}">{{this.label}}</a>
       {{else}}{{this.label}}
       {{/if}}
     </div>

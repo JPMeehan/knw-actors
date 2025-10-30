@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.5
+
+- Fixed warfare units not correctly rolling their stats. (#30)
+- Switched warfare commander context menu from right click to left.
+
 ## 2.0.4
 
 - Fixed data validation errors when editing a Warfare unit with negative stats.
