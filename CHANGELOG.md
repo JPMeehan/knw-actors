@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.6
+
+- Fixed issues with member context menu (#32)
+
 ## 2.0.5
 
 - Fixed error in item deletion. (#29)

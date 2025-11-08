@@ -186,23 +186,40 @@ export default class OrganizationSheet extends api.HandlebarsApplicationMixin(sh
         name: "KNW.Organization.Powers.ContextMenu.SetValue",
         icon: "<i class='fas fa-edit'></i>",
         condition: () => this.isEditable,
-        callback: li => {
-          const memberID = li.dataset.id;
+        callback: async li => {
+          const member = getMember(li);
 
-          const updateData = foundry.applications.api.DialogV2.input({
+          const content = document.createElement("div");
+
+          const path = `system.powerPool.${member.id}`;
+
+          const {createFormGroup, createNumberInput} = foundry.applications.fields;
+
+          const valueInput = createFormGroup({
+            label: member.name,
+            input: createNumberInput({
+              name: path,
+              min: 0,
+              max: this.actor.system.powerDie,
+              value: foundry.utils.getProperty(this.document, path)
+            }),
+            classes: ["slim", "inline"]
+          });
+
+          content.append(valueInput);
+
+          const updateData = await foundry.applications.api.DialogV2.input({
+            content,
             window: {
               title: "KNW.Organization.Powers.ContextMenu.SetValue"
             },
-            content: foundry.applications.fields.createNumberInput({
-              name: `system.powerPool.${memberID}`,
-              min: 0,
-              max: this.actor.system.powerDie
-            }).outerHTML,
             ok: {
               icon: "fa-solid fa-floppy-disk",
               label: "Save Changes"
             },
-            rejectClose: false
+            position: {
+              width: 300
+            }
           });
 
           if (updateData) this.actor.update(updateData);
@@ -222,11 +239,11 @@ export default class OrganizationSheet extends api.HandlebarsApplicationMixin(sh
           const member = getMember(li);
           ui.notifications.info("KNW.Organization.Powers.Warning.RemoveMember", {
             format: {
-              memberName: member?.name,
+              memberName: member?.name ?? game.i18n.localize("Unknown"),
               organization: this.actor.name
             }
           });
-          this.actor.update({[`system.powerPool.-=${memberID}`]: null});
+          this.actor.update({[`system.powerPool.-=${li.dataset.id}`]: null});
         }
       }
     ];
