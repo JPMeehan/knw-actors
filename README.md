@@ -10,8 +10,6 @@ Fan implementation of Organizations and Warfare Units for MCDM's [Kingdoms & War
 
 This module provides character sheets for Organizations and Warfare Units. Both are new actor types that can be created in the sidebar.
 
-IMPORTANT LIMITATION: The DND5E system does not currently support derived statistics for non-native actor types; as such, all values on the sheet are manually calculated and the sheets do not support items or active effects.
-
 ### Organizations
 
 Organizations keep a list of affiliated characters in their central "Powers" section; simply drag and drop a character or NPC onto the sheet to add them. Right-clicking an actor listed this way pulls up a context menu with further options.
